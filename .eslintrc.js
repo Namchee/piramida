@@ -21,5 +21,15 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'linebreak-style': [
+      'warn',
+      'windows',
+    ],
+    'max-len': 'off',
+    'object-curly-spacing': [
+      'error',
+      'always',
+    ],
+    'require-jsdoc': 'off',
   },
 };
