@@ -37,9 +37,9 @@ function Fonts() {
         @font-face {
           font-family: 'Inter';
           src: local('Inter'),
-            url('fonts/inter-semibold.woff2') format('woff2');
+            url('fonts/inter-bold.woff2') format('woff2');
           font-style: normal;
-          font-weight: 600;
+          font-weight: 700;
           font-display: swap;
         }
       `} />
@@ -52,7 +52,7 @@ const theme = extendTheme({
   },
   fonts: {
     heading: 'Inter',
-    text: 'Inter',
+    body: 'Inter',
   },
 });
 

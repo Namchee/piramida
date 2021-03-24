@@ -18,7 +18,6 @@ function Link({ text, href }: React.PropsWithoutRef<LinkProps>): JSX.Element {
       href={href}
       p={4}
       color={isCurrentPath ? 'primary' : 'gray.500'}
-      fontFamily='Inter'
       fontWeight={isCurrentPath ? 500 : 400}
       _hover={{
         color: isCurrentPath ? 'primary' : 'black',
