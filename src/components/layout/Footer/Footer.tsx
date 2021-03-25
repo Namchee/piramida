@@ -15,7 +15,11 @@ function Footer() {
       borderTopStyle="solid"
       fontSize="sm">
       Data diambil dari situs
-      <Link href="https://ojk.go.id" isExternal marginLeft="0.5ch">
+      <Link
+        href="https://ojk.go.id"
+        isExternal
+        marginLeft="0.5ch"
+        color="primary">
         Otoritas Jasa Keuangan Republik Indonesia.
       </Link>
     </Flex>
