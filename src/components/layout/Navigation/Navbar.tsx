@@ -6,7 +6,7 @@ import { Flex, Box } from '@chakra-ui/layout';
 import PiramidaLink from './Link';
 import Logo from './Logo';
 
-import { LINKS } from '@/common';
+import { LINKS } from '@/constants/nav';
 
 /**
  * Navigation Bar Component
