@@ -25,6 +25,11 @@ module.exports = {
       'warn',
       'windows',
     ],
+    'indent': [
+      'error',
+      2,
+      { 'SwitchCase': 1 },
+    ],
     'max-len': 'off',
     'object-curly-spacing': [
       'error',

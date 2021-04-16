@@ -48,7 +48,11 @@ function Fonts() {
 
 const theme = extendTheme({
   colors: {
-    primary: '#3B82F6',
+    primary: {
+      lighten: '#4F8FF7',
+      base: '#3B82F6',
+      darken: '#3575DD',
+    },
   },
   fonts: {
     heading: 'Inter',

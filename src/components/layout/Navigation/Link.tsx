@@ -17,10 +17,10 @@ function Link({ text, href }: React.PropsWithoutRef<LinkProps>): JSX.Element {
     <ChakraLink
       href={href}
       p={4}
-      color={isCurrentPath ? 'primary' : 'gray.500'}
+      color={isCurrentPath ? 'primary.base' : 'gray.500'}
       fontWeight={isCurrentPath ? 500 : 400}
       _hover={{
-        color: isCurrentPath ? 'primary' : 'black',
+        color: isCurrentPath ? 'primary.base' : 'black',
       }}>
       {text}
     </ChakraLink>
