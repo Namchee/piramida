@@ -9,12 +9,11 @@ function AutoCompleteInput({ children }: React.PropsWithChildren<{}>) {
 
   const handleInputFocus = () => {
     dispatch({ type: 'FOCUS', value: true });
-    dispatch({ type: 'SELECT', value: '' });
+    dispatch({ type: 'FOCUS_INDEX', value: -1 });
   };
 
   return (
-    <FormControl
-      onFocusCapture={handleInputFocus}>
+    <FormControl onFocusCapture={handleInputFocus}>
       {children}
     </FormControl>
   );

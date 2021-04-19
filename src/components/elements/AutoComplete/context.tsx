@@ -3,12 +3,10 @@ import * as React from 'react';
 export type AutoCompleteState = {
   focus: boolean;
   focusIndex: number;
-  selected: string;
 };
 
 export type AutoCompleteAction = { type: 'FOCUS', value: boolean } |
-  { type: 'FOCUS_INDEX', value: number } |
-  { type: 'SELECT', value: string };
+  { type: 'FOCUS_INDEX', value: number };
 
 export function autoCompleteReducer(
   state: AutoCompleteState,
@@ -25,12 +23,6 @@ export function autoCompleteReducer(
       return {
         ...state,
         focusIndex: action.value,
-      };
-    }
-    case 'SELECT': {
-      return {
-        ...state,
-        selected: action.value,
       };
     }
     default: {

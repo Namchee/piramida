@@ -11,8 +11,7 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
 
   const [state, dispatch] = React.useReducer(autoCompleteReducer, {
     focus: false,
-    focusIndex: 0,
-    selected: '',
+    focusIndex: -1,
   });
 
   useWindowEvent('click', (event: MouseEvent) => {

@@ -4,21 +4,25 @@ import Head from 'next/head';
 
 import { Heading, Text, Container, Box, Flex, Button, Input } from '@chakra-ui/react';
 
-import { AutoComplete, EmptySuggestion, Suggestion, SuggestionsContainer, SuggestionSkeleton } from '@/components/elements/AutoComplete';
+import { AutoComplete, AutoCompleteInput, EmptySuggestion, Suggestion, SuggestionsContainer, SuggestionSkeleton } from '@/components/elements/AutoComplete';
 
 import { illegalInitialState, Illegal, illegalReducer } from '@/reducers/illegals';
 import { appInitialState, App, appReducer } from '@/reducers/apps';
 
 import { apiUrl } from '@/constants/api';
 import { useDebounce } from '@/hooks/useDebounce';
-import AutoCompleteInput from '@/components/elements/AutoComplete/AutoCompleteInput';
+
+import { highlightTerm } from '@/utils/highlight';
 
 interface GraphQLSearchResult {
   illegalInvestments: Illegal[];
   apps: App[];
 }
 
-async function fetchSuggestions(searchTerm: string): Promise<GraphQLSearchResult> {
+async function fetchSuggestions(
+  searchTerm: string,
+  abortController: AbortController,
+): Promise<GraphQLSearchResult> {
   const body = {
     query: `query {
       illegalInvestments(name: "${searchTerm}", limit: 5) {
@@ -40,6 +44,7 @@ async function fetchSuggestions(searchTerm: string): Promise<GraphQLSearchResult
         'Accept': 'application/json',
       },
       body: JSON.stringify(body),
+      signal: abortController.signal,
     },
   );
 
@@ -50,6 +55,7 @@ async function fetchSuggestions(searchTerm: string): Promise<GraphQLSearchResult
 
 function Home() {
   const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleInput = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -57,33 +63,7 @@ function Home() {
   const [illegalState, illegalDispatch] = React.useReducer(illegalReducer, illegalInitialState);
   const [appState, appDispatch] = React.useReducer(appReducer, appInitialState);
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 250);
-
-  const handleSuggestionSelect = (name: string) => {
-    setSearchTerm(name);
-  };
-
-  const buildSuggestions = () => {
-    if (debouncedSearchTerm) {
-      if (illegalState.isLoading || appState.isLoading) {
-        return (
-          <SuggestionsContainer as="ul" margin={2}>
-            <SuggestionSkeleton />
-            <SuggestionSkeleton />
-            <SuggestionSkeleton />
-          </SuggestionsContainer>
-        );
-      } else {
-        return (
-          <SuggestionsContainer as="ul" margin={2}>
-            {mapInvestmentData()}
-          </SuggestionsContainer>
-        );
-      }
-    }
-
-    return <></>;
-  };
+  const handleSuggestionSelect = (name: string) => setSearchTerm(name);
 
   const mapInvestmentData = () => {
     if (!illegalState.data.length && !appState.data.length) {
@@ -103,36 +83,81 @@ function Home() {
       return 0;
     });
 
-    suggestions.forEach(({ name }) => {
+    suggestions.forEach(({ name }, index) => {
       elem.push(
         <Suggestion
-          as="li"
-          onClick={handleSuggestionSelect}
-          onSelected={handleSuggestionSelect}
-          term={debouncedSearchTerm}
-          key={name}
-          text={name}
-        />,
+          key={index}
+          index={index}
+          onClick={() => handleSuggestionSelect(name)}>
+          <Text maxW="100%" isTruncated={true}>
+            {highlightTerm(name, searchTerm)}
+          </Text>
+        </Suggestion>,
       );
     });
 
     return elem;
   };
 
-  React.useEffect(() => {
-    if (debouncedSearchTerm) {
-      illegalDispatch({ type: 'FETCH_LOADING' });
-      appDispatch({ type: 'FETCH_LOADING' });
-
-      fetchSuggestions(debouncedSearchTerm)
-        .then((result) => {
-          const { illegalInvestments, apps } = result;
-
-          illegalDispatch({ type: 'FETCH_SUCCESS', data: illegalInvestments });
-          appDispatch({ type: 'FETCH_SUCCESS', data: apps });
-        });
+  const suggest = () => {
+    if (!searchTerm) {
+      return <></>;
     }
-  }, [debouncedSearchTerm]);
+
+    if (appState.isLoading || illegalState.isLoading) {
+      return (
+        <SuggestionsContainer
+          as="ul"
+          maxHeight={64}
+          margin={2}>
+          <SuggestionSkeleton />
+          <SuggestionSkeleton />
+          <SuggestionSkeleton />
+        </SuggestionsContainer>
+      );
+    }
+
+    return (
+      <SuggestionsContainer
+        as="ul"
+        maxHeight={64}
+        margin={2}>
+        {mapInvestmentData()}
+      </SuggestionsContainer>
+    );
+  };
+
+  const refreshSuggestions = (controller: AbortController) => {
+    illegalDispatch({ type: 'FETCH_LOADING' });
+    appDispatch({ type: 'FETCH_LOADING' });
+
+    fetchSuggestions(searchTerm, controller)
+      .then((result) => {
+        const { illegalInvestments, apps } = result;
+
+        illegalDispatch({ type: 'FETCH_SUCCESS', data: illegalInvestments });
+        appDispatch({ type: 'FETCH_SUCCESS', data: apps });
+      })
+      .catch((err) => {
+        if (!controller.signal.aborted) {
+          throw err;
+        }
+      });
+  };
+
+  const debouncedRefreshSuggestions = useDebounce(refreshSuggestions, 250);
+
+  React.useEffect(() => {
+    if (searchTerm) {
+      const controller = new AbortController();
+
+      debouncedRefreshSuggestions(controller);
+
+      return () => {
+        controller.abort();
+      };
+    }
+  }, [searchTerm]);
 
   return (
     <>
@@ -166,7 +191,7 @@ function Home() {
           justifyContent="space-between"
           paddingX={36}>
           <AutoComplete>
-            <Box flex={1}>
+            <Box w="full">
               <AutoCompleteInput>
                 <Input
                   autoComplete="false"
@@ -177,7 +202,7 @@ function Home() {
                   size="lg"
                   type="text" />
               </AutoCompleteInput>
-              {buildSuggestions()}
+              {suggest()}
             </Box>
           </AutoComplete>
 

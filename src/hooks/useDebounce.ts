@@ -1,17 +1,26 @@
-import { useState, useEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
-export function useDebounce<T>(value: T, duration: number) {
-  const [debouncedValue, setDebounceValue] = useState(value);
+function debounce(fn: Function, delay: number): Function {
+  let timer;
 
-  useEffect(() => {
-    const setValue = setTimeout(() => {
-      setDebounceValue(value);
-    }, duration);
+  return (...args) => {
+    clearTimeout(timer);
 
-    return () => {
-      clearTimeout(setValue);
-    };
-  }, [value, duration]);
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
 
-  return debouncedValue;
+export function useDebounce(callback: Function, delay: number) {
+  const callbackRef = useRef(callback);
+
+  useLayoutEffect(() => {
+    callbackRef.current = callback;
+  });
+
+  return React.useMemo(
+    () => debounce((...args) => callbackRef.current(...args), delay),
+    [delay],
+  );
 }

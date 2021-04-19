@@ -1,73 +1,51 @@
 import * as React from 'react';
 
-import { As, Box, Text } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/button';
+
 import { useAutoComplete } from '../context';
 
-export type SuggestionProps = {
-  term: string;
-  text: string;
-  as?: As<any>;
-  onClick?: (text: string) => void;
-  onSelected?: (text: string) => void;
+type SuggestionProps = {
+  index: number;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Suggestion({ as, term, text, onClick, onSelected }: React.PropsWithoutRef<SuggestionProps>) {
+function Suggestion({ index, onClick, children }: React.PropsWithChildren<SuggestionProps>) {
   const { state, dispatch } = useAutoComplete();
-  const { selected } = state;
+  const { focusIndex } = state;
 
-  const contentBuilder = () => {
-    const childs = [];
-
-    let lastIdx = 0;
-    let termIdx = text.toLowerCase().indexOf(term.toLowerCase());
-
-    while (termIdx !== -1) {
-      if (termIdx !== lastIdx) {
-        childs.push(text.slice(lastIdx, termIdx));
-      }
-
-      childs.push(
-        <Text as="b" fontWeight={700} key={termIdx}>
-          {text.slice(termIdx, termIdx + term.length)}
-        </Text>,
-      );
-
-      lastIdx = termIdx + term.length;
-      termIdx = text.toLowerCase().indexOf(term.toLowerCase(), lastIdx);
-    }
-
-    childs.push(text.slice(lastIdx));
-
-    return childs;
-  };
-
-  const handleClick = () => {
-    onClick(text);
-
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch({ type: 'FOCUS', value: false });
-  };
 
-  React.useEffect(() => {
-    if (selected) {
-      onSelected(text);
+    if (onClick) {
+      onClick(event);
     }
-  }, [selected]);
+  };
 
   return (
-    <Box
-      as={as}
-      p={4}
+    <Button
+      fontWeight={400}
+      text
+      w="100%"
+      paddingX={4}
+      paddingY={6}
+      display="flex"
+      justifyContent="start"
+      alignItems="center"
+      rounded="false"
       onClick={handleClick}
-      cursor='pointer'
+      backgroundColor={index === focusIndex ? 'gray.100' : 'white'}
       _hover={{
         backgroundColor: 'gray.100',
       }}
       _focus={{
         backgroundColor: 'gray.100',
-        outline: 'none',
-      }}>
-      {contentBuilder()}
-    </Box>
+      }}
+      _active={{
+        backgroundColor: 'gray.100',
+      }}
+      outline="none">
+      {children}
+    </Button>
   );
 }
 

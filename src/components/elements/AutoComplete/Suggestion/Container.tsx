@@ -19,13 +19,13 @@ function SuggestionsContainer(
   const { state, dispatch } = useAutoComplete();
   const { focus, focusIndex } = state;
 
-  useWindowEvent('keypress', (event: KeyboardEvent) => {
+  useWindowEvent('keydown', (event: KeyboardEvent) => {
     if (!focus) {
       return;
     }
 
     const childElements = React.Children.toArray(children) as React.ReactElement[];
-    const childAsHtml = Array.from(
+    const childrenAsHtml = Array.from(
       (containerRef.current as HTMLElement).children,
     );
 
@@ -33,38 +33,40 @@ function SuggestionsContainer(
       case 'ArrowUp': {
         event.preventDefault();
 
-        dispatch({ type: 'FOCUS_INDEX', value: focusIndex - 1 });
-
-        if (focusIndex < 0) {
-          dispatch({ type: 'FOCUS_INDEX', value: childElements.length - 1 });
+        if (focusIndex > 0) {
+          dispatch({ type: 'FOCUS_INDEX', value: focusIndex - 1 });
+        } else {
+          dispatch({ type: 'FOCUS_INDEX', value: 0 });
         }
-
-        (childAsHtml[focusIndex] as HTMLElement).focus();
 
         break;
       }
       case 'ArrowDown': {
         event.preventDefault();
 
-        dispatch({ type: 'FOCUS_INDEX', value: focusIndex + 1 % childElements.length });
-
-        (childAsHtml[focusIndex] as HTMLElement).focus();
+        if (focusIndex < childElements.length - 1) {
+          dispatch({ type: 'FOCUS_INDEX', value: focusIndex + 1 });
+        } else {
+          dispatch({ type: 'FOCUS_INDEX', value: childElements.length - 1 });
+        }
 
         break;
       }
       case 'Enter': {
         event.preventDefault();
 
-        dispatch({ type: 'SELECT', value: childElements[focusIndex].props.name });
-        dispatch({ type: 'FOCUS', value: false });
+        if (childElements[focusIndex].type['name'] === 'Suggestion') {
+          (childrenAsHtml[focusIndex] as HTMLButtonElement).click();
+        }
 
         break;
       }
       case 'Space': {
         event.preventDefault();
 
-        dispatch({ type: 'SELECT', value: childElements[focusIndex].props.name });
-        dispatch({ type: 'FOCUS', value: false });
+        if (childElements[focusIndex].type['name'] === 'Suggestion') {
+          (childrenAsHtml[focusIndex] as HTMLButtonElement).click();
+        }
 
         break;
       }
@@ -78,9 +80,7 @@ function SuggestionsContainer(
   return (
     <Box
       ref={containerRef}
-      zIndex={1}
       as={as}
-      top="100%"
       role="listbox"
       borderRadius="md"
       marginTop={margin || 2}
