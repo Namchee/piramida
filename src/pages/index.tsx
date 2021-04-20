@@ -49,9 +49,7 @@ async function fetchSuggestions(
     },
   );
 
-  const json = await result.json();
-
-  return json['data'];
+  return result.json();
 }
 
 function Home() {
@@ -105,6 +103,16 @@ function Home() {
       return <></>;
     }
 
+    if (appState.error || illegalState.error) {
+      return (
+        <Error
+          marginTop={4}
+          dismissable={true}>
+          {appState.error || illegalState.error}
+        </Error>
+      );
+    }
+
     if (appState.isLoading || illegalState.isLoading) {
       return (
         <AutoComplete.SuggestionsContainer
@@ -115,16 +123,6 @@ function Home() {
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
         </AutoComplete.SuggestionsContainer>
-      );
-    }
-
-    if (appState.error || illegalState.error) {
-      return (
-        <Error
-          marginTop={4}
-          dismissable={true}>
-          {appState.error || illegalState.error}
-        </Error>
       );
     }
 
@@ -144,10 +142,24 @@ function Home() {
 
     fetchSuggestions(searchTerm, controller)
       .then((result) => {
-        const { illegalInvestments, apps } = result;
+        if (result['errors']) {
+          const { message, path } = result['errors'][0];
 
-        illegalDispatch({ type: 'FETCH_SUCCESS', data: illegalInvestments });
-        appDispatch({ type: 'FETCH_SUCCESS', data: apps });
+          path.forEach((p: string) => {
+            if (p === 'illegalInvestments') {
+              illegalDispatch({ type: 'FETCH_ERROR', error: message });
+            } else {
+              appDispatch({ type: 'FETCH_ERROR', error: message });
+            }
+          });
+
+          console.log(illegalState.error);
+        } else {
+          const { illegalInvestments, apps } = result['data'];
+
+          illegalDispatch({ type: 'FETCH_SUCCESS', data: illegalInvestments });
+          appDispatch({ type: 'FETCH_SUCCESS', data: apps });
+        }
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
