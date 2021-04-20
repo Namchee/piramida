@@ -6,6 +6,14 @@ import { useWindowEvent } from '@/hooks/useWindowEvent';
 
 import { AutoCompleteContext, autoCompleteReducer } from './context';
 
+import {
+  EmptySuggestion,
+  Suggestion,
+  SuggestionsContainer,
+  SuggestionSkeleton,
+} from './Suggestion';
+import AutoCompleteInput from './AutoCompleteInput';
+
 function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
   const autoComplete = React.useRef(null);
 
@@ -37,5 +45,11 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
     </AutoCompleteContext.Provider>
   );
 }
+
+AutoComplete.Input = AutoCompleteInput;
+AutoComplete.Suggestion = Suggestion;
+AutoComplete.SuggestionsContainer = SuggestionsContainer;
+AutoComplete.EmptySuggestion = EmptySuggestion;
+AutoComplete.SuggestionSkeleton = SuggestionSkeleton;
 
 export default AutoComplete;

@@ -20,26 +20,26 @@ export const illegalInitialState: IllegalState = {
 
 export const illegalReducer = (state: IllegalState, action: IllegalAction) => {
   switch (action.type) {
-  case 'FETCH_LOADING': {
-    return {
-      ...state,
-      isLoading: true,
-      data: [] as Illegal[],
-    };
-  }
-  case 'FETCH_SUCCESS': {
-    return {
-      ...state,
-      isLoading: false,
-      data: action.data,
-    };
-  }
-  default: {
-    return {
-      ...state,
-      isLoading: false,
-      error: action.error,
-    };
-  }
+    case 'FETCH_LOADING': {
+      return {
+        error: '',
+        isLoading: true,
+        data: [] as Illegal[],
+      };
+    }
+    case 'FETCH_SUCCESS': {
+      return {
+        isLoading: false,
+        error: '',
+        data: action.data,
+      };
+    }
+    default: {
+      return {
+        isLoading: false,
+        data: [],
+        error: action.error,
+      };
+    }
   }
 };

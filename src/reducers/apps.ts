@@ -20,26 +20,26 @@ export const appInitialState: AppState = {
 
 export const appReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
-  case 'FETCH_LOADING': {
-    return {
-      ...state,
-      isLoading: true,
-      data: [] as App[],
-    };
-  }
-  case 'FETCH_SUCCESS': {
-    return {
-      ...state,
-      isLoading: false,
-      data: action.data,
-    };
-  }
-  default: {
-    return {
-      ...state,
-      isLoading: false,
-      error: action.error,
-    };
-  }
+    case 'FETCH_LOADING': {
+      return {
+        error: '',
+        isLoading: true,
+        data: [] as App[],
+      };
+    }
+    case 'FETCH_SUCCESS': {
+      return {
+        isLoading: false,
+        data: action.data,
+        error: '',
+      };
+    }
+    default: {
+      return {
+        isLoading: false,
+        error: action.error,
+        data: [],
+      };
+    }
   }
 };

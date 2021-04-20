@@ -4,7 +4,8 @@ import Head from 'next/head';
 
 import { Heading, Text, Container, Box, Flex, Button, Input } from '@chakra-ui/react';
 
-import { AutoComplete, AutoCompleteInput, EmptySuggestion, Suggestion, SuggestionsContainer, SuggestionSkeleton } from '@/components/elements/AutoComplete';
+import { AutoComplete } from '@/components/elements/AutoComplete';
+import { Error } from '@/components/elements/Error';
 
 import { illegalInitialState, Illegal, illegalReducer } from '@/reducers/illegals';
 import { appInitialState, App, appReducer } from '@/reducers/apps';
@@ -67,7 +68,7 @@ function Home() {
 
   const mapInvestmentData = () => {
     if (!illegalState.data.length && !appState.data.length) {
-      return <EmptySuggestion />;
+      return <AutoComplete.EmptySuggestion />;
     }
 
     const elem: JSX.Element[] = [];
@@ -85,14 +86,14 @@ function Home() {
 
     suggestions.forEach(({ name }, index) => {
       elem.push(
-        <Suggestion
+        <AutoComplete.Suggestion
           key={index}
           index={index}
           onClick={() => handleSuggestionSelect(name)}>
           <Text maxW="100%" isTruncated={true}>
             {highlightTerm(name, searchTerm)}
           </Text>
-        </Suggestion>,
+        </AutoComplete.Suggestion>,
       );
     });
 
@@ -106,24 +107,34 @@ function Home() {
 
     if (appState.isLoading || illegalState.isLoading) {
       return (
-        <SuggestionsContainer
+        <AutoComplete.SuggestionsContainer
           as="ul"
           maxHeight={64}
           margin={2}>
-          <SuggestionSkeleton />
-          <SuggestionSkeleton />
-          <SuggestionSkeleton />
-        </SuggestionsContainer>
+          <AutoComplete.SuggestionSkeleton />
+          <AutoComplete.SuggestionSkeleton />
+          <AutoComplete.SuggestionSkeleton />
+        </AutoComplete.SuggestionsContainer>
+      );
+    }
+
+    if (appState.error || illegalState.error) {
+      return (
+        <Error
+          marginTop={4}
+          dismissable={true}>
+          {appState.error || illegalState.error}
+        </Error>
       );
     }
 
     return (
-      <SuggestionsContainer
+      <AutoComplete.SuggestionsContainer
         as="ul"
         maxHeight={64}
         margin={2}>
         {mapInvestmentData()}
-      </SuggestionsContainer>
+      </AutoComplete.SuggestionsContainer>
     );
   };
 
@@ -192,7 +203,7 @@ function Home() {
           paddingX={36}>
           <AutoComplete>
             <Box w="full">
-              <AutoCompleteInput>
+              <AutoComplete.Input>
                 <Input
                   autoComplete="false"
                   value={searchTerm}
@@ -201,7 +212,7 @@ function Home() {
                   placeholder="Cari investasi atau perusahaan"
                   size="lg"
                   type="text" />
-              </AutoCompleteInput>
+              </AutoComplete.Input>
               {suggest()}
             </Box>
           </AutoComplete>
