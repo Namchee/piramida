@@ -2,18 +2,23 @@ import * as React from 'react';
 
 import { Text } from '@chakra-ui/react';
 
-export function highlightTerm(text: string, term: string): JSX.Element[] {
-  const childs = [];
+export type HighlightProps = {
+  text: string;
+  term: string;
+}
+
+function Highlight({ text, term }: React.PropsWithoutRef<HighlightProps>): JSX.Element {
+  const children = [];
 
   let lastIdx = 0;
   let termIdx = text.toLowerCase().indexOf(term.toLowerCase());
 
   while (termIdx !== -1) {
     if (termIdx !== lastIdx) {
-      childs.push(text.slice(lastIdx, termIdx));
+      children.push(text.slice(lastIdx, termIdx));
     }
 
-    childs.push(
+    children.push(
       <Text as="b" fontWeight={700} key={termIdx}>
         {text.slice(termIdx, termIdx + term.length)}
       </Text>,
@@ -23,7 +28,13 @@ export function highlightTerm(text: string, term: string): JSX.Element[] {
     termIdx = text.toLowerCase().indexOf(term.toLowerCase(), lastIdx);
   }
 
-  childs.push(text.slice(lastIdx));
+  children.push(text.slice(lastIdx));
 
-  return childs;
+  return (
+    <>
+      {children}
+    </>
+  );
 }
+
+export default Highlight;

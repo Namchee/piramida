@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useMemo } from 'react';
 
 function debounce(fn: Function, delay: number): Function {
   let timer;
@@ -19,7 +19,7 @@ export function useDebounce(callback: Function, delay: number) {
     callbackRef.current = callback;
   });
 
-  return React.useMemo(
+  return useMemo(
     () => debounce((...args) => callbackRef.current(...args), delay),
     [delay],
   );
