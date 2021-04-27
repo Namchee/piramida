@@ -7,12 +7,12 @@ import { useAutoComplete } from '../context';
 
 export type SuggestionsContainerProps = {
   as?: As<any>;
-  maxHeight?: number;
+  absolute?: boolean;
   margin?: number;
 };
 
 function SuggestionsContainer(
-  { as, margin, maxHeight, children }: React.PropsWithChildren<SuggestionsContainerProps>,
+  { as, margin, absolute, children }: React.PropsWithChildren<SuggestionsContainerProps>,
 ) {
   const containerRef = React.useRef(null);
 
@@ -81,10 +81,11 @@ function SuggestionsContainer(
     <Box
       ref={containerRef}
       as={as}
+      w="100%"
+      position={absolute ? 'absolute' : 'static'}
       role="listbox"
       borderRadius="md"
       marginTop={margin || 2}
-      maxH={maxHeight || 48}
       overflowY="auto"
       boxShadow="lg">
       {children}

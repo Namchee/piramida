@@ -10,18 +10,21 @@ import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Error } from '@/components/elements/Error';
 import { Highlight } from '@/components/elements/Highlight';
 
-import { Illegal, App } from '@/common/types';
+import { GraphQLResult } from '@/common/types';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
+import { useRouter } from 'next/router';
 
-type GraphQLResult = {
-  illegalInvestments: Illegal[];
-  apps: App[];
+export type SearchInvestmentProps = {
+  term?: string;
+  absolute?: boolean;
 };
 
-function SearchInvestment() {
-  const [searchTerm, setSearchTerm] = React.useState('');
+function SearchInvestment(
+  { term, absolute }: React.PropsWithoutRef<SearchInvestmentProps>,
+) {
+  const [searchTerm, setSearchTerm] = React.useState(term ?? '');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState('');
 
   const handleInput = (event) => {
@@ -33,10 +36,10 @@ function SearchInvestment() {
   const { data, error } = useSWR<GraphQLResult, any>(
     () => {
       return gql`query {
-        illegalInvestments(name: "${debouncedSearchTerm}", limit: 5) {
+        illegalInvestments(name: "${debouncedSearchTerm}", limit: 3) {
           name
         }
-        apps(name: "${debouncedSearchTerm}", limit: 5) {
+        apps(name: "${debouncedSearchTerm}", limit: 3) {
           name
         }
       }`;
@@ -52,7 +55,10 @@ function SearchInvestment() {
     }
   }, [searchTerm]);
 
-  const handleSuggestionSelect = (name: string) => setSearchTerm(name);
+  const handleSuggestionSelect = (name: string) => {
+    setSearchTerm(name);
+    search();
+  };
 
   const suggest = React.useCallback(() => {
     if (!debouncedSearchTerm) {
@@ -62,8 +68,8 @@ function SearchInvestment() {
     if (!data) {
       return (
         <AutoComplete.SuggestionsContainer
+          absolute={absolute}
           as="ul"
-          maxHeight={64}
           margin={2}>
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
@@ -84,8 +90,8 @@ function SearchInvestment() {
 
     return (
       <AutoComplete.SuggestionsContainer
+        absolute={absolute}
         as="ul"
-        maxHeight={64}
         margin={2}>
         {mapInvestmentData()}
       </AutoComplete.SuggestionsContainer>
@@ -103,9 +109,12 @@ function SearchInvestment() {
     const suggestions = [...illegalInvestments, ...apps];
 
     suggestions.sort((a, b) => {
-      if (a.name < b.name) {
+      const aIndex = a.name.indexOf(debouncedSearchTerm);
+      const bIndex = b.name.indexOf(debouncedSearchTerm);
+
+      if (aIndex < bIndex) {
         return -1;
-      } else if (a.name > b.name) {
+      } else if (aIndex > bIndex) {
         return 1;
       }
 
@@ -128,12 +137,24 @@ function SearchInvestment() {
     return elem;
   };
 
+  const router = useRouter();
+  const search = () => {
+    router.push(
+      {
+        pathname: '/search',
+        query: {
+          q: searchTerm,
+        },
+      },
+    );
+  };
+
   return (
     <Flex
       justifyContent="space-between"
       paddingX={36}>
       <AutoComplete>
-        <Box w="full">
+        <Box w="full" position="relative">
           <AutoComplete.Input>
             <Input
               autoComplete="false"
@@ -149,6 +170,7 @@ function SearchInvestment() {
       </AutoComplete>
 
       <Button
+        onClick={search}
         ml={4}
         px={8}
         size="lg"

@@ -17,7 +17,7 @@ function EmptySuggestion(): JSX.Element {
         ¯\_(ツ)_/¯
       </Text>
       <Text color="gray.400">
-        Tidak ada data
+        Tidak ada data yang sesuai
       </Text>
     </Flex>
   );

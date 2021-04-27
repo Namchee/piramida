@@ -24,10 +24,9 @@ function Suggestion({ index, onClick, children }: React.PropsWithChildren<Sugges
   return (
     <Button
       fontWeight={400}
-      text
+      h="unset"
       w="100%"
-      paddingX={4}
-      paddingY={6}
+      p={4}
       display="flex"
       justifyContent="start"
       alignItems="center"
