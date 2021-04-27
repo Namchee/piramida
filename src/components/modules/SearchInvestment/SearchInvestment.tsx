@@ -1,20 +1,22 @@
 import * as React from 'react';
 
+import { useRouter } from 'next/router';
+
 import useSWR from 'swr';
 
 import { gql } from 'graphql-request';
 
 import { Text, Box, Flex, Button, Input } from '@chakra-ui/react';
 
+import { Dialog } from '@/components/elements/Dialog';
 import { AutoComplete } from '@/components/elements/AutoComplete';
-import { Error } from '@/components/elements/Error';
 import { Highlight } from '@/components/elements/Highlight';
+import { ErrorIcon } from '@/components/elements/Icon';
 
 import { GraphQLResult } from '@/common/types';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
-import { useRouter } from 'next/router';
 
 export type SearchInvestmentProps = {
   term?: string;
@@ -67,13 +69,24 @@ function SearchInvestment(
 
     if (error) {
       return (
-        <Error
+        <Dialog
+          theme="red"
           marginTop={4}
           dismissable={true}>
-          <Text>
-            {error.response.errors[0].message}
-          </Text>
-        </Error>
+          <Flex
+            alignItems="center">
+            <ErrorIcon
+              w={6}
+              h={6}
+              stroke="none"
+              fill="red.700" />
+            <Text
+              ml={3}
+              color="red.700">
+              {error.response.errors[0].message}
+            </Text>
+          </Flex>
+        </Dialog>
       );
     }
 
@@ -160,7 +173,7 @@ function SearchInvestment(
         <Box w="full" position="relative">
           <AutoComplete.Input>
             <Input
-              autoComplete="false"
+              autoComplete="off"
               value={searchTerm}
               onInput={handleInput}
               focusBorderColor="primary.lighten"
