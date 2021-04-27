@@ -8,10 +8,12 @@ import { gql } from 'graphql-request';
 import { Heading, Text, Container, Box, Flex } from '@chakra-ui/react';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
+import { Exclamation } from '@/components/elements/Icon';
 
 import { graphQLFetcher } from '@/utils/fetcher';
 import { App, GraphQLResult, Illegal } from '@/common/types';
 
+const WarningIcon = () => <Exclamation w={6} h={6} stroke="red.500" fill="none" />;
 
 type SearchPageProps = {
   illegalInvestments: Illegal[];
@@ -36,7 +38,8 @@ function Search({ illegalInvestments, apps, query }: React.PropsWithoutRef<Searc
         <Text
           fontSize="sm"
           textColor="gray.400">
-          Menampilkan {illegalInvestments.length + apps.length} hasil untuk
+          Menampilkan {illegalInvestments.length + apps.length} hasil
+          untuk pencari dengan kata kunci &quot;{query}&quot;
         </Text>
       </>
     );
@@ -58,7 +61,7 @@ function Search({ illegalInvestments, apps, query }: React.PropsWithoutRef<Searc
           term={query} />
 
         <Box
-          paddingX={36}
+          maxW="xl"
           marginX="auto"
           mt={4}>
           {showSearchResult()}

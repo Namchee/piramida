@@ -1,4 +1,6 @@
-import { useLayoutEffect, useRef, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
+
+import useIsomorphicLayoutEffect from '@/hooks/useIsomorphicLayoutEffect';
 
 function debounce(fn: Function, delay: number): Function {
   let timer;
@@ -15,7 +17,7 @@ function debounce(fn: Function, delay: number): Function {
 export function useDebounce(callback: Function, delay: number) {
   const callbackRef = useRef(callback);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     callbackRef.current = callback;
   });
 
