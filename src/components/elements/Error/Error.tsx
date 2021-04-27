@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { Flex, IconButton } from '@chakra-ui/react';
-import { CloseIcon } from '@chakra-ui/icons';
+
+import CloseIcon from './CloseIcon';
 
 export type ErrorProps = {
   marginTop?: number;
@@ -39,7 +40,7 @@ function Error({ children, dismissable, marginTop }: React.PropsWithChildren<Err
           _hover={{
             backgroundColor: 'red.200',
           }}
-          icon={<CloseIcon w={2.5} h={2.5} stroke="red.700" />}>
+          icon={<CloseIcon w={4} h={4} stroke="red.700" />}>
         </IconButton>
       }
     </Flex>

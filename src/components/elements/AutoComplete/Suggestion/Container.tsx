@@ -83,6 +83,7 @@ function SuggestionsContainer(
       as={as}
       w="100%"
       position={absolute ? 'absolute' : 'static'}
+      zIndex={1}
       role="listbox"
       borderRadius="md"
       marginTop={margin || 2}

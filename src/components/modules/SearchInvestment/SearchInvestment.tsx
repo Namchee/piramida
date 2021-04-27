@@ -65,6 +65,18 @@ function SearchInvestment(
       return <></>;
     }
 
+    if (error) {
+      return (
+        <Error
+          marginTop={4}
+          dismissable={true}>
+          <Text>
+            {error.response.errors[0].message}
+          </Text>
+        </Error>
+      );
+    }
+
     if (!data) {
       return (
         <AutoComplete.SuggestionsContainer
@@ -75,16 +87,6 @@ function SearchInvestment(
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
         </AutoComplete.SuggestionsContainer>
-      );
-    }
-
-    if (error) {
-      return (
-        <Error
-          marginTop={4}
-          dismissable={true}>
-          {error}
-        </Error>
       );
     }
 
@@ -151,6 +153,7 @@ function SearchInvestment(
 
   return (
     <Flex
+      position="relative"
       justifyContent="space-between"
       paddingX={36}>
       <AutoComplete>

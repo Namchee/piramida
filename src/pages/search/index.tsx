@@ -5,15 +5,15 @@ import Head from 'next/head';
 
 import { gql } from 'graphql-request';
 
-import { Heading, Text, Container, Box, Flex } from '@chakra-ui/react';
+import { Text, Container, Box, VStack } from '@chakra-ui/react';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
-import { Exclamation } from '@/components/elements/Icon';
 
 import { graphQLFetcher } from '@/utils/fetcher';
 import { App, GraphQLResult, Illegal } from '@/common/types';
-
-const WarningIcon = () => <Exclamation w={6} h={6} stroke="red.500" fill="none" />;
+import { ButtonLink } from '@/components/elements/ButtonLink';
+import { EmptyResult } from '@/components/modules/EmptyResult';
+import { Badge } from '@/components/elements/Badge';
 
 type SearchPageProps = {
   illegalInvestments: Illegal[];
@@ -24,14 +24,23 @@ type SearchPageProps = {
 function Search({ illegalInvestments, apps, query }: React.PropsWithoutRef<SearchPageProps>) {
   const showSearchResult = React.useCallback(() => {
     if (!apps.length && !illegalInvestments.length) {
-      return (
-        <Flex>
-          <Heading>
-            Tidak ada hasil yang sesuai
-          </Heading>
-        </Flex>
-      );
+      return <EmptyResult />;
     }
+
+    const investments = [...apps, ...illegalInvestments];
+
+    investments.sort((a, b) => {
+      const aIndex = a.name.indexOf(query);
+      const bIndex = b.name.indexOf(query);
+
+      if (aIndex > bIndex) {
+        return 1;
+      } else if (aIndex < bIndex) {
+        return -1;
+      }
+
+      return 0;
+    });
 
     return (
       <>
@@ -41,6 +50,39 @@ function Search({ illegalInvestments, apps, query }: React.PropsWithoutRef<Searc
           Menampilkan {illegalInvestments.length + apps.length} hasil
           untuk pencari dengan kata kunci &quot;{query}&quot;
         </Text>
+
+        <VStack
+          marginTop={4}
+          w="full"
+          spacing="8px">
+          {investments.map(({ id, name }, index) => {
+            const isLegal = apps.find((app) => app.name === name);
+
+            return (
+              <ButtonLink
+                key={index}
+                to={`/${isLegal ? 'apps' : 'illegals'}/${id}`}>
+                <Badge
+                  rounded
+                  background={isLegal ? 'green.100' : 'red.100'}>
+                  <Text
+                    letterSpacing="wide"
+                    fontWeight={600}
+                    fontSize="xs"
+                    color={isLegal ? 'green.500' : 'red.500'}
+                    textTransform="uppercase">
+                    {isLegal ? 'Legal' : 'Ilegal'}
+                  </Text>
+                </Badge>
+
+                <Text
+                  ml={3}>
+                  {name}
+                </Text>
+              </ButtonLink>
+            );
+          })}
+        </VStack>
       </>
     );
   }, [illegalInvestments, apps, query]);
@@ -84,11 +126,11 @@ export async function getServerSideProps(
   }
 
   const requestQuery = gql`query {
-    illegalInvestments(name: "${query.q}", limit: 5) {
+    illegalInvestments(name: "${query.q}") {
       id,
       name
     }
-    apps(name: "${query.q}", limit: 5) {
+    apps(name: "${query.q}") {
       id,
       name
     }
