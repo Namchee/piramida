@@ -127,12 +127,18 @@ export async function getServerSideProps(
 
   const requestQuery = gql`query {
     illegalInvestments(name: "${query.q}") {
-      id,
-      name
+      data {
+        id,
+        name
+      }
+      count
     }
     apps(name: "${query.q}") {
-      id,
-      name
+      data {
+        id,
+        name
+      }
+      count
     }
   }`;
 
@@ -140,28 +146,10 @@ export async function getServerSideProps(
     requestQuery,
   );
 
-  if (illegalInvestments.length === 1 && !apps) {
-    return {
-      redirect: {
-        destination: '/illegals',
-        permanent: false,
-      },
-    };
-  }
-
-  if (apps.length === 1 && !illegalInvestments) {
-    return {
-      redirect: {
-        destination: '/apps',
-        permanent: false,
-      },
-    };
-  }
-
   return {
     props: {
-      illegalInvestments,
-      apps,
+      illegalInvestments: illegalInvestments.data,
+      apps: apps.data,
       query: query.q as string,
     },
   };

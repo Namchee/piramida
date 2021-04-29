@@ -40,10 +40,11 @@ function EmptyResult() {
 
       <Dialog
         theme="yellow"
-        marginTop={8}>
+        marginTop={12}>
         <Flex alignItems="flex-start" p={2}>
           <Box p={2}>
             <WarningIcon
+              strokeWidth={1}
               w={8}
               h={8}
               stroke="yellow.700" />
@@ -51,7 +52,7 @@ function EmptyResult() {
 
           <Box
             maxW="xs"
-            ml={4}
+            ml={3}
             textAlign="left">
             <Heading
               lineHeight="tall"

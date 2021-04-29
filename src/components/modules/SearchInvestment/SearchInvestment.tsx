@@ -39,10 +39,14 @@ function SearchInvestment(
     () => {
       return gql`query {
         illegalInvestments(name: "${debouncedSearchTerm}", limit: 3) {
-          name
+          data {
+            name
+          }
         }
         apps(name: "${debouncedSearchTerm}", limit: 3) {
-          name
+          data {
+            name
+          }
         }
       }`;
     },
@@ -114,7 +118,7 @@ function SearchInvestment(
   }, [debouncedSearchTerm, data, error]);
 
   const mapInvestmentData = () => {
-    const { illegalInvestments, apps } = data;
+    const [illegalInvestments, apps] = [data.illegalInvestments.data, data.apps.data];
 
     if (!illegalInvestments.length && !apps.length) {
       return <AutoComplete.EmptySuggestion />;

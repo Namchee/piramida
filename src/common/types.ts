@@ -9,6 +9,14 @@ export interface App {
 }
 
 export interface GraphQLResult {
-  illegalInvestments: Illegal[];
-  apps: App[];
+  illegalInvestments: {
+    data: Illegal[];
+    count: number;
+    version: string;
+  }
+  apps: {
+    data: App[];
+    count: number;
+    version: string;
+  }
 };

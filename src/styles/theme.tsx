@@ -53,6 +53,9 @@ const theme = extendTheme({
       base: '#3B82F6',
       darken: '#3575DD',
     },
+    yellow: {
+      100: '#FEFCC7',
+    },
   },
   fonts: {
     heading: 'Inter',
