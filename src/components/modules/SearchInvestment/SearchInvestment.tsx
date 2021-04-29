@@ -146,7 +146,7 @@ function SearchInvestment(
           key={index}
           index={index}
           onClick={() => handleSuggestionSelect(name)}>
-          <Text maxW="100%" isTruncated={true}>
+          <Text maxW="sm" isTruncated={true}>
             <Highlight text={name} term={searchTerm} />
           </Text>
         </AutoComplete.Suggestion>,
@@ -171,10 +171,9 @@ function SearchInvestment(
   return (
     <Flex
       position="relative"
-      justifyContent="space-between"
-      paddingX={36}>
+      justifyContent="space-between">
       <AutoComplete>
-        <Box w="full" position="relative">
+        <Box position="relative">
           <AutoComplete.Input>
             <Input
               autoComplete="off"
@@ -199,6 +198,9 @@ function SearchInvestment(
         fontWeight={500}
         letterSpacing={0.5}
         _hover={{
+          backgroundColor: 'primary.darken',
+        }}
+        _active={{
           backgroundColor: 'primary.darken',
         }}>
         Periksa

@@ -35,7 +35,11 @@ function Home() {
           </Text>
         </Box>
 
-        <SearchInvesment />
+        <Box
+          marginX="auto"
+          maxW="xl">
+          <SearchInvesment />
+        </Box>
       </Container>
     </>
   );

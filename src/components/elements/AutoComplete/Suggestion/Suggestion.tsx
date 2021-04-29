@@ -21,8 +21,14 @@ function Suggestion({ index, onClick, children }: React.PropsWithChildren<Sugges
     }
   };
 
+  const handleHover = () => {
+    dispatch({ type: 'FOCUS_INDEX', value: index });
+  };
+
   return (
     <Button
+      onMouseOver={handleHover}
+      onMouseMove={handleHover}
       fontWeight={400}
       h="unset"
       w="100%"
@@ -32,9 +38,9 @@ function Suggestion({ index, onClick, children }: React.PropsWithChildren<Sugges
       alignItems="center"
       rounded="false"
       onClick={handleClick}
-      backgroundColor={index === focusIndex ? 'gray.100' : 'white'}
+      backgroundColor={index === focusIndex ? 'gray.100' : 'transparent'}
       _hover={{
-        backgroundColor: 'gray.100',
+        backgroundColor: index === focusIndex ? 'gray.100' : 'transparent',
       }}
       _focus={{
         backgroundColor: 'gray.100',

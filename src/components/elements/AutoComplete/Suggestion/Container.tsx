@@ -82,8 +82,8 @@ function SuggestionsContainer(
       ref={containerRef}
       as={as}
       w="100%"
-      maxW="100%"
-      position={absolute ? 'absolute' : 'static'}
+      maxW="xl"
+      position={absolute ? 'absolute' : 'relative'}
       backgroundColor="white"
       zIndex={1}
       role="listbox"

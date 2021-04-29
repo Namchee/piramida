@@ -96,14 +96,13 @@ function Search({ illegalInvestments, apps, query }: React.PropsWithoutRef<Searc
       <Container
         minH="100%"
         paddingY={16}
-        maxW="4xl"
+        maxW="xl"
         marginX="auto">
         <SearchInvesment
           absolute={true}
           term={query} />
 
         <Box
-          maxW="xl"
           marginX="auto"
           mt={4}>
           {showSearchResult()}

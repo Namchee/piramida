@@ -22,7 +22,7 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
     focusIndex: -1,
   });
 
-  useWindowEvent('click', (event: MouseEvent) => {
+  useWindowEvent('mousedown', (event: MouseEvent) => {
     if (!focus) {
       return;
     }
