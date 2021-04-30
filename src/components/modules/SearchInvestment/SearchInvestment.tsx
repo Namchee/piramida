@@ -40,6 +40,7 @@ function SearchInvestment(
       return gql`query {
         apps(name: "${debouncedSearchTerm}", limit: 5) {
           data {
+            id
             name
           }
         }
@@ -56,8 +57,23 @@ function SearchInvestment(
     }
   }, [searchTerm]);
 
-  const handleSuggestionSelect = (name: string) => {
-    search(name);
+  const router = useRouter();
+
+  const handleSuggestionSelect = (id: number) => {
+    router.push({
+      pathname: `/apps/${id}`,
+    });
+  };
+
+  const search = () => {
+    router.push(
+      {
+        pathname: '/search',
+        query: {
+          q: searchTerm,
+        },
+      },
+    );
   };
 
   const suggest = React.useCallback(() => {
@@ -133,32 +149,20 @@ function SearchInvestment(
       return 0;
     });
 
-    apps.forEach(({ name }, index) => {
+    apps.forEach((app, index) => {
       elem.push(
         <AutoComplete.Suggestion
           key={index}
           index={index}
-          onClick={() => handleSuggestionSelect(name)}>
+          onClick={() => handleSuggestionSelect(app.id)}>
           <Text maxW="sm" isTruncated={true}>
-            <Highlight text={name} term={searchTerm} />
+            <Highlight text={app.name} term={searchTerm} />
           </Text>
         </AutoComplete.Suggestion>,
       );
     });
 
     return elem;
-  };
-
-  const router = useRouter();
-  const search = (term?: string) => {
-    router.push(
-      {
-        pathname: '/search',
-        query: {
-          q: term || searchTerm,
-        },
-      },
-    );
   };
 
   return (
@@ -182,7 +186,7 @@ function SearchInvestment(
       </AutoComplete>
 
       <Button
-        onClick={() => search()}
+        onClick={search}
         ml={4}
         px={8}
         size="lg"
