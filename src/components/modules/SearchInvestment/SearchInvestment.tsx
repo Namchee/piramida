@@ -13,7 +13,7 @@ import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Highlight } from '@/components/elements/Highlight';
 import { ErrorIcon } from '@/components/elements/Icon';
 
-import { GraphQLResult } from '@/common/types';
+import { App, GraphQLResult } from '@/common/types';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
@@ -38,12 +38,7 @@ function SearchInvestment(
   const { data, error } = useSWR<GraphQLResult, any>(
     () => {
       return gql`query {
-        illegalInvestments(name: "${debouncedSearchTerm}", limit: 3) {
-          data {
-            name
-          }
-        }
-        apps(name: "${debouncedSearchTerm}", limit: 3) {
+        apps(name: "${debouncedSearchTerm}", limit: 5) {
           data {
             name
           }
@@ -62,8 +57,7 @@ function SearchInvestment(
   }, [searchTerm]);
 
   const handleSuggestionSelect = (name: string) => {
-    setSearchTerm(name);
-    search();
+    search(name);
   };
 
   const suggest = React.useCallback(() => {
@@ -118,16 +112,15 @@ function SearchInvestment(
   }, [debouncedSearchTerm, data, error]);
 
   const mapInvestmentData = () => {
-    const [illegalInvestments, apps] = [data.illegalInvestments.data, data.apps.data];
+    const apps = data.apps.data;
 
-    if (!illegalInvestments.length && !apps.length) {
+    if (!apps.length) {
       return <AutoComplete.EmptySuggestion />;
     }
 
     const elem: JSX.Element[] = [];
-    const suggestions = [...illegalInvestments, ...apps];
 
-    suggestions.sort((a, b) => {
+    apps.sort((a: App, b: App) => {
       const aIndex = a.name.indexOf(debouncedSearchTerm);
       const bIndex = b.name.indexOf(debouncedSearchTerm);
 
@@ -140,7 +133,7 @@ function SearchInvestment(
       return 0;
     });
 
-    suggestions.forEach(({ name }, index) => {
+    apps.forEach(({ name }, index) => {
       elem.push(
         <AutoComplete.Suggestion
           key={index}
@@ -157,12 +150,12 @@ function SearchInvestment(
   };
 
   const router = useRouter();
-  const search = () => {
+  const search = (term?: string) => {
     router.push(
       {
         pathname: '/search',
         query: {
-          q: searchTerm,
+          q: term || searchTerm,
         },
       },
     );
@@ -189,7 +182,7 @@ function SearchInvestment(
       </AutoComplete>
 
       <Button
-        onClick={search}
+        onClick={() => search()}
         ml={4}
         px={8}
         size="lg"
