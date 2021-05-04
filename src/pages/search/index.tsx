@@ -7,7 +7,7 @@ import useSWR from 'swr';
 
 import { gql } from 'graphql-request';
 
-import { Text, Container, Box, VStack } from '@chakra-ui/react';
+import { Text, Container, Box, VStack, Flex } from '@chakra-ui/react';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
 
@@ -76,10 +76,10 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
     return (
       <VStack
         alignItems="flex-start"
-        spacing="16px">
+        spacing="18px">
         <Text
           textAlign="left"
-          fontSize="sm"
+          fontSize="xs"
           textColor="gray.400">
           Menampilkan {initialData.apps.count} hasil pencarian dengan kata kunci &quot;{query}&quot;
         </Text>
@@ -107,10 +107,14 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
           })}
         </VStack>
 
-        <Pagination
-          numPages={Math.ceil(Number(data.apps.count) / 10)}
-          currentPage={page}
-          onPageChange={(val) => setPage(val)} />
+        <Flex
+          w="100%"
+          justifyContent="center">
+          <Pagination
+            numPages={Math.ceil(Number(data.apps.count) / 10)}
+            currentPage={page}
+            onPageChange={(val) => setPage(val)} />
+        </Flex>
       </VStack>
     );
   }, [data, error]);
@@ -122,7 +126,6 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
       </Head>
 
       <Container
-        minH="100%"
         paddingY={16}
         maxW="xl"
         marginX="auto">
@@ -132,7 +135,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
 
         <Box
           marginX="auto"
-          mt={4}>
+          mt={2}>
           {showSearchResult()}
         </Box>
       </Container>

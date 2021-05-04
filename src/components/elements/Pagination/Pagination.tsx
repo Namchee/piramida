@@ -17,8 +17,7 @@ function Pagination(
 ) {
   return (
     <HStack
-      w="100%"
-      marginX="auto"
+      display="flex"
       alignItems="center"
       spacing="8px">
       <Button
@@ -30,11 +29,14 @@ function Pagination(
 
       <HStack
         spacing="4px">
-        <PaginationIndex>
-          <Text textColor={currentPage === 1 ? 'primary' : 'black'}>
-            1
-          </Text>
-        </PaginationIndex>
+        {
+          numPages > 1 &&
+          <PaginationIndex>
+            <Text textColor={currentPage === 1 ? 'primary' : 'black'}>
+              1
+            </Text>
+          </PaginationIndex>
+        }
         <PaginationIndex>
           {numPages}
         </PaginationIndex>

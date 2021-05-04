@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Icon, IconProps } from '@chakra-ui/react';
 
-function CloseIcon(props: React.PropsWithoutRef<IconProps>) {
+function ErrorIcon(props: React.PropsWithoutRef<IconProps>) {
   return (
     <Icon
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,4 @@ function CloseIcon(props: React.PropsWithoutRef<IconProps>) {
   );
 }
 
-export default CloseIcon;
+export default ErrorIcon;
