@@ -72,6 +72,7 @@ function SearchInvestment(
   };
 
   const handleSuggestionSelect = (name: string) => {
+    setSearchTerm(name);
     navigateToSearchPage(name);
   };
 

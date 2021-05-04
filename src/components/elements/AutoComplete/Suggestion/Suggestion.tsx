@@ -29,6 +29,7 @@ function Suggestion({ index, onClick, children }: React.PropsWithChildren<Sugges
     <Button
       onMouseOver={handleHover}
       onMouseMove={handleHover}
+      tabIndex={-1}
       fontWeight={400}
       h="unset"
       w="100%"

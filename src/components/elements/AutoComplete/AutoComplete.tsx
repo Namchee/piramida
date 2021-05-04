@@ -23,7 +23,7 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
   });
 
   useWindowEvent('mousedown', (event: MouseEvent) => {
-    if (!focus) {
+    if (!state.focus) {
       return;
     }
 
@@ -35,11 +35,19 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
     }
   });
 
+  useWindowEvent('keydown', (event: KeyboardEvent) => {
+    if (!state.focus) {
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      dispatch({ type: 'FOCUS', value: false });
+    }
+  });
+
   return (
     <AutoCompleteContext.Provider value={{ state, dispatch }}>
-      <Box
-        w="100%"
-        ref={autoComplete}>
+      <Box w="100%" ref={autoComplete}>
         {children}
       </Box>
     </AutoCompleteContext.Provider>
