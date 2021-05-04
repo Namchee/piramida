@@ -3,6 +3,8 @@ import * as React from 'react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 
+import useSWR from 'swr';
+
 import { gql } from 'graphql-request';
 
 import { Text, Container, Box, VStack } from '@chakra-ui/react';
@@ -12,15 +14,48 @@ import { SearchInvesment } from '@/components/modules/SearchInvestment';
 import { graphQLFetcher } from '@/utils/fetcher';
 import { App, GraphQLResult } from '@/common/types';
 import { ButtonLink } from '@/components/elements/ButtonLink';
+import { Pagination } from '@/components/elements/Pagination';
 import { EmptyResult } from '@/components/modules/EmptyResult';
 
 type SearchPageProps = {
-  apps: App[];
+  apps: GraphQLResult;
   query: string;
 }
 
-function Search({ apps, query }: React.PropsWithoutRef<SearchPageProps>) {
+const getQuery = (offset: number = 0, query: string) => {
+  return gql`
+    query {
+      apps(name: "${query}", limit: 10, offset: ${offset}) {
+        data {
+          name
+          owner
+          url
+        }
+      }
+    }
+  `;
+};
+
+const formatUrl = (url: string) => {
+  if (!url.startsWith('http')) {
+    url = `https://${url}`;
+  }
+
+  return url;
+};
+
+function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPageProps>) {
+  const [page, setPage] = React.useState(1);
+
+  const { data, error } = useSWR<GraphQLResult, any>(
+    getQuery((page - 1) * 10, query),
+    graphQLFetcher,
+    { initialData },
+  );
+
   const showSearchResult = React.useCallback(() => {
+    const apps = data.apps.data;
+
     if (!apps.length) {
       return <EmptyResult />;
     }
@@ -39,34 +74,46 @@ function Search({ apps, query }: React.PropsWithoutRef<SearchPageProps>) {
     });
 
     return (
-      <>
+      <VStack
+        alignItems="flex-start"
+        spacing="16px">
         <Text
+          textAlign="left"
           fontSize="sm"
           textColor="gray.400">
-          Menampilkan {apps.length} hasil
-          untuk pencari dengan kata kunci &quot;{query}&quot;
+          Menampilkan {initialData.apps.count} hasil pencarian dengan kata kunci &quot;{query}&quot;
         </Text>
 
         <VStack
-          marginTop={4}
           w="full"
           spacing="8px">
-          {apps.map(({ id, name }, index) => {
+          {apps.map(({ name, owner, url }, index) => {
             return (
               <ButtonLink
                 key={index}
-                to={`/apps/${id}`}>
+                to={formatUrl(url)}>
                 <Text
-                  ml={3}>
+                  maxW="sm"
+                  fontWeight={500}>
                   {name}
+                </Text>
+                <Text
+                  fontSize="sm"
+                  color="gray.400">
+                  {owner}
                 </Text>
               </ButtonLink>
             );
           })}
         </VStack>
-      </>
+
+        <Pagination
+          numPages={Math.ceil(Number(data.apps.count) / 10)}
+          currentPage={page}
+          onPageChange={(val) => setPage(val)} />
+      </VStack>
     );
-  }, [apps, query]);
+  }, [data, error]);
 
   return (
     <>
@@ -106,22 +153,23 @@ export async function getServerSideProps(
   }
 
   const requestQuery = gql`query {
-    apps(name: "${query.q}") {
+    apps(name: "${query.q}", limit: 10) {
       data {
-        id,
         name
+        owner
+        url
       }
       count
     }
   }`;
 
-  const { apps }: GraphQLResult = await graphQLFetcher(
+  const result: GraphQLResult = await graphQLFetcher(
     requestQuery,
   );
 
   return {
     props: {
-      apps: apps.data,
+      apps: result,
       query: query.q as string,
     },
   };

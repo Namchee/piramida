@@ -1,6 +1,7 @@
 export interface App {
   name: string;
-  id?: number;
+  url?: string;
+  owner?: string;
 }
 
 export interface GraphQLResult {

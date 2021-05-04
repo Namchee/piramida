@@ -23,6 +23,16 @@ export type SearchInvestmentProps = {
   absolute?: boolean;
 };
 
+const getQuery = (query: string) => {
+  return gql`query {
+    apps(name: "${query}", limit: 5) {
+      data {
+        name
+      }
+    }
+  }`;
+};
+
 function SearchInvestment(
   { term, absolute }: React.PropsWithoutRef<SearchInvestmentProps>,
 ) {
@@ -36,16 +46,7 @@ function SearchInvestment(
   const debouncedSetter = useDebounce(setDebouncedSearchTerm, 250);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    () => {
-      return gql`query {
-        apps(name: "${debouncedSearchTerm}", limit: 5) {
-          data {
-            id
-            name
-          }
-        }
-      }`;
-    },
+    getQuery(debouncedSearchTerm),
     graphQLFetcher,
   );
 
@@ -59,21 +60,23 @@ function SearchInvestment(
 
   const router = useRouter();
 
-  const handleSuggestionSelect = (id: number) => {
-    router.push({
-      pathname: `/apps/${id}`,
-    });
-  };
-
-  const search = () => {
+  const navigateToSearchPage = (term: string) => {
     router.push(
       {
         pathname: '/search',
         query: {
-          q: searchTerm,
+          q: term,
         },
       },
     );
+  };
+
+  const handleSuggestionSelect = (name: string) => {
+    navigateToSearchPage(name);
+  };
+
+  const search = () => {
+    navigateToSearchPage(searchTerm);
   };
 
   const suggest = React.useCallback(() => {
@@ -154,7 +157,7 @@ function SearchInvestment(
         <AutoComplete.Suggestion
           key={index}
           index={index}
-          onClick={() => handleSuggestionSelect(app.id)}>
+          onClick={() => handleSuggestionSelect(app.name)}>
           <Text maxW="sm" isTruncated={true}>
             <Highlight text={app.name} term={searchTerm} />
           </Text>
