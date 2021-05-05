@@ -55,6 +55,10 @@ function SuggestionsContainer(
       case 'Enter': {
         event.preventDefault();
 
+        if (focusIndex === -1) {
+          return;
+        }
+
         if (childElements[focusIndex].type['name'] === 'Suggestion') {
           (childrenAsHtml[focusIndex] as HTMLButtonElement).click();
         }
@@ -63,6 +67,10 @@ function SuggestionsContainer(
       }
       case 'Space': {
         event.preventDefault();
+
+        if (focusIndex === -1) {
+          return;
+        }
 
         if (childElements[focusIndex].type['name'] === 'Suggestion') {
           (childrenAsHtml[focusIndex] as HTMLButtonElement).click();

@@ -22,15 +22,16 @@ type SearchPageProps = {
   query: string;
 }
 
-const getQuery = (offset: number = 0, query: string) => {
+const getQuery = (offset: number = 0, query: string): string => {
   return gql`
     query {
-      apps(name: "${query}", limit: 10, offset: ${offset}) {
+      apps(name: "${escape(query)}", limit: 10, offset: ${offset}) {
         data {
           name
           owner
           url
         }
+        count
       }
     }
   `;
@@ -54,6 +55,10 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
   );
 
   const showSearchResult = React.useCallback(() => {
+    if (!data) {
+
+    }
+
     const apps = data.apps.data;
 
     if (!apps.length) {
@@ -156,7 +161,7 @@ export async function getServerSideProps(
   }
 
   const requestQuery = gql`query {
-    apps(name: "${query.q}", limit: 10) {
+    apps(name: "${escape(query.q as string)}", limit: 10) {
       data {
         name
         owner

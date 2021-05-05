@@ -25,7 +25,7 @@ export type SearchInvestmentProps = {
 
 const getQuery = (query: string) => {
   return gql`query {
-    apps(name: "${query}", limit: 5) {
+    apps(name: "${escape(query)}", limit: 5) {
       data {
         name
       }
