@@ -23,9 +23,13 @@ type SearchPageProps = {
 }
 
 const getQuery = (offset: number = 0, query: string): string => {
+  if (offset) {
+    offset += 1;
+  }
+
   return gql`
     query {
-      apps(name: "${escape(query)}", limit: 10, offset: ${offset}) {
+      apps(name: "${escape(query)}", limit: 5, offset: ${offset}) {
         data {
           name
           owner
@@ -49,7 +53,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
   const [page, setPage] = React.useState(1);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    getQuery((page - 1) * 10, query),
+    getQuery((page - 1) * 5, query),
     graphQLFetcher,
     { initialData },
   );
@@ -79,9 +83,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
     });
 
     return (
-      <VStack
-        alignItems="flex-start"
-        spacing="18px">
+      <Flex flexDirection="column" alignItems="flex-start">
         <Text
           textAlign="left"
           fontSize="xs"
@@ -90,6 +92,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
         </Text>
 
         <VStack
+          mt={4}
           w="full"
           spacing="8px">
           {apps.map(({ name, owner, url }, index) => {
@@ -113,14 +116,15 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
         </VStack>
 
         <Flex
+          mt={12}
           w="100%"
           justifyContent="center">
           <Pagination
-            numPages={Math.ceil(Number(data.apps.count) / 10)}
+            numPages={Math.ceil(Number(data.apps.count) / 5)}
             currentPage={page}
             onPageChange={(val) => setPage(val)} />
         </Flex>
-      </VStack>
+      </Flex>
     );
   }, [data, error]);
 
@@ -161,7 +165,7 @@ export async function getServerSideProps(
   }
 
   const requestQuery = gql`query {
-    apps(name: "${escape(query.q as string)}", limit: 10) {
+    apps(name: "${escape(query.q as string)}", limit: 5) {
       data {
         name
         owner
@@ -174,6 +178,8 @@ export async function getServerSideProps(
   const result: GraphQLResult = await graphQLFetcher(
     requestQuery,
   );
+
+  console.log(escape(query.q as string));
 
   return {
     props: {
