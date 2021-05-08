@@ -23,14 +23,15 @@ export type SearchInvestmentProps = {
   absolute?: boolean;
 };
 
-const getQuery = (query: string) => {
-  return gql`query {
-    apps(name: "${escape(query)}", limit: 5) {
-      data {
-        name
+const getQuery = () => {
+  return gql`
+    query Apps($query: String!) {
+      apps(name: $query, limit: 5) {
+        data {
+          name
+        }
       }
-    }
-  }`;
+    }`;
 };
 
 function SearchInvestment(
@@ -46,8 +47,8 @@ function SearchInvestment(
   const debouncedSetter = useDebounce(setDebouncedSearchTerm, 250);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    getQuery(debouncedSearchTerm),
-    graphQLFetcher,
+    [getQuery(), debouncedSearchTerm],
+    (query, term) => graphQLFetcher(query, { query: term }),
   );
 
   React.useEffect(() => {
@@ -61,14 +62,16 @@ function SearchInvestment(
   const router = useRouter();
 
   const navigateToSearchPage = (term: string) => {
-    router.push(
-      {
-        pathname: '/search',
-        query: {
-          q: term,
+    if (term) {
+      router.push(
+        {
+          pathname: '/search',
+          query: {
+            q: escape(term),
+          },
         },
-      },
-    );
+      );
+    }
   };
 
   const handleSuggestionSelect = (name: string) => {

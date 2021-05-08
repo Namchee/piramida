@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import { Box, Link } from '@chakra-ui/react';
-import { ArrowRightIcon } from '../Icon';
 
-export type ButtonLinkProps = {
+import { ArrowRightIcon } from '../Icon';
+import ResultSkeleton from './Skeleton';
+
+export type SearchResultProps = {
   to: string;
 };
 
-function ButtonLink({ to, children }: React.PropsWithChildren<ButtonLinkProps>) {
+function SearchResult({ to, children }: React.PropsWithChildren<SearchResultProps>) {
   return (
     <Link
       w="full"
@@ -54,4 +56,6 @@ function ButtonLink({ to, children }: React.PropsWithChildren<ButtonLinkProps>) 
   );
 }
 
-export default ButtonLink;
+SearchResult.Skeleton = ResultSkeleton;
+
+export default SearchResult;

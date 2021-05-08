@@ -12,8 +12,9 @@ import { Text, Container, Box, VStack, Flex } from '@chakra-ui/react';
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
 
 import { graphQLFetcher } from '@/utils/fetcher';
-import { App, GraphQLResult } from '@/common/types';
-import { ButtonLink } from '@/components/elements/ButtonLink';
+import { GraphQLResult } from '@/common/types';
+
+import { SearchResult } from '@/components/elements/SearchResult';
 import { Pagination } from '@/components/elements/Pagination';
 import { EmptyResult } from '@/components/modules/EmptyResult';
 
@@ -28,8 +29,8 @@ const getQuery = (offset: number = 0, query: string): string => {
   }
 
   return gql`
-    query {
-      apps(name: "${escape(query)}", limit: 5, offset: ${offset}) {
+    query Apps($query: String!) {
+      apps(name: $query, limit: 10, offset: ${offset}) {
         data {
           name
           owner
@@ -53,14 +54,20 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
   const [page, setPage] = React.useState(1);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    getQuery((page - 1) * 5, query),
-    graphQLFetcher,
+    [getQuery((page - 1) * 10, query), query],
+    (query, term) => graphQLFetcher(query, { query: term }),
     { initialData },
   );
 
+  const handlePageChange = (pageNumber: number) => {
+    setPage(pageNumber);
+  };
+
   const showSearchResult = React.useCallback(() => {
     if (!data) {
-
+      return (
+        [...Array(10)].map((_, index: number) => <SearchResult.Skeleton key={`result-${index}`} />)
+      );
     }
 
     const apps = data.apps.data;
@@ -68,19 +75,6 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
     if (!apps.length) {
       return <EmptyResult />;
     }
-
-    apps.sort((a: App, b: App) => {
-      const aIndex = a.name.indexOf(query);
-      const bIndex = b.name.indexOf(query);
-
-      if (aIndex > bIndex) {
-        return 1;
-      } else if (aIndex < bIndex) {
-        return -1;
-      }
-
-      return 0;
-    });
 
     return (
       <Flex flexDirection="column" alignItems="flex-start">
@@ -97,7 +91,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
           spacing="8px">
           {apps.map(({ name, owner, url }, index) => {
             return (
-              <ButtonLink
+              <SearchResult
                 key={index}
                 to={formatUrl(url)}>
                 <Text
@@ -110,20 +104,10 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
                   color="gray.400">
                   {owner}
                 </Text>
-              </ButtonLink>
+              </SearchResult>
             );
           })}
         </VStack>
-
-        <Flex
-          mt={12}
-          w="100%"
-          justifyContent="center">
-          <Pagination
-            numPages={Math.ceil(Number(data.apps.count) / 5)}
-            currentPage={page}
-            onPageChange={(val) => setPage(val)} />
-        </Flex>
       </Flex>
     );
   }, [data, error]);
@@ -146,6 +130,17 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
           marginX="auto"
           mt={2}>
           {showSearchResult()}
+          {
+            initialData.apps.count &&
+            <Flex
+              mt={12}
+              w="100%"
+              justifyContent="center">
+              <Pagination
+                numPages={Math.ceil(Number(initialData.apps.count) / 10)}
+                currentPage={page}
+                onPageChange={handlePageChange} />
+            </Flex>}
         </Box>
       </Container>
     </>
@@ -164,27 +159,32 @@ export async function getServerSideProps(
     };
   }
 
-  const requestQuery = gql`query {
-    apps(name: "${escape(query.q as string)}", limit: 5) {
-      data {
-        name
-        owner
-        url
+  const requestQuery = gql`
+    query Apps($query: String!) {
+      apps(name: $query, limit: 10) {
+        data {
+          name
+          owner
+          url
+        }
+        count
       }
-      count
     }
-  }`;
+  `;
+
+  const variables = {
+    query: decodeURI(query.q as string),
+  };
 
   const result: GraphQLResult = await graphQLFetcher(
     requestQuery,
+    variables,
   );
-
-  console.log(escape(query.q as string));
 
   return {
     props: {
       apps: result,
-      query: query.q as string,
+      query: decodeURI(query.q as string),
     },
   };
 }
