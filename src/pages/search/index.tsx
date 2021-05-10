@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 
 import useSWR from 'swr';
@@ -9,33 +10,40 @@ import { gql } from 'graphql-request';
 import { Text, Container, Box, VStack, Flex } from '@chakra-ui/react';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
+import { EmptyResult } from '@/components/modules/EmptyResult';
 
 import { graphQLFetcher } from '@/utils/fetcher';
 import { GraphQLResult } from '@/common/types';
 
 import { SearchResult } from '@/components/elements/SearchResult';
 import { Pagination } from '@/components/elements/Pagination';
-import { EmptyResult } from '@/components/modules/EmptyResult';
-import { useRouter } from 'next/router';
 
-const getQuery = (offset: number = 0, query: string): string => {
-  if (offset) {
-    offset += 1;
-  }
+const ITEM_PER_PAGE = 10;
 
-  return gql`
-    query Apps($query: String!) {
-      apps(name: $query, limit: 10, offset: ${offset}) {
-        data {
-          name
-          owner
-          url
-        }
-        count
+export type SearchPageProps = {
+  query: string;
+  initialData: GraphQLResult;
+  count: number;
+  version: string;
+}
+
+type GraphQLVariables = {
+  query: string;
+  limit?: number;
+  offset?: number;
+};
+
+const gqlQuery = gql`
+  query Apps($query: String!, $limit: Int, $offset: Int) {
+    apps(name: $query, limit: $limit, offset: $offset) {
+      data {
+        name
+        owner
+        url
       }
     }
-  `;
-};
+  }
+`;
 
 const formatUrl = (url: string) => {
   if (!url.startsWith('http')) {
@@ -45,90 +53,105 @@ const formatUrl = (url: string) => {
   return url;
 };
 
-function Search() {
-  const { query, push } = useRouter();
-
-  /*
-  if (!query || !query.q || Array.isArray(query.q)) {
-    if (process.browser) {
-      push('/');
-    }
-  }
-  */
-
-  const term = query.q as string;
-
-  console.log(term);
-
+function Search(
+  { query, initialData, count, version }: React.PropsWithoutRef<SearchPageProps>,
+) {
   const [page, setPage] = React.useState(1);
 
-  const { data, error } = useSWR<GraphQLResult, any>(
-    [getQuery((page - 1) * 10, term), term],
-    (query, term) => graphQLFetcher(query, { query: term }),
+  const { data, error, isValidating } = useSWR<GraphQLResult, any>(
+    [gqlQuery, page],
+    (gqlQuery, page) => {
+      const variables = {
+        query,
+        limit: ITEM_PER_PAGE,
+        offset: (page - 1) * ITEM_PER_PAGE,
+      };
+
+      if (variables.offset) {
+        variables.offset += 1;
+      }
+
+      return graphQLFetcher<GraphQLVariables>(gqlQuery, variables);
+    },
+    { initialData },
   );
 
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
-  const showSearchResult = React.useCallback(() => {
-    return (
-      <VStack
-        mt={4}
-        spacing={2}>
-        {[...Array(5)].map((_, idx: number) => <SearchResult.Skeleton key={`skeleton-${idx}`} />)}
-      </VStack>
-    );
+  const versionDate = React.useMemo(() => {
+    return new Date(version);
+  }, [version]);
 
-    if (!data) {
+  const options: any = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
 
-    } else {
-      return (<Text>Stuff</Text>);
-    }
-
+  const searchResult = React.useCallback(() => {
     if (error) {
-
+      return (<Text>Error</Text>);
     }
 
-    const { data: apps, count } = data.apps;
-
-    if (!apps.length) {
+    if (!count) {
       return <EmptyResult />;
     }
 
+    const appList = () => {
+      if (isValidating) {
+        return [...Array(10)].map(
+          (_, idx: number) => <SearchResult.Skeleton key={`skeleton-${idx}`} />,
+        );
+      }
+
+      return data.apps.data.map(({ name, owner, url }, index) => {
+        return (
+          <SearchResult
+            key={index}
+            to={formatUrl(url)}>
+            <Text
+              maxW="sm"
+              fontWeight={500}>
+              {name}
+            </Text>
+            <Text
+              fontSize="sm"
+              color="gray.400">
+              {owner}
+            </Text>
+          </SearchResult>
+        );
+      });
+    };
+
     return (
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box
+        marginX="auto"
+        mt={2}>
         <Text
           textAlign="left"
-          fontSize="xs"
-          textColor="gray.400">
-          Menampilkan {count} hasil pencarian dengan kata kunci &quot;{query}&quot;
+          fontSize="sm"
+          textColor="gray.500">
+          Menampilkan {count} hasil pencarian per {versionDate.toLocaleDateString('id-ID', options)}.
         </Text>
 
         <VStack
-          mt={4}
-          w="full"
-          spacing="8px">
-          {apps.map(({ name, owner, url }, index) => {
-            return (
-              <SearchResult
-                key={index}
-                to={formatUrl(url)}>
-                <Text
-                  maxW="sm"
-                  fontWeight={500}>
-                  {name}
-                </Text>
-                <Text
-                  fontSize="sm"
-                  color="gray.400">
-                  {owner}
-                </Text>
-              </SearchResult>
-            );
-          })}
+          my={4}
+          spacing={2}
+          w="full">
+          {appList()}
         </VStack>
-      </Flex>
+
+        <Flex w="full" justifyContent="center">
+          <Pagination
+            currentPage={page}
+            numPages={Math.ceil(count / ITEM_PER_PAGE)}
+            onPageChange={handlePageChange} />
+        </Flex>
+      </Box>
     );
   }, [data, error]);
 
@@ -144,27 +167,58 @@ function Search() {
         marginX="auto">
         <SearchInvesment
           absolute={true}
-          term={term} />
+          term={query} />
 
-        <Box
-          marginX="auto"
-          mt={2}>
-          {showSearchResult()}
-          {
-            data &&
-            <Flex
-              mt={12}
-              w="100%"
-              justifyContent="center">
-              <Pagination
-                numPages={Math.ceil(Number(data.apps.count) / 10)}
-                currentPage={page}
-                onPageChange={handlePageChange} />
-            </Flex>}
-        </Box>
+        {searchResult()}
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps(
+  { query }: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<SearchPageProps>> {
+  if (!query || !query.q || Array.isArray(query.q)) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const { q } = query;
+
+  const request = gql`
+    query Apps($query: String!, $limit: Int, $offset: Int) {
+      apps(name: $query, limit: $limit, offset: $offset) {
+        data {
+          name
+          owner
+          url
+        }
+        count
+        version
+      }
+    }
+  `;
+
+  const result: GraphQLResult = await graphQLFetcher<GraphQLVariables>(
+    request,
+    {
+      query: q,
+      limit: ITEM_PER_PAGE,
+    },
+  );
+
+  return {
+    props: {
+      query: q,
+      initialData: result,
+      count: result.apps.count,
+      version: result.apps.version,
+    },
+  };
 }
 
 export default Search;
