@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 
 import useSWR from 'swr';
@@ -17,11 +16,7 @@ import { GraphQLResult } from '@/common/types';
 import { SearchResult } from '@/components/elements/SearchResult';
 import { Pagination } from '@/components/elements/Pagination';
 import { EmptyResult } from '@/components/modules/EmptyResult';
-
-type SearchPageProps = {
-  apps: GraphQLResult;
-  query: string;
-}
+import { useRouter } from 'next/router';
 
 const getQuery = (offset: number = 0, query: string): string => {
   if (offset) {
@@ -50,13 +45,26 @@ const formatUrl = (url: string) => {
   return url;
 };
 
-function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPageProps>) {
+function Search() {
+  const { query, push } = useRouter();
+
+  /*
+  if (!query || !query.q || Array.isArray(query.q)) {
+    if (process.browser) {
+      push('/');
+    }
+  }
+  */
+
+  const term = query.q as string;
+
+  console.log(term);
+
   const [page, setPage] = React.useState(1);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    [getQuery((page - 1) * 10, query), query],
+    [getQuery((page - 1) * 10, term), term],
     (query, term) => graphQLFetcher(query, { query: term }),
-    { initialData },
   );
 
   const handlePageChange = (pageNumber: number) => {
@@ -64,13 +72,25 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
   };
 
   const showSearchResult = React.useCallback(() => {
+    return (
+      <VStack
+        mt={4}
+        spacing={2}>
+        {[...Array(5)].map((_, idx: number) => <SearchResult.Skeleton key={`skeleton-${idx}`} />)}
+      </VStack>
+    );
+
     if (!data) {
-      return (
-        [...Array(10)].map((_, index: number) => <SearchResult.Skeleton key={`result-${index}`} />)
-      );
+
+    } else {
+      return (<Text>Stuff</Text>);
     }
 
-    const apps = data.apps.data;
+    if (error) {
+
+    }
+
+    const { data: apps, count } = data.apps;
 
     if (!apps.length) {
       return <EmptyResult />;
@@ -82,7 +102,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
           textAlign="left"
           fontSize="xs"
           textColor="gray.400">
-          Menampilkan {initialData.apps.count} hasil pencarian dengan kata kunci &quot;{query}&quot;
+          Menampilkan {count} hasil pencarian dengan kata kunci &quot;{query}&quot;
         </Text>
 
         <VStack
@@ -115,7 +135,7 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
   return (
     <>
       <Head>
-        <title>Periksa Legalitas Investasi — Piramida</title>
+        <title>Pencarian Investasi - Piramida</title>
       </Head>
 
       <Container
@@ -124,20 +144,20 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
         marginX="auto">
         <SearchInvesment
           absolute={true}
-          term={query} />
+          term={term} />
 
         <Box
           marginX="auto"
           mt={2}>
           {showSearchResult()}
           {
-            initialData.apps.count &&
+            data &&
             <Flex
               mt={12}
               w="100%"
               justifyContent="center">
               <Pagination
-                numPages={Math.ceil(Number(initialData.apps.count) / 10)}
+                numPages={Math.ceil(Number(data.apps.count) / 10)}
                 currentPage={page}
                 onPageChange={handlePageChange} />
             </Flex>}
@@ -145,48 +165,6 @@ function Search({ apps: initialData, query }: React.PropsWithoutRef<SearchPagePr
       </Container>
     </>
   );
-}
-
-export async function getServerSideProps(
-  { query }: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<SearchPageProps>> {
-  if (!query || !query.q) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  const requestQuery = gql`
-    query Apps($query: String!) {
-      apps(name: $query, limit: 10) {
-        data {
-          name
-          owner
-          url
-        }
-        count
-      }
-    }
-  `;
-
-  const variables = {
-    query: decodeURI(query.q as string),
-  };
-
-  const result: GraphQLResult = await graphQLFetcher(
-    requestQuery,
-    variables,
-  );
-
-  return {
-    props: {
-      apps: result,
-      query: decodeURI(query.q as string),
-    },
-  };
 }
 
 export default Search;

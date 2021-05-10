@@ -7,7 +7,7 @@ function SuggestionSkeleton() {
     <Box
       cursor="not-allowed"
       p={4}>
-      <Skeleton height={4} />
+      <Skeleton height={3} startColor="gray.100" endColor="gray.300" />
     </Box>
   );
 }
