@@ -46,6 +46,15 @@ function Fonts() {
         html, body {
           scroll-behavior: smooth;
         }
+
+        #nprogress .bar {
+          background-color: #3B82F6;
+          height: 3px;
+        }
+
+        #nprogress .peg {
+          display: none;
+        }
       `} />
   );
 }
