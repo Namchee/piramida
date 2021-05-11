@@ -4,19 +4,20 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 
 import useSWR from 'swr';
-
 import { gql } from 'graphql-request';
 
 import { Text, Container, Box, VStack, Flex } from '@chakra-ui/react';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
 import { EmptyResult } from '@/components/modules/EmptyResult';
+import { ErrorResult } from '@/components/modules/ErrorResult';
+
+import { SearchResult } from '@/components/elements/SearchResult';
+import { Pagination } from '@/components/elements/Pagination';
 
 import { graphQLFetcher } from '@/utils/fetcher';
 import { GraphQLResult } from '@/common/types';
 
-import { SearchResult } from '@/components/elements/SearchResult';
-import { Pagination } from '@/components/elements/Pagination';
 
 const ITEM_PER_PAGE = 10;
 
@@ -97,7 +98,7 @@ function Search(
 
   const searchResult = React.useCallback(() => {
     if (error) {
-      return (<Text>Error</Text>);
+      return <ErrorResult />;
     }
 
     if (!count) {
