@@ -16,7 +16,7 @@ import { SearchResult } from '@/components/elements/SearchResult';
 import { Pagination } from '@/components/elements/Pagination';
 
 import { graphQLFetcher } from '@/utils/fetcher';
-import { GraphQLResult } from '@/common/types';
+import { GraphQLError, GraphQLResult } from '@/common/types';
 
 const ITEM_PER_PAGE = 10;
 
@@ -59,7 +59,7 @@ function Search(
   const [page, setPage] = React.useState(1);
   const container = React.useRef(null);
 
-  const { data, error } = useSWR<GraphQLResult, any>(
+  const { data, error } = useSWR<GraphQLResult, GraphQLError>(
     [gqlQuery, page, query],
     (gqlQuery, page, currentQuery) => {
       const variables = {

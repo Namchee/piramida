@@ -4,7 +4,19 @@ import Image from 'next/image';
 
 import { Text, Flex, Heading } from '@chakra-ui/react';
 
-function ErrorResult() {
+export type ErrorResultProps = {
+  error?: string;
+}
+
+function ErrorResult(
+  { error }: React.PropsWithoutRef<ErrorResultProps>,
+) {
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(error);
+    }
+  }, [error]);
+
   return (
     <Flex
       justifyContent="center"

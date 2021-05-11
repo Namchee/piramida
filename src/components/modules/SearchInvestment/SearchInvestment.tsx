@@ -13,7 +13,7 @@ import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Highlight } from '@/components/elements/Highlight';
 import { ErrorIcon } from '@/components/elements/Icon';
 
-import { App, GraphQLResult } from '@/common/types';
+import { App, GraphQLError, GraphQLResult } from '@/common/types';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
@@ -46,7 +46,7 @@ function SearchInvestment(
 
   const debouncedSetter = useDebounce(setDebouncedSearchTerm, 250);
 
-  const { data, error } = useSWR<GraphQLResult, any>(
+  const { data, error } = useSWR<GraphQLResult, GraphQLError>(
     [getQuery(), debouncedSearchTerm],
     (query, term) => graphQLFetcher(query, { query: term }),
   );

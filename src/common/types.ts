@@ -9,5 +9,15 @@ export interface GraphQLResult {
     data: App[];
     count: number;
     version: string;
-  }
+  };
 };
+
+export interface GraphQLError {
+  response: {
+    errors: [
+      {
+        message: string;
+      }
+    ];
+  };
+}
