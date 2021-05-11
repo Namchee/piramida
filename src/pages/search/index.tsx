@@ -18,7 +18,6 @@ import { Pagination } from '@/components/elements/Pagination';
 import { graphQLFetcher } from '@/utils/fetcher';
 import { GraphQLResult } from '@/common/types';
 
-
 const ITEM_PER_PAGE = 10;
 
 export type SearchPageProps = {
@@ -61,10 +60,10 @@ function Search(
   const container = React.useRef(null);
 
   const { data, error } = useSWR<GraphQLResult, any>(
-    [gqlQuery, page],
-    (gqlQuery, page) => {
+    [gqlQuery, page, query],
+    (gqlQuery, page, currentQuery) => {
       const variables = {
-        query,
+        query: currentQuery,
         limit: ITEM_PER_PAGE,
         offset: (page - 1) * ITEM_PER_PAGE,
       };
@@ -92,14 +91,14 @@ function Search(
     return new Date(version);
   }, [version]);
 
-  const options: any = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-
   const searchResult = React.useCallback(() => {
+    const dateConfig: any = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
     if (error) {
       return <ErrorResult />;
     }
@@ -143,7 +142,7 @@ function Search(
           textAlign="left"
           fontSize="sm"
           textColor="gray.500">
-          Menampilkan {count} hasil pencarian per {versionDate.toLocaleDateString('id-ID', options)}.
+          Menampilkan {count} hasil pencarian per {versionDate.toLocaleDateString('id-ID', dateConfig)}.
         </Text>
 
         <VStack
