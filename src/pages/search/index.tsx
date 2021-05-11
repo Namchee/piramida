@@ -79,10 +79,13 @@ function Search(
   );
 
   const handlePageChange = (pageNumber: number) => {
-    setPage(pageNumber);
-
     // scroll to the top of container
-    (container.current as HTMLElement).scrollIntoView();
+    if (process.browser) {
+      const elem = container.current as HTMLElement;
+      window.scrollTo(0, elem.getBoundingClientRect().top);
+    }
+
+    setPage(pageNumber);
   };
 
   const versionDate = React.useMemo(() => {
