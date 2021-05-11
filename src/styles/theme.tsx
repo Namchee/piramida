@@ -42,6 +42,10 @@ function Fonts() {
           font-weight: 700;
           font-display: swap;
         }
+
+        html, body {
+          scroll-behavior: smooth;
+        }
       `} />
   );
 }

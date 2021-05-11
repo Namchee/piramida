@@ -57,8 +57,9 @@ function Search(
   { query, initialData, count, version }: React.PropsWithoutRef<SearchPageProps>,
 ) {
   const [page, setPage] = React.useState(1);
+  const container = React.useRef(null);
 
-  const { data, error, isValidating } = useSWR<GraphQLResult, any>(
+  const { data, error } = useSWR<GraphQLResult, any>(
     [gqlQuery, page],
     (gqlQuery, page) => {
       const variables = {
@@ -73,11 +74,14 @@ function Search(
 
       return graphQLFetcher<GraphQLVariables>(gqlQuery, variables);
     },
-    { initialData },
+    { initialData: page === 1 ? initialData : null },
   );
 
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
+
+    // scroll to the top of container
+    (container.current as HTMLElement).scrollIntoView();
   };
 
   const versionDate = React.useMemo(() => {
@@ -101,7 +105,7 @@ function Search(
     }
 
     const appList = () => {
-      if (isValidating) {
+      if (!data) {
         return [...Array(10)].map(
           (_, idx: number) => <SearchResult.Skeleton key={`skeleton-${idx}`} />,
         );
@@ -145,7 +149,7 @@ function Search(
           {appList()}
         </VStack>
 
-        <Flex w="full" justifyContent="center">
+        <Flex mt={8} w="full" justifyContent="center">
           <Pagination
             currentPage={page}
             numPages={Math.ceil(count / ITEM_PER_PAGE)}
@@ -164,7 +168,8 @@ function Search(
       <Container
         paddingY={16}
         maxW="xl"
-        marginX="auto">
+        marginX="auto"
+        ref={container}>
         <SearchInvesment
           absolute={true}
           term={query} />
