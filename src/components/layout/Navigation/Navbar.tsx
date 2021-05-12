@@ -42,8 +42,12 @@ function Navbar(): JSX.Element {
         alignItems="center">
         <Link
           href="/"
-          px={8}>
-          <Logo />
+          display="grid"
+          placeItems="center"
+          h="full"
+          mr={2}
+          px={6}>
+          <Logo w={12} h="auto" />
         </Link>
         {
           LINKS.map(({ name, href }) => {

@@ -50,6 +50,13 @@ function Fonts() {
         #nprogress .bar {
           background-color: #3B82F6;
           height: 3px;
+
+          position: fixed;
+          z-index: 1024;
+          top: 0;
+          left: 0;
+
+          width: 100%;
         }
 
         #nprogress .peg {

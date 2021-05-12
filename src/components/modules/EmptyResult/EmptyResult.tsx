@@ -32,7 +32,7 @@ function EmptyResult() {
       <VStack
         maxW="sm"
         color="gray.400"
-        spacing={6}>
+        spacing={8}>
         <Text>
           Entitas investasi yang Anda cari tidak dapat ditemukan
           dalam basis data Otoritas Jasa Keuangan Republik Indonesia.

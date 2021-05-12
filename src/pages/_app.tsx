@@ -9,7 +9,6 @@ import { theme, Fonts } from '@/styles/theme';
 import { Layout } from '@/components/templates/PageLayout';
 
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
