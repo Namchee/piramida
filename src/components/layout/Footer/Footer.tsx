@@ -21,7 +21,23 @@ function Footer() {
           href="https://ojk.go.id"
           isExternal
           marginLeft="0.5ch"
-          color="primary"
+          color="primary.base"
+          _hover={{
+            textDecoration: 'none',
+            color: 'primary.darken',
+          }}
+          _focus={{
+            textDecoration: 'none',
+            color: 'primary.darken',
+          }}
+          _active={{
+            textDecoration: 'none',
+            color: 'primary.darken',
+          }}
+          _visited={{
+            textDecoration: 'none',
+            color: 'primary.lighten',
+          }}
         >
           Otoritas Jasa Keuangan Republik Indonesia.
         </Link>
