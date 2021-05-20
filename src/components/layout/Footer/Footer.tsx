@@ -23,7 +23,7 @@ function Footer() {
           marginLeft="0.5ch"
           color="primary.base"
         >
-          Otoritas Jasa Keuangan Republik Indonesia.
+          Otoritas Jasa Keuangan Republik Indonesia
         </Link>
       </Flex>
     </Box>

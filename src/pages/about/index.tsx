@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { Container, Flex, Heading, Text, Link, LinkProps } from '@chakra-ui/react';
+import { Container, Heading, Text, Link, LinkProps } from '@chakra-ui/react';
 
 const OutLink = (props: LinkProps) => {
   return (

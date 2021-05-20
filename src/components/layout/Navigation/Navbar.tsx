@@ -17,7 +17,7 @@ const LINKS = [
   },
   {
     name: 'Referensi API',
-    href: '/api',
+    href: '/docs',
   },
 ];
 
