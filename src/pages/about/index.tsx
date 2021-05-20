@@ -1,30 +1,14 @@
 import * as React from 'react';
 
 import Head from 'next/head';
-import Image from 'next/image';
 
 import { Container, Flex, Heading, Text, Link, LinkProps } from '@chakra-ui/react';
 
 const OutLink = (props: LinkProps) => {
   return (
     <Link
-      isExternal
       color="primary.base"
-      _hover={{
-        textDecoration: 'none',
-        color: 'primary.darken',
-      }}
-      _focus={{
-        color: 'primary.darken',
-      }}
-      _active={{
-        textDecoration: 'none',
-        color: 'primary.darken',
-      }}
-      _visited={{
-        textDecoration: 'none',
-        color: 'primary.lighten',
-      }}
+      isExternal
       {...props}>
       {props.children}
     </Link>
@@ -43,15 +27,18 @@ function About() {
         paddingY={16}
         marginX="auto"
         maxW="4xl">
-        <Flex justifyContent="center" maxW="3xl" marginX="auto">
-          <Image
-            src="/images/banner.svg"
-            width="full"
-            height="auto"
-            layout="intrinsic" />
-        </Flex>
+        <img
+          style={{
+            display: 'block',
+            margin: '2rem auto',
+          }}
+          title="Piramida — Periksa Legalitas Investasi"
+          alt="Piramida"
+          src="/images/banner.svg"
+          width="full"
+          height="auto" />
 
-        <Container mt={12}>
+        <Container mt={24}>
           <Heading size="xl" letterSpacing="tight" lineHeight="taller" color="gray.800" mb={6}>
             Tentang Piramida
           </Heading>
