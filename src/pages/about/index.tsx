@@ -38,7 +38,7 @@ function About() {
           width="full"
           height="auto" />
 
-        <Container mt={24}>
+        <Container mt={24} maxW="2xl">
           <Heading size="xl" letterSpacing="tight" lineHeight="taller" color="gray.800" mb={6}>
             Tentang Piramida
           </Heading>
@@ -55,7 +55,7 @@ function About() {
             terinspirasi dari skema penipuan investasi terbesar di dunia bernama
             <Text display="inline" as="span" fontStyle="italic"> pyramid scheme</Text> atau
             sering disebut dengan <Text fontWeight={600} as="span">skema ponzi</Text>
-            , sebuah skema penipuan investasi yang populer pada tahun 1920-an.
+            , sebuah skema penipuan investasi besar-besaran yang terjadi pada tahun 1920-an.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall">
@@ -66,7 +66,7 @@ function About() {
           </Text>
         </Container>
 
-        <Container mt={12}>
+        <Container mt={12} maxW="2xl">
           <Heading size="xl" letterSpacing="tight" lineHeight="taller" color="gray.800" mb={6}>
             Latar Belakang Piramida
           </Heading>
@@ -95,7 +95,7 @@ function About() {
             </OutLink> sampai melakukan <OutLink
               href="https://news.okezone.com/read/2020/04/17/340/2200960/pedagang-elektronik-nekat-gantung-diri-diduga-tertipu-investasi-bodong">
                 aksi bunuh diri
-            </OutLink> yang mengundang rasa prihatin masyarakat.
+            </OutLink> yang mengundang rasa prihatin.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall" mb={6}>
@@ -122,7 +122,7 @@ function About() {
           </Text>
         </Container>
 
-        <Container mt={12}>
+        <Container mt={12} maxW="2xl">
           <Heading size="xl" letterSpacing="tight" lineHeight="taller" color="gray.800" mb={6}>
             Untuk Pengembang
           </Heading>
@@ -133,7 +133,7 @@ function About() {
             pada layanan / aplikasi yang mereka buat. Itulah alasan kami untuk melakukan
             pengembangan lebih lanjut pada layanan ini agar dapat menyajikan data melalui
             sebuah <Link href="/api" color="primary.base">API publik</Link> yang
-            dapat diakses oleh siapapun.
+            dapat diakses oleh siapapun dan kapanpun.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall" mb={6}>
