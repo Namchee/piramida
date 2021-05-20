@@ -2,18 +2,9 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { Container, Heading, Text, Link, LinkProps } from '@chakra-ui/react';
+import { Container, Heading, Text, Link } from '@chakra-ui/react';
 
-const OutLink = (props: LinkProps) => {
-  return (
-    <Link
-      color="primary.base"
-      isExternal
-      {...props}>
-      {props.children}
-    </Link>
-  );
-};
+import { ExternalLink } from '@/components/elements/ExternalLink';
 
 function About() {
   return (
@@ -53,16 +44,17 @@ function About() {
           <Text fontSize="lg" color="gray.600" lineHeight="tall" mb={6}>
             Nama <Text fontWeight={600} as="span">piramida</Text> sendiri
             terinspirasi dari skema penipuan investasi terbesar di dunia bernama
-            <Text display="inline" as="span" fontStyle="italic"> pyramid scheme</Text> atau
+            <Text as="span" fontStyle="italic"> pyramid scheme</Text> atau
             sering disebut dengan <Text fontWeight={600} as="span">skema ponzi</Text>
             , sebuah skema penipuan investasi besar-besaran yang terjadi pada tahun 1920-an.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall">
-            Situs ini terinspirasi secara langsung dari situs serupa <OutLink
+            Situs ini terinspirasi secara langsung dari situs serupa
+            {' '}<ExternalLink
               href="https://pinjollist.vercel.app/">
               pinjollist
-            </OutLink>.
+            </ExternalLink>.
           </Text>
         </Container>
 
@@ -81,28 +73,28 @@ function About() {
             Penawaran tersebut tentunya memicu gelombang antusiasme yang tinggi dari
             masyarakat, mengesampingkan faktor legalitas dan logika. Hal tersebut
             dapat kita lihat melalui banyaknya penawaran bisnis investasi yang ditawarkan
-            melalui <OutLink
+            melalui <ExternalLink
               href="https://www.liputan6.com/saham/read/4474437/marak-influencer-saham-di-media-sosial-ini-dampaknya">
                 media sosial
-            </OutLink> secara masif dan terstruktur.
+            </ExternalLink> secara masif dan terstruktur.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall" mb={6}>
             Tidak jarang bahwa kita seringkali menerima berita mengenai respon
-            dari korban dari investasi bodong, mulai dari <OutLink
+            dari korban dari investasi bodong, mulai dari <ExternalLink
               href="https://www.kompas.tv/article/170193/ratusan-korban-investasi-bodong-212-mart-lapor-polisi-kerugian-capai-miliaran-rupiah">
                 menyerahkan pada pihak berwajib
-            </OutLink> sampai melakukan <OutLink
+            </ExternalLink> sampai melakukan <ExternalLink
               href="https://news.okezone.com/read/2020/04/17/340/2200960/pedagang-elektronik-nekat-gantung-diri-diduga-tertipu-investasi-bodong">
                 aksi bunuh diri
-            </OutLink> yang mengundang rasa prihatin.
+            </ExternalLink> yang mengundang rasa prihatin.
           </Text>
 
           <Text fontSize="lg" color="gray.600" lineHeight="tall" mb={6}>
             Otoritas Jasa Keuangan (OJK) Republik Indonesia sebagai lembaga resmi yang
             bertanggung jawab dalam mengatur dan memantau layanan keuangan di Indonesia
             telah merilis dan mengelola daftar entitas investasi legal secara berkala baik
-            melalui <OutLink href="https://www.ojk.go.id/en/default.aspx">situs resmi</OutLink> maupun
+            melalui <ExternalLink href="https://www.ojk.go.id/en/default.aspx">situs resmi</ExternalLink> maupun
             melalui kontak WhatsApp OJK 157.
           </Text>
 
@@ -140,7 +132,7 @@ function About() {
             Kami juga percaya penuh pada semangat <Text as="span" fontStyle="italic">open source</Text> dan
             manfaat positif dari <Text as="span" fontStyle="italic">open source</Text> bagi layanan ini.
             Kami telah merilis <Text as="span" fontStyle="italic">source code</Text> dari
-            layanan ini pada <OutLink href="https://github.com/Namchee/piramida">repositori kami</OutLink> yang
+            layanan ini pada <ExternalLink href="https://github.com/Namchee/piramida">repositori kami</ExternalLink> yang
             disimpan di GitHub.
           </Text>
         </Container>
