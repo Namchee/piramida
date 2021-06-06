@@ -21,7 +21,7 @@ function About() {
         <img
           style={{
             display: 'block',
-            margin: '2rem auto',
+            margin: '4rem auto',
           }}
           title="Piramida — Periksa Legalitas Investasi"
           alt="Piramida"
