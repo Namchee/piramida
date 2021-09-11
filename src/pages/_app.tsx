@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import Router from 'next/router';
 
+import 'windi.css';
+
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
 
