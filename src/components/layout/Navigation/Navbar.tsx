@@ -28,9 +28,20 @@ function Navbar(): JSX.Element {
     <header className="flex justify-center">
       <nav className="w-full h-32 max-w-6xl
         flex justify-between items-center">
-        <NavigationLink href="/">
+        <a href="/" rel="noopener noreferrer">
           <Logo className="w-16 h-auto" />
-        </NavigationLink>
+        </a>
+        <div className="flex space-x-4">
+          {
+            LINKS.map(({ name, href }) => {
+              return (
+                <NavigationLink href={href} key={href}>
+                  {name}
+                </NavigationLink>
+              );
+            })
+          }
+        </div>
       </nav>
     </header>
   );
