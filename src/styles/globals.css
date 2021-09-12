@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'),
+    url('/fonts/inter-regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'),
+    url('/fonts/inter-italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'),
+    url('/fonts/inter-medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'),
+    url('/fonts/inter-bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+// nprogress styling
+#nprogress .bar {
+  background-color: #185ADB;
+  height: 3px;
+
+  position: fixed;
+  z-index: 1024;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+}
+
+#nprogress .peg {
+  display: none;
+}

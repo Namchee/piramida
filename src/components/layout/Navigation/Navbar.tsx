@@ -1,10 +1,7 @@
 import * as React from 'react';
 
-import { Link } from '@chakra-ui/react';
-import { Flex, Box } from '@chakra-ui/layout';
-
-import PiramidaLink from './Link';
-import Logo from './Logo';
+import NavigationLink from '@/components/layout/Navigation/Link';
+import Logo from '@/components/layout/Navigation/Logo';
 
 const LINKS = [
   {
@@ -28,39 +25,14 @@ const LINKS = [
  */
 function Navbar(): JSX.Element {
   return (
-    <Box
-      w="100%"
-      h="20"
-      borderBottomWidth={1}
-      borderBottomColor="gray.200">
-      <Flex
-        h="100%"
-        as="nav"
-        maxW="6xl"
-        marginX="auto"
-        justifyContent="flex-start"
-        alignItems="center">
-        <Link
-          href="/"
-          display="grid"
-          placeItems="center"
-          h="full"
-          mr={2}
-          px={6}>
-          <Logo w={12} h="auto" />
-        </Link>
-        {
-          LINKS.map(({ name, href }) => {
-            return (
-              <PiramidaLink
-                key={href}
-                text={name}
-                href={href} />
-            );
-          })
-        }
-      </Flex>
-    </Box>
+    <header className="flex justify-center">
+      <nav className="w-full h-32 max-w-6xl
+        flex justify-between items-center">
+        <NavigationLink href="/">
+          <Logo className="w-16 h-auto" />
+        </NavigationLink>
+      </nav>
+    </header>
   );
 }
 

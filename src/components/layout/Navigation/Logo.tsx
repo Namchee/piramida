@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Icon, IconProps } from '@chakra-ui/react';
+import { IconProps } from '@/components/elements/Icon';
 
 /**
  * Logo for header. Just a simple SVG.
@@ -8,17 +8,14 @@ import { Icon, IconProps } from '@chakra-ui/react';
  * @param {IconProps} props - Chakra UI icon props.
  * @return {JSX.Element} - a function component.
  */
-function Logo(props: IconProps): JSX.Element {
+function Logo({ className }: React.PropsWithoutRef<IconProps>): JSX.Element {
   return (
-    <Icon
-      viewBox="0 0 82 72"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}>
-      <path d="M40.7832 0L54.7365 24.1678H26.8299L40.7832 0Z" fill="#121212" />
-      <path d="M16.1592 46.8357L23.5346 33.7238H58.0318L65.4073 46.8357H16.1592Z" stroke="#121212" strokeWidth="4" />
-      <path d="M1.68888 71L9.15155 57.3916H72.4149L79.8775 71H1.68888Z" stroke="#121212" strokeWidth="3" />
-    </Icon>
+    <svg className={className} viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="96" cy="96" r="96" fill="#121212"/>
+      <path d="M96.3776 42L114.982 74.2238H77.7732L96.3776 42Z" fill="#F5F5F4"/>
+      <path d="M53.4126 117.189H139.343L150.755 138H42L53.4126 117.189Z" fill="white" fillOpacity="0.7"/>
+      <path d="M120.545 84.965H72.2098L60.1259 106.448H132.629L120.545 84.965Z" fill="white" fillOpacity="0.85"/>
+    </svg>
   );
 }
 

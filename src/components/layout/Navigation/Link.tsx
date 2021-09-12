@@ -4,14 +4,28 @@ import { useRouter } from 'next/router';
 
 import { Link as ChakraLink, Text } from '@chakra-ui/react';
 
-type LinkProps = {
-  text: string;
+type NavigationLinkProps = {
   href: string;
 }
 
-function Link({ text, href }: React.PropsWithoutRef<LinkProps>): JSX.Element {
+function NavigationLink({ children, href }: React.PropsWithChildren<NavigationLinkProps>): JSX.Element {
   const { pathname } = useRouter();
   const isCurrentPath = pathname === href;
+
+  const classes = React.useMemo((): string => {
+    const color = isCurrentPath ? 'text-primary' : 'text-black';
+
+    return `flex items-center justify-center ${color} px-4 py-2`;
+  }, [href]);
+
+  return (
+    <a
+      href={href}
+      className={classes}
+    >
+      {children}
+    </a>
+  );
 
   return (
     <ChakraLink
@@ -32,4 +46,4 @@ function Link({ text, href }: React.PropsWithoutRef<LinkProps>): JSX.Element {
   );
 }
 
-export default Link;
+export default NavigationLink;
