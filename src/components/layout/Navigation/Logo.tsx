@@ -3,14 +3,14 @@ import * as React from 'react';
 import { IconProps } from '@/components/elements/Icon';
 
 /**
- * Logo for header. Just a simple SVG.
+ * Logo for header. Just a simple SVG wrapper component.
  *
  * @param {IconProps} props - Chakra UI icon props.
  * @return {JSX.Element} - a function component.
  */
 function Logo({ className }: React.PropsWithoutRef<IconProps>): JSX.Element {
   return (
-    <svg className={className} viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg" role="banner">
       <circle cx="96" cy="96" r="96" fill="#121212"/>
       <path d="M96.3776 42L114.982 74.2238H77.7732L96.3776 42Z" fill="#F5F5F4"/>
       <path d="M53.4126 117.189H139.343L150.755 138H42L53.4126 117.189Z" fill="white" fillOpacity="0.7"/>

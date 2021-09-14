@@ -8,6 +8,7 @@ import { Layout } from '@/components/templates/PageLayout';
 
 import NProgress from 'nprogress';
 
+import 'windi.css';
 import '@/styles/globals.css';
 
 Router.events.on('routeChangeStart', () => NProgress.start());

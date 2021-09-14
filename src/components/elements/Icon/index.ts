@@ -5,5 +5,5 @@ export { default as ChevronLeftIcon } from './ChevronLeftIcon';
 export { default as ChevronRightIcon } from './ChevronRightIcon';
 
 export interface IconProps {
-  className: string;
+  className?: string;
 }
