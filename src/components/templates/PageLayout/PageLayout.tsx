@@ -12,7 +12,9 @@ import { Footer } from '@/components/layout/Footer';
  *
  * @return {JSX.Element}
  */
-function PageLayout({ children }: React.PropsWithChildren<{}>): JSX.Element {
+function PageLayout({
+  children,
+}: React.PropsWithChildren<Record<string, never>>): JSX.Element {
   return (
     <>
       <Head>
@@ -25,9 +27,7 @@ function PageLayout({ children }: React.PropsWithChildren<{}>): JSX.Element {
 
       <Flex minH="100vh" flexDirection="column">
         <Navigation />
-        <Box flex="1">
-          {children}
-        </Box>
+        <Box flex="1">{children}</Box>
         <Footer />
       </Flex>
     </>

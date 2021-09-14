@@ -5,9 +5,18 @@ import { useRouter } from 'next/router';
 
 type NavigationLinkProps = {
   href: string;
-}
+};
 
-function NavigationLink({ children, href }: React.PropsWithChildren<NavigationLinkProps>): JSX.Element {
+/**
+ * Navigation link component. Used exclusively in navbar
+ *
+ * @param {NavigationLinkProps} props navigation link props
+ * @return {JSX.Element} navigation link element
+ */
+function NavigationLink({
+  children,
+  href,
+}: React.PropsWithChildren<NavigationLinkProps>): JSX.Element {
   const { pathname } = useRouter();
   const isCurrentPath = pathname === href;
 
@@ -21,11 +30,13 @@ function NavigationLink({ children, href }: React.PropsWithChildren<NavigationLi
       transition-colors
       hover:bg-gray-100
       ${color}`;
-  }, [href]);
+  }, [isCurrentPath]);
 
   return (
     <Link href={href}>
-      <a className={classes} rel="noopener noreferrer">{children}</a>
+      <a className={classes} rel="noopener noreferrer">
+        {children}
+      </a>
     </Link>
   );
 }

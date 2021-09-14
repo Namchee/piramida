@@ -11,7 +11,7 @@ const LINKS = [
     href: '/',
   },
   {
-    name: 'Tentang',
+    name: 'Tentang Kami',
     href: '/about',
   },
   {
@@ -23,16 +23,16 @@ const LINKS = [
 /**
  * Navigation Bar Component
  *
- * @return {JSX.Element}
+ * @return {JSX.Element} navbar component
  */
-function Navbar(): JSX.Element {
+function Navigation(): JSX.Element {
   return (
     <header className="flex justify-center">
       <nav className="w-full h-24 max-w-6xl
         flex justify-between items-center">
         <Link href="/">
           <a rel="noopener noreferrer">
-            <Logo className="w-12  h-auto" />
+            <Logo className="w-12 h-auto" />
           </a>
         </Link>
         <div className="flex space-x-4">
@@ -51,4 +51,4 @@ function Navbar(): JSX.Element {
   );
 }
 
-export default Navbar;
+export default Navigation;

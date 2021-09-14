@@ -1,13 +1,17 @@
-
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
 import Link from '@/components/layout/Navigation/Link';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 
 describe('<Link> component', () => {
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
   test('should display a navigation link', () => {
     useRouter.mockImplementationOnce(() => ({
       pathname: '/foo',
