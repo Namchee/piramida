@@ -6,7 +6,8 @@
     "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.4.0",
@@ -31,11 +32,12 @@
     "@types/node": "^14.14.35",
     "@types/prismjs": "^1.16.5",
     "@types/react": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.18.0",
     "babel-jest": "^27.2.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-config-next": "^11.1.2",
     "eslint-plugin-react": "^7.22.0",
     "jest": "^27.1.1",
     "msw": "^0.35.0",
