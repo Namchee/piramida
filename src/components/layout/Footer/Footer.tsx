@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Status from './Status';
+import GitHubIcon from '@/components/elements/Icon/GithubIcon';
 
 /**
  * Footer component
@@ -9,13 +10,15 @@ import Status from './Status';
  */
 function Footer(): JSX.Element {
   return (
-    <footer className="flex justify-center">
+    <footer className="flex justify-center py-8 border-t border-gray-200">
       <div
-        className="flex justify-between
+        className="grid grid-cols-[1fr,auto,1fr]
         w-full max-w-6xl"
       >
-        <Status status={'ok'} />
-        <div className="text-center">
+        <div>
+          <Status />
+        </div>
+        <div className="flex items-center">
           <p>
             Data diambil dari situs{' '}
             <a
@@ -28,8 +31,18 @@ function Footer(): JSX.Element {
             </a>
           </p>
         </div>
-        <div>
-          <button>TODO</button>
+        <div className="flex items-center justify-end">
+          <a
+            href="https://github.com/Namchee/piramida"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <GitHubIcon
+              className="w-6 h-6
+              text-gray-400
+              hover:text-gray-700
+              transition-colors" />
+          </a>
         </div>
       </div>
     </footer>

@@ -27,7 +27,7 @@ function NavigationLink({
       px-4 py-2
       rounded-md
       transition-colors
-      hover:bg-gray-100
+      hover:bg-gray-50
       ${color}`;
   }, [isCurrentPath]);
 
