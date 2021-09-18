@@ -33,7 +33,7 @@ function NavigationLink({
 
   return (
     <Link href={href}>
-      <a className={classes} rel="noopener noreferrer">
+      <a className={classes}>
         {children}
       </a>
     </Link>

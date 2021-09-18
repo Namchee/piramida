@@ -6,6 +6,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  resetMocks: true,
 };
 
 export default config;

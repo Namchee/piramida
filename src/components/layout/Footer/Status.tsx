@@ -1,22 +1,28 @@
-import { getFetcher } from '@/utils/fetcher';
 import * as React from 'react';
 
 import useSWR from 'swr';
 
-type StatusEndpointResponse = {
-  status: 'ok' | 'not ok';
-  version: string;
+import { getFetcher } from '@/utils/fetcher';
+
+export type StatusEndpointResponse = {
+  data: {
+    status: 'ok' | 'not ok';
+    version: string;
+  };
+  error: string;
 };
 
 /**
  * API status component. Basically, it displays the API status
  * in the footer.
  *
- * @param {APIStatusProps} params API status props
  * @return {JSX.Element} API status component.
  */
 function APIStatus(): JSX.Element {
-  const { data, error } = useSWR<StatusEndpointResponse>('/status', getFetcher);
+  const { data, error } = useSWR<StatusEndpointResponse>(
+    '/status',
+    getFetcher,
+  );
 
   const indicatorClass = React.useMemo((): string => {
     const baseClass = [
@@ -28,9 +34,9 @@ function APIStatus(): JSX.Element {
     if (!data) {
       baseClass.push('bg-gray-400');
     } else {
-      const { status } = data;
+      const { status } = data.data;
 
-      if (error || status === 'not ok') {
+      if (error || data.error || status === 'not ok') {
         baseClass.push('bg-red-400');
       } else {
         baseClass.push('bg-primary');
@@ -45,7 +51,7 @@ function APIStatus(): JSX.Element {
       return 'Loading';
     }
 
-    if (error || data.status === 'not ok') {
+    if (error || data.error || data.data.status === 'not ok') {
       return 'Error';
     }
 
@@ -58,10 +64,10 @@ function APIStatus(): JSX.Element {
     if (!data) {
       baseClass.push('text-gray-400');
     } else {
-      const { status } = data;
+      const { status } = data.data;
       baseClass.push('font-bold');
 
-      if (error || status === 'not ok') {
+      if (error || data.error || status === 'not ok') {
         baseClass.push('text-red-400');
       } else {
         baseClass.push('text-primary');

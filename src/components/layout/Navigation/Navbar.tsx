@@ -28,7 +28,8 @@ const LINKS = [
 function Navigation(): JSX.Element {
   return (
     <header className="flex justify-center">
-      <nav className="w-full h-24 max-w-6xl
+      <nav className="w-full h-24
+        max-w-6xl
         flex justify-between items-center">
         <Link href="/">
           <a rel="noopener noreferrer">
