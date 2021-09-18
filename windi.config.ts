@@ -13,6 +13,7 @@ export default defineConfig({
       colors: {
         'primary': '#185ADB',
         'primary-light': '#326FE8',
+        'primary-dark': '#154DBD',
       },
     },
   },

@@ -12,7 +12,7 @@ import { Footer } from '@/components/layout/Footer';
  */
 function PageLayout({
   children,
-}: React.PropsWithChildren<Record<string, never>>): JSX.Element {
+}: React.PropsWithChildren<unknown>): JSX.Element {
   return (
     <>
       <Head>
@@ -21,13 +21,17 @@ function PageLayout({
         <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <link
+          rel="preload"
+          href="/api/status"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       </Head>
 
       <div className="flex flex-col min-h-screen">
         <Navigation />
-        <div className="flex-1">
-          {children}
-        </div>
+        <div className="flex-1">{children}</div>
         <Footer />
       </div>
     </>

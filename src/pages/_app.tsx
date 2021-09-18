@@ -15,10 +15,18 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-export default function App({ Component, pageProps }: AppProps) {
+/**
+ * Custom App entrypoint
+ *
+ * @param {AppProps} params App parameters
+ * @return {JSX.Element} Custom app component
+ */
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 }

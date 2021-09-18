@@ -1,16 +1,19 @@
-export interface App {
-  name: string;
-  url?: string;
-  owner?: string;
+export interface APIResult<T> {
+  data: T;
+  error: string;
 }
 
 export interface GraphQLResult {
   apps: {
-    data: App[];
+    data: {
+      name: string;
+      url?: string;
+      owner?: string;
+    }[];
     count: number;
     version: string;
   };
-};
+}
 
 export interface GraphQLError {
   response: {

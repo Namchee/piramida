@@ -1,32 +1,38 @@
 import * as React from 'react';
 
-import { Flex, Box, Link } from '@chakra-ui/react';
+import Status from './Status';
 
-function Footer() {
+/**
+ * Footer component
+ *
+ * @return {JSX.Element} Footer component
+ */
+function Footer(): JSX.Element {
   return (
-    <Box
-      as="footer"
-      w="100%">
-      <Flex
-        maxW="4xl"
-        mx="auto"
-        paddingX={2}
-        paddingY={6}
-        borderTopColor="gray.200"
-        borderTopWidth={1}
-        borderTopStyle="solid"
-        fontSize="sm">
-        Data diambil dari situs
-        <Link
-          href="https://ojk.go.id"
-          isExternal
-          marginLeft="0.5ch"
-          color="primary.base"
-        >
-          Otoritas Jasa Keuangan Republik Indonesia
-        </Link>
-      </Flex>
-    </Box>
+    <footer className="flex justify-center">
+      <div
+        className="flex justify-between
+        w-full max-w-6xl"
+      >
+        <Status status={'ok'} />
+        <div className="text-center">
+          <p>
+            Data diambil dari situs{' '}
+            <a
+              href="https://ojk.go.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary-dark"
+            >
+              Otoritas Jasa Keuangan Republik Indonesia
+            </a>
+          </p>
+        </div>
+        <div>
+          <button>TODO</button>
+        </div>
+      </div>
+    </footer>
   );
 }
 
