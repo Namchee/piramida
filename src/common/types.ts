@@ -1,26 +1,41 @@
-export interface APIResult<T> {
-  data: T;
-  error: string;
-}
+export type APIResult<T, U> = {
+  readonly data: T;
+  readonly error: U;
+};
 
-export interface GraphQLResult {
-  apps: {
-    data: {
-      name: string;
-      url?: string;
-      owner?: string;
+export type StatusEndpointResult = {
+  readonly status: 'ok' | 'not ok';
+  readonly version: string;
+};
+
+type GraphQLErrorCode = 'BAD_USER_INPUT' | 'INERNAL_SERVER_ERROR';
+
+export type GraphQLError = {
+  readonly response: {
+    readonly errors: {
+      readonly message: string;
+      readonly locations: {
+        readonly line: number;
+        readonly column: number;
+      }[];
+      readonly path: string[];
+      readonly extensions: {
+        readonly code: GraphQLErrorCode;
+      };
     }[];
-    count: number;
-    version: string;
-  };
-}
+  }
+};
 
-export interface GraphQLError {
-  response: {
-    errors: [
-      {
-        message: string;
-      }
-    ];
+export type AppData = {
+  readonly name: string;
+  readonly url: string;
+  readonly owner: string;
+};
+
+export type AppResponse = {
+  readonly apps: {
+    readonly data: AppData[];
   };
-}
+  readonly count: number;
+  readonly version: string;
+};

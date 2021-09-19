@@ -11,7 +11,7 @@ import GitHubIcon from '@/components/elements/Icon/GithubIcon';
 function Footer(): JSX.Element {
   return (
     <footer className="flex justify-center
-      py-8
+      py-6
       border-t border-gray-200"
     >
       <div

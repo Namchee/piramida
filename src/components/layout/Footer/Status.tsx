@@ -3,14 +3,7 @@ import * as React from 'react';
 import useSWR from 'swr';
 
 import { getFetcher } from '@/utils/fetcher';
-
-export type StatusEndpointResponse = {
-  data: {
-    status: 'ok' | 'not ok';
-    version: string;
-  };
-  error: string;
-};
+import { APIResult, StatusEndpointResult } from '@/common/types';
 
 /**
  * API status component. Basically, it displays the API status
@@ -19,7 +12,7 @@ export type StatusEndpointResponse = {
  * @return {JSX.Element} API status component.
  */
 function APIStatus(): JSX.Element {
-  const { data, error } = useSWR<StatusEndpointResponse>(
+  const { data, error } = useSWR<APIResult<StatusEndpointResult, string> >(
     '/status',
     getFetcher,
   );

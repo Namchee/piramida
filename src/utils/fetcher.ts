@@ -7,9 +7,9 @@ import { request } from 'graphql-request';
  * @param {T} variables request variables
  * @return {Promise<T>} response wrapper
  */
-export function graphQLFetcher<T extends Record<string, unknown> >(
+export function graphQLFetcher<T>(
   query: string,
-  variables?: T
+  variables?: Record<string, unknown>
 ): Promise<T> {
   return request(`/api/graphql`, query, variables);
 }

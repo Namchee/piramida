@@ -13,30 +13,36 @@ import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Highlight } from '@/components/elements/Highlight';
 import { ErrorIcon } from '@/components/elements/Icon';
 
-import { App, GraphQLError, GraphQLResult } from '@/common/types';
+// import { App, GraphQLError, GraphQLResult } from '@/common/types';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
+import { AppData, AppResponse, GraphQLError } from '@/common/types';
 
 export type SearchInvestmentProps = {
   term?: string;
   absolute?: boolean;
 };
 
-const getQuery = () => {
-  return gql`
-    query Apps($query: String!) {
-      apps(name: $query, limit: 5) {
-        data {
-          name
-        }
-      }
-    }`;
-};
+const getQuery = gql`
+query Apps($query: String!) {
+  apps(name: $query, limit: 5) {
+    data {
+      name
+    }
+  }
+}`;
 
+/**
+ * Search bar for searching legal investments
+ *
+ * @param {SearchInvestmentProps} props search investment props
+ * @return {JSX.Element} Dedicated search bar component for searching
+ * legal investments.
+ */
 function SearchInvestment(
   { term, absolute }: React.PropsWithoutRef<SearchInvestmentProps>,
-) {
+): JSX.Element {
   const [searchTerm, setSearchTerm] = React.useState(term ?? '');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState('');
 
@@ -46,9 +52,9 @@ function SearchInvestment(
 
   const debouncedSetter = useDebounce(setDebouncedSearchTerm, 250);
 
-  const { data, error } = useSWR<GraphQLResult, GraphQLError>(
-    [getQuery(), debouncedSearchTerm],
-    (query, term) => graphQLFetcher(query, { query: term }),
+  const { data, error } = useSWR<AppResponse, GraphQLError >(
+    [getQuery, debouncedSearchTerm],
+    graphQLFetcher,
   );
 
   React.useEffect(() => {
@@ -143,7 +149,7 @@ function SearchInvestment(
 
     const elem: JSX.Element[] = [];
 
-    apps.sort((a: App, b: App) => {
+    apps.sort((a: AppData, b: AppData) => {
       const aIndex = a.name.indexOf(debouncedSearchTerm);
       const bIndex = b.name.indexOf(debouncedSearchTerm);
 
