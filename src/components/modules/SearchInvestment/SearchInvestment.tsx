@@ -6,8 +6,6 @@ import useSWR from 'swr';
 
 import { gql } from 'graphql-request';
 
-import { Text, Flex } from '@chakra-ui/react';
-
 import { Alert } from '@/components/elements/Alert';
 import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Highlight } from '@/components/elements/Highlight';
@@ -63,7 +61,7 @@ function SearchInvestment(
     } else {
       debouncedSetter('');
     }
-  }, [searchTerm]);
+  }, [searchTerm, debouncedSetter]);
 
   const router = useRouter();
 
@@ -89,7 +87,7 @@ function SearchInvestment(
     navigateToSearchPage(searchTerm);
   };
 
-  const suggest = React.useCallback(() => {
+  const getSuggestions = () => {
     if (!debouncedSearchTerm) {
       return <></>;
     }
@@ -119,8 +117,7 @@ function SearchInvestment(
         <AutoComplete.SuggestionsContainer
           absolute={absolute}
           as="ul"
-          margin={2}
-        >
+          margin={2}>
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
@@ -136,7 +133,7 @@ function SearchInvestment(
         {mapInvestmentData()}
       </AutoComplete.SuggestionsContainer>
     );
-  }, [debouncedSearchTerm, data, error]);
+  };
 
   const mapInvestmentData = () => {
     const apps = data.apps.data;
@@ -166,9 +163,9 @@ function SearchInvestment(
           key={index}
           index={index}
           onClick={() => handleSuggestionSelect(app.name)}>
-          <Text maxW="sm" isTruncated={true}>
+          <p className="max-w-sm truncate">
             <Highlight text={app.name} term={searchTerm} />
-          </Text>
+          </p>
         </AutoComplete.Suggestion>,
       );
     });
@@ -198,7 +195,7 @@ function SearchInvestment(
                 rounded-l-md"
             />
           </AutoComplete.Input>
-          {suggest()}
+          {getSuggestions()}
         </div>
       </AutoComplete>
 
