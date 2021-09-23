@@ -12,9 +12,12 @@ export default defineConfig({
     extend: {
       colors: {
         'primary': '#185ADB',
-        'primary-light': '#326FE8',
+        'primary-light': '#437BEA',
         'primary-dark': '#154DBD',
       },
     },
   },
+  plugins: [
+    require('windicss/plugin/forms'),
+  ],
 });

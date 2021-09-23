@@ -6,9 +6,9 @@ import useSWR from 'swr';
 
 import { gql } from 'graphql-request';
 
-import { Text, Box, Flex, Button, Input } from '@chakra-ui/react';
+import { Text, Flex } from '@chakra-ui/react';
 
-import { Dialog } from '@/components/elements/Dialog';
+import { Alert } from '@/components/elements/Alert';
 import { AutoComplete } from '@/components/elements/AutoComplete';
 import { Highlight } from '@/components/elements/Highlight';
 import { ErrorIcon } from '@/components/elements/Icon';
@@ -96,24 +96,21 @@ function SearchInvestment(
 
     if (error) {
       return (
-        <Dialog
+        <Alert
           theme="red"
           marginTop={4}
           dismissable={true}>
-          <Flex
-            alignItems="center">
+          <div className="flex items-center">
             <ErrorIcon
               w={6}
               h={6}
               stroke="none"
               fill="red.700" />
-            <Text
-              ml={3}
-              color="red.700">
+            <p className="ml-3 text-red-700">
               {error.response.errors[0].message}
-            </Text>
-          </Flex>
-        </Dialog>
+            </p>
+          </div>
+        </Alert>
       );
     }
 
@@ -122,7 +119,8 @@ function SearchInvestment(
         <AutoComplete.SuggestionsContainer
           absolute={absolute}
           as="ul"
-          margin={2}>
+          margin={2}
+        >
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
           <AutoComplete.SuggestionSkeleton />
@@ -179,43 +177,44 @@ function SearchInvestment(
   };
 
   return (
-    <Flex
-      position="relative"
-      justifyContent="space-between">
+    <div className="flex justify-between
+      relative">
       <AutoComplete>
-        <Box position="relative">
+        <div className="relative">
           <AutoComplete.Input>
-            <Input
+            <input
+              type="text"
               autoComplete="off"
               value={searchTerm}
               onInput={handleInput}
-              focusBorderColor="primary.lighten"
               placeholder="Cari investasi atau perusahaan"
-              size="lg"
-              type="text" />
+              className="w-full
+                py-4 px-6
+                text-xl
+                shadow-sm
+                border-gray-200 border
+                transition-colors
+                focus:ring focus:ring-primary-light focus:ring-opacity-25
+                rounded-l-md"
+            />
           </AutoComplete.Input>
           {suggest()}
-        </Box>
+        </div>
       </AutoComplete>
 
-      <Button
-        onClick={search}
-        ml={4}
-        px={8}
-        size="lg"
-        bg="primary.base"
-        color="white"
-        fontWeight={500}
-        letterSpacing={0.5}
-        _hover={{
-          backgroundColor: 'primary.darken',
-        }}
-        _active={{
-          backgroundColor: 'primary.darken',
-        }}>
+      <button
+        className="py-4 px-6
+        text-xl
+        bg-primary text-white rounded-r-md
+        transition-colors
+        z-1
+        focus:outline-none
+        focus:ring focus:ring-primary-light focus:ring-opacity-50
+        hover:bg-primary-dark focus:bg-primary-dark"
+        onClick={search}>
         Periksa
-      </Button>
-    </Flex>
+      </button>
+    </div>
   );
 }
 

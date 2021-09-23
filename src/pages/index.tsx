@@ -33,7 +33,7 @@ function Home(): JSX.Element {
       >
         Periksa legalitas produk investasi pilihan Anda
       </p>
-      <div className="mx-auto max-w-xl flex-1">
+      <div className="mt-12 mx-auto w-full max-w-lg flex-1">
         <SearchInvesment />
       </div>
     </>
