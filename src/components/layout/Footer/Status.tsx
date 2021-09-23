@@ -30,7 +30,7 @@ function APIStatus(): JSX.Element {
       const { status } = data.data;
 
       if (error || data.error || status === 'not ok') {
-        baseClass.push('bg-red-400');
+        baseClass.push('bg-red-500');
       } else {
         baseClass.push('bg-primary');
       }
@@ -61,7 +61,7 @@ function APIStatus(): JSX.Element {
       baseClass.push('font-bold');
 
       if (error || data.error || status === 'not ok') {
-        baseClass.push('text-red-400');
+        baseClass.push('text-red-500');
       } else {
         baseClass.push('text-primary');
       }
