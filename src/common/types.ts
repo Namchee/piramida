@@ -39,3 +39,7 @@ export type AppResponse = {
   readonly count: number;
   readonly version: string;
 };
+
+export type StyleProps = {
+  className?: string;
+}

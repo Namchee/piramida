@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { IconProps } from '.';
+import { StyleProps } from '@/common/types';
 
 /**
  * Error icon as component. Just an SVG component.
  *
- * @param {IconProps} props icon props
+ * @param {StyleProps} props style props, style it with windi
  * @return {JSX.Element} error icon as component
  */
 function ErrorIcon(
-  { className }: React.PropsWithoutRef<IconProps>,
+  { className }: React.PropsWithoutRef<StyleProps>,
 ): JSX.Element {
   return (
     <svg

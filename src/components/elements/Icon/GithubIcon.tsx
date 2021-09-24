@@ -1,14 +1,16 @@
-import { IconProps } from '@chakra-ui/icon';
 import * as React from 'react';
+
+import { StyleProps } from '@/common/types';
 
 /**
  * GitHub icon as component. Basically just an SVG.
  *
+ * @param {StyleProps} props style props, style it with windi
  * @return {JSX.Element} GitHub icon
  */
-function GitHubIcon({
-  className,
-}: React.PropsWithoutRef<IconProps>): JSX.Element {
+function GitHubIcon(
+  { className }: React.PropsWithoutRef<StyleProps>,
+): JSX.Element {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

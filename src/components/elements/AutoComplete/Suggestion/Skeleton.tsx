@@ -2,7 +2,13 @@ import * as React from 'react';
 
 import { Box, Skeleton } from '@chakra-ui/react';
 
-function SuggestionSkeleton() {
+/**
+ * Suggestion skeleton component. Used to show that fetching is
+ * still loading.
+ *
+ * @return {JSX.Element} skeleton component.
+ */
+function SuggestionSkeleton(): JSX.Element {
   return (
     <Box
       cursor="not-allowed"
