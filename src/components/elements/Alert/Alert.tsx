@@ -6,7 +6,7 @@ export type AlertProps = {
   theme?: string;
   marginTop?: number;
   dismissable?: boolean;
-}
+};
 
 /**
  * Alert dialog component
@@ -14,18 +14,22 @@ export type AlertProps = {
  * @param {AlertProps} props alert props
  * @return {JSX.Element} alert component
  */
-function Dialog(
-  {
-    theme,
-    children,
-    dismissable,
-    marginTop,
-  }: React.PropsWithChildren<AlertProps>,
-): JSX.Element {
+function Dialog({
+  theme,
+  children,
+  dismissable,
+  marginTop,
+}: React.PropsWithChildren<AlertProps>): JSX.Element {
   const [isVisible, setIsVisible] = React.useState(true);
 
   const baseClass = React.useMemo((): string => {
-    const baseTheme = ['flex', 'justify-between', 'align-center', 'p-4'];
+    const baseTheme = [
+      'flex',
+      'justify-between',
+      'align-center',
+      'p-4',
+      'rounded-md',
+    ];
 
     if (marginTop) {
       baseTheme.push(`mt-${marginTop}`);
@@ -48,7 +52,14 @@ function Dialog(
     }
 
     const buttonClass = (): string => {
-      const base = ['w-6', 'h-6', 'rounded-full', 'transition-colors'];
+      const base = [
+        'w-6',
+        'h-6',
+        'rounded-full',
+        'transition-colors',
+        'grid',
+        'place-items-center',
+      ];
 
       if (theme) {
         base.push(`hover:bg-${theme}-200`);

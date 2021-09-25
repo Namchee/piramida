@@ -8,6 +8,13 @@ export type AutoCompleteState = {
 export type AutoCompleteAction = { type: 'FOCUS', value: boolean } |
   { type: 'FOCUS_INDEX', value: number };
 
+/**
+ * Reducer for autocomplete component
+ *
+ * @param {AutoCompleteState} state autocomplete state
+ * @param {AutoCompleteAction} action autocomplete action
+ * @return {AutoCompleteState} autocomplete state
+ */
 export function autoCompleteReducer(
   state: AutoCompleteState,
   action: AutoCompleteAction,
@@ -38,7 +45,12 @@ export const AutoCompleteContext = React.createContext<
   undefined
 >(undefined);
 
-export function useAutoComplete() {
+/**
+ * autocomplete hook
+ *
+ * @return {React.Context} autocomplete hook
+ */
+export function useAutoComplete(): any {
   const context = React.useContext(AutoCompleteContext);
 
   if (context === undefined) {

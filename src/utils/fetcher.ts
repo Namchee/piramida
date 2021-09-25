@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
 
 /**
- * Fetcher for GraphQL requests. Used by SWR
+ * Fetcher for GraphQL requests. Used by SWR.
  *
  * @param {string} query GraphQL query request
  * @param {T} variables request variables
@@ -15,7 +15,7 @@ export function graphQLFetcher<T>(
 }
 
 /**
- * Fetcher for REST requests. Used by SWR
+ * Fetcher for REST requests. Used by SWR.
  *
  * @param {string} endpoint API endpoint to be called
  * @param {Record<string, string>} query GET query string

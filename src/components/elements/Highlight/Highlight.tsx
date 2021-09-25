@@ -1,13 +1,20 @@
 import * as React from 'react';
 
-import { Text } from '@chakra-ui/react';
-
 export type HighlightProps = {
   text: string;
   term: string;
+  highlightStyle: string;
 }
 
-function Highlight({ text, term }: React.PropsWithoutRef<HighlightProps>): JSX.Element {
+/**
+ * Highlighter component. Usually used on autocomplete
+ *
+ * @param {HighlightProps} props highlighter props
+ * @return {JSX.Element} highlighter component
+ */
+function Highlight(
+  { text, term, highlightStyle }: React.PropsWithoutRef<HighlightProps>,
+): JSX.Element {
   const children = [];
 
   let lastIdx = 0;
@@ -19,9 +26,9 @@ function Highlight({ text, term }: React.PropsWithoutRef<HighlightProps>): JSX.E
     }
 
     children.push(
-      <Text as="b" fontWeight={700} key={termIdx}>
+      <span className={highlightStyle} key={termIdx}>
         {text.slice(termIdx, termIdx + term.length)}
-      </Text>,
+      </span>,
     );
 
     lastIdx = termIdx + term.length;

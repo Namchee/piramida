@@ -1,6 +1,7 @@
 import { defineConfig } from 'windicss/helpers';
 
 export default defineConfig({
+  safelist: 'bg-red-100 hover:bg-red-200 mt-2 mt-4',
   extract: {
     include: ['**/*.{jsx,tsx,css}'],
     exclude: ['node_modules', '.git', '.next'],
@@ -17,7 +18,11 @@ export default defineConfig({
       },
     },
   },
+  variants: {
+    scrollbar: ['rounded'],
+  },
   plugins: [
     require('windicss/plugin/forms'),
+    require('@windicss/plugin-scrollbar'),
   ],
 });

@@ -17,7 +17,7 @@ function Home(): JSX.Element {
       </Head>
       <h1
         className="flex-1
-        min-h-32 max-h-36
+        min-h-24 max-h-32
         2xl:max-h-48
         flex justify-center items-end
         font-bold
@@ -29,12 +29,13 @@ function Home(): JSX.Element {
       <p
         className="text-center
           text-2xl
-        text-gray-500"
+        text-gray-500
+        leading-loose"
       >
         Periksa legalitas produk investasi pilihan Anda
       </p>
-      <div className="mt-12 mx-auto w-full max-w-lg flex-1">
-        <SearchInvesment />
+      <div className="mt-8 mx-auto w-full max-w-lg flex-1">
+        <SearchInvesment absolute />
       </div>
     </>
   );

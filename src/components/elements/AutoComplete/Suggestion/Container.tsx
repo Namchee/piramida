@@ -1,19 +1,19 @@
 import * as React from 'react';
 
-import { Box, As } from '@chakra-ui/react';
-
 import { useWindowEvent } from '@/hooks/useWindowEvent';
 import { useAutoComplete } from '../context';
 
-export type SuggestionsContainerProps = {
-  as?: As<any>;
-  absolute?: boolean;
-  margin?: number;
-};
+import { StyleProps } from '@/common/types';
 
+/**
+ * Suggestions container element.
+ *
+ * @param {StyleProps} props style props
+ * @return {JSX.Element} suggestions container element
+ */
 function SuggestionsContainer(
-  { as, margin, absolute, children }: React.PropsWithChildren<SuggestionsContainerProps>,
-) {
+  { className, children }: React.PropsWithChildren<StyleProps>,
+): JSX.Element {
   const containerRef = React.useRef(null);
 
   const { state, dispatch } = useAutoComplete();
@@ -24,7 +24,8 @@ function SuggestionsContainer(
       return;
     }
 
-    const childElements = React.Children.toArray(children) as React.ReactElement[];
+    const childElements = React.Children
+      .toArray(children) as React.ReactElement[];
     const childrenAsHtml = Array.from(
       (containerRef.current as HTMLElement).children,
     );
@@ -65,19 +66,6 @@ function SuggestionsContainer(
 
         break;
       }
-      case 'Space': {
-        event.preventDefault();
-
-        if (focusIndex === -1) {
-          return;
-        }
-
-        if (childElements[focusIndex].type['name'] === 'Suggestion') {
-          (childrenAsHtml[focusIndex] as HTMLButtonElement).click();
-        }
-
-        break;
-      }
     }
   });
 
@@ -86,21 +74,14 @@ function SuggestionsContainer(
   }
 
   return (
-    <Box
+    <ul
       ref={containerRef}
-      as={as}
-      w="100%"
-      maxW="xl"
-      position={absolute ? 'absolute' : 'relative'}
-      backgroundColor="white"
-      zIndex={1}
       role="listbox"
-      borderRadius="md"
-      marginTop={margin || 2}
-      overflowY="auto"
-      boxShadow="lg">
+      aria-live="polite"
+      aria-label="Daftar nama investasi"
+      className={className}>
       {children}
-    </Box>
+    </ul>
   );
 }
 
