@@ -99,25 +99,30 @@ function SearchInvestment({
       );
     }
 
-    const createContainer = (child) => {
+    const createContainer = (child, isScrollable = true) => {
+      const classes = [
+        'absolute',
+        'mt-2',
+        'w-full',
+        'bg-white',
+        'overflow-y-auto',
+        'shadow-md',
+        'rounded-md',
+        'z-1',
+        'scrollbar-thin',
+        'scrollbar-thumb-gray-300',
+        'scrollbar-track-gray-100',
+        'scrollbar-thumb-rounded-full',
+        'scrollbar-track-rounded-full',
+      ];
+
+      if (isScrollable) {
+        classes.push('max-h-48', '2xl:max-h-64');
+      }
+
       return (
         <AutoComplete.SuggestionsContainer
-          className="absolute
-          mt-2
-          w-full
-          max-w-xl
-          bg-white
-          overflow-y-auto
-          shadow-md
-          rounded-md
-          z-1
-          h-48
-          max-h-48
-          scrollbar-thin
-          scrollbar-thumb-gray-300
-          scrollbar-track-gray-100
-          scrollbar-thumb-rounded-full
-          scrollbar-track-rounded-full"
+          className={classes.join(' ')}
         >
           {child}
         </AutoComplete.SuggestionsContainer>
@@ -126,13 +131,13 @@ function SearchInvestment({
 
     if (!data) {
       return createContainer(
-        [...Array(4)].map((_, idx) => {
+        [...Array(5)].map((_, idx) => {
           return (
             <li className="p-4" key={idx}>
               <Skeleton className="h-3 rounded-sm" />
             </li>
           );
-        })
+        }), false,
       );
     }
 

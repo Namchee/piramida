@@ -8,14 +8,12 @@ import * as React from 'react';
  */
 function EmptySuggestion(): JSX.Element {
   return (
-    <div className="w-full h-full
+    <div className="py-8
+      w-full h-full
       flex flex-col justify-center items-center
       cursor-not-allowed
       text-gray-400
       text-lg">
-      <p className="text-5xl leading-loose">
-        ¯\_(ツ)_/¯
-      </p>
       <p>
         Tidak ada data investasi yang sesuai
       </p>
