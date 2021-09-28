@@ -9,9 +9,9 @@ import { request } from 'graphql-request';
  */
 export function graphQLFetcher<T>(
   query: string,
-  variables?: Record<string, unknown>
+  variables?: T,
 ): Promise<T> {
-  return request(`/api/graphql`, query, variables);
+  return request('http://localhost:3000/api/graphql', query, variables);
 }
 
 /**
@@ -27,6 +27,16 @@ export async function getFetcher<T extends Record<string, unknown> >(
 ): Promise<T> {
   if (endpoint.startsWith('/')) {
     endpoint = endpoint.slice(1);
+  }
+
+  if (query) {
+    const params = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(query)) {
+      params.append(key, value);
+    }
+
+    endpoint = `${endpoint}?${params.toString()}`;
   }
 
   const response = await fetch(`/api/${endpoint}`);

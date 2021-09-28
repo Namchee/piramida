@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IconButton, Text, HStack } from '@chakra-ui/react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '../Icon';
+import { CaretLeftIcon, CaretRightIcon } from '../Icon';
 
 import PaginationIndex from './PaginationIndex';
 import DotButton from './DotButton';
@@ -16,7 +16,7 @@ export type PaginationProps = {
 
 function Pagination(
   { numPages, currentPage, neighbor, onPageChange }: React.PropsWithoutRef<PaginationProps>,
-) {
+): JSX.Element {
   const neighborCount = neighbor || 1;
 
   const pages = [];
@@ -39,7 +39,7 @@ function Pagination(
         aria-label="previous-page"
         onClick={() => onPageChange(currentPage - 1)}
         isDisabled={currentPage === 1}>
-        <ChevronLeftIcon stroke="gray.400" w={5} h={5} />
+        <CaretLeftIcon stroke="gray.400" w={5} h={5} />
       </IconButton>
 
       <HStack spacing={2}>
@@ -83,7 +83,7 @@ function Pagination(
         aria-label="next-page"
         onClick={() => onPageChange(currentPage + 1)}
         isDisabled={currentPage === numPages}>
-        <ChevronRightIcon stroke="gray.400" w={5} h={5} />
+        <CaretRightIcon stroke="gray.400" w={5} h={5} />
       </IconButton>
     </HStack>
   );

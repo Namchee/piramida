@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { Box, Link } from '@chakra-ui/react';
 
-import { ExternalIcon } from '@/components/elements/Icon';
-
 import ResultSkeleton from './Skeleton';
 
 export type SearchResultProps = {
@@ -37,22 +35,6 @@ function SearchResult({ to, children }: React.PropsWithChildren<SearchResultProp
       }}>
       <Box>
         {children}
-      </Box>
-
-      <Box>
-        <ExternalIcon
-          _groupHover={{
-            textColor: 'gray.400',
-          }}
-          _groupActive={{
-            textColor: 'gray.400',
-          }}
-          _groupFocus={{
-            textColor: 'gray.400',
-          }}
-          textColor="transparent"
-          w={5}
-          h={5} />
       </Box>
     </Link>
   );

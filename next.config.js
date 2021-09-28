@@ -21,4 +21,16 @@ module.exports = {
       },
     ];
   },
+  async redirects() {
+    console.log('redicrs');
+    const isDev = process.env.NODE_ENV === 'development';
+
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${isDev ? 'http://localhost:3000/api' : '/api'}/:path*`,
+        permanent: true,
+      },
+    ];
+  },
 };

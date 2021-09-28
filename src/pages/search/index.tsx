@@ -55,7 +55,7 @@ const formatUrl = (url: string) => {
 
 function Search(
   { query, initialData, count, version }: React.PropsWithoutRef<SearchPageProps>,
-) {
+): JSX.Element {
   const [page, setPage] = React.useState(1);
   const container = React.useRef(null);
 
@@ -183,6 +183,12 @@ function Search(
   );
 }
 
+/**
+ * Get server side props for initial data
+ *
+ * @param {GetServerSidePropsContext} ctx server side props context
+ * @return {Promise<GetServerSidePropsResult<SearchPageProps>>} initial data
+ */
 export async function getServerSideProps(
   { query }: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<SearchPageProps>> {
@@ -216,6 +222,7 @@ export async function getServerSideProps(
     {
       query: q,
       limit: ITEM_PER_PAGE,
+      offset: 0,
     },
   );
 
