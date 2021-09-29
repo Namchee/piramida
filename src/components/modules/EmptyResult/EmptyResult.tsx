@@ -11,7 +11,8 @@ function EmptyResult(): JSX.Element {
   return (
     <div className="flex flex-col justify-center items-center
       text-center
-      p-8">
+      p-8
+      max-w-xl">
       <Image
         src="/images/empty-result.svg"
         width="full"

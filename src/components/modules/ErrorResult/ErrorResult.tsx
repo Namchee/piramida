@@ -2,15 +2,18 @@ import * as React from 'react';
 
 import Image from 'next/image';
 
-import { Text, Flex, Heading } from '@chakra-ui/react';
-
 export type ErrorResultProps = {
   error?: string;
 }
 
+/**
+ * Component to be shown when the search returns an unexpected error.
+ *
+ * @return {JSX.Element} error report component
+ */
 function ErrorResult(
   { error }: React.PropsWithoutRef<ErrorResultProps>,
-) {
+): JSX.Element {
   React.useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       console.error(error);
@@ -18,35 +21,30 @@ function ErrorResult(
   }, [error]);
 
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      p={8}
-      textAlign="center">
+    <div className="flex flex-col justify-center items-center
+      text-center
+      p-8
+      max-w-xl">
       <Image
         src="/images/error-result.svg"
         width="full"
         height="full"
+        alt="Terjadi kesalahan pada sistem"
       />
 
-      <Heading
-        mt={4}
-        color="gray.500"
-        fontWeight={500}
-        letterSpacing="tight"
-        lineHeight="taller"
-        fontSize="2xl">
+      <h1 className="mt-4 text-gray-600
+        leading-relaxed
+        tracking-tight">
         Kesalahan Sistem
-      </Heading>
+      </h1>
 
-      <Text
-        maxW="sm"
-        textColor="gray.400">
+      <p className="text-sm
+        text-gray-400
+        mb-8">
         Terdapat kesalahan pada sistem. Silahkan coba lagi
-        dalam beberapa menit.
-      </Text>
-    </Flex>
+        dalam beberapa saat.
+      </p>
+    </div>
   );
 }
 
