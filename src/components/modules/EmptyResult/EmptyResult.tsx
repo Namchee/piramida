@@ -2,48 +2,41 @@ import * as React from 'react';
 
 import Image from 'next/image';
 
-import { Text, Flex, Heading, VStack } from '@chakra-ui/react';
-
-
-function EmptyResult() {
+/**
+ * Component to be shown when the search result is empty.
+ *
+ * @return {JSX.Element} empty result component
+ */
+function EmptyResult(): JSX.Element {
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      p={8}
-      textAlign="center">
+    <div className="flex flex-col justify-center items-center
+      text-center
+      p-8">
       <Image
         src="/images/empty-result.svg"
         width="full"
         height="full"
+        alt="Produk investasi tidak ditemukan"
       />
 
-      <Heading
-        mt={4}
-        color="gray.500"
-        fontWeight={500}
-        letterSpacing="tight"
-        lineHeight="taller"
-        fontSize="2xl">
-        Investasi Tidak Ditemukan
-      </Heading>
+      <h1 className="mt-4 text-gray-600
+        leading-relaxed
+        tracking-tight">
+        Produk Investasi Tidak Ditemukan
+      </h1>
 
-      <VStack
-        maxW="sm"
-        color="gray.400"
-        spacing={8}>
-        <Text>
-          Entitas investasi yang Anda cari tidak dapat ditemukan
-          dalam basis data Otoritas Jasa Keuangan Republik Indonesia.
-        </Text>
+      <p className="text-sm
+        text-gray-400
+        mb-8">
+        Entitas investasi yang Anda cari tidak dapat ditemukan
+        dalam basis data Otoritas Jasa Keuangan Republik Indonesia.
+      </p>
 
-        <Text>
-          Anda disarankan untuk tidak melakukan transaksi apapun
-          dengan entitas investasi ini.
-        </Text>
-      </VStack>
-    </Flex>
+      <p>
+        Anda disarankan untuk tidak melakukan transaksi apapun
+        dengan entitas investasi ini.
+      </p>
+    </div>
   );
 }
 

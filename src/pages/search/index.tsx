@@ -155,11 +155,11 @@ function Search(
           absolute={true}
           term={query} />
 
-        <p className="text-sm text-gray-400 mt-2">
+        {count && <p className="text-sm text-gray-400 mt-2">
           Menampilkan {count} hasil pencarian per {
             dayjs(version, API_DATE_FORMAT).locale('id').format(DATE_FORMAT)
           }
-        </p>
+        </p>}
       </div>
 
       {products}
