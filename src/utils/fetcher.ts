@@ -4,12 +4,12 @@ import { request } from 'graphql-request';
  * Fetcher for GraphQL requests. Used by SWR.
  *
  * @param {string} query GraphQL query request
- * @param {T} variables request variables
+ * @param {Record<string, unknown>} variables request variables
  * @return {Promise<T>} response wrapper
  */
 export function graphQLFetcher<T>(
   query: string,
-  variables?: T,
+  variables?: Record<string, unknown>,
 ): Promise<T> {
   return request('http://localhost:3000/api/graphql', query, variables);
 }

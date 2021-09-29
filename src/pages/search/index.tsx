@@ -6,32 +6,29 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import { gql } from 'graphql-request';
 
-import { Text, Container, Box, VStack, Flex } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import 'dayjs/locale/id';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
 import { EmptyResult } from '@/components/modules/EmptyResult';
 import { ErrorResult } from '@/components/modules/ErrorResult';
 
-import { SearchResult } from '@/components/elements/SearchResult';
+import { ProductCard } from '@/components/elements/ProductCard';
 import { Pagination } from '@/components/elements/Pagination';
 
 import { graphQLFetcher } from '@/utils/fetcher';
-import { GraphQLError, GraphQLResult } from '@/common/types';
+import { GraphQLError, ProductResponse } from '@/common/types';
+import { API_DATE_FORMAT, DATE_FORMAT } from '@/common/constants';
+
+dayjs.extend(customParseFormat);
 
 const ITEM_PER_PAGE = 10;
 
 export type SearchPageProps = {
   query: string;
-  initialData: GraphQLResult;
-  count: number;
-  version: string;
+  seed: ProductResponse;
 }
-
-type GraphQLVariables = {
-  query: string;
-  limit?: number;
-  offset?: number;
-};
 
 const gqlQuery = gql`
   query Apps($query: String!, $limit: Int, $offset: Int) {
@@ -45,25 +42,25 @@ const gqlQuery = gql`
   }
 `;
 
-const formatUrl = (url: string) => {
-  if (!url.startsWith('http')) {
-    url = `https://${url}`;
-  }
-
-  return url;
-};
-
+/**
+ * Search result page. Designed to be server side rendered.
+ *
+ * @param {SearchPageProps} props search page props
+ * @return {JSX.Element} search result page
+ */
 function Search(
-  { query, initialData, count, version }: React.PropsWithoutRef<SearchPageProps>,
+  { query, seed }: React.PropsWithoutRef<SearchPageProps>,
 ): JSX.Element {
+  const { count, version } = seed.apps;
+
   const [page, setPage] = React.useState(1);
   const container = React.useRef(null);
 
-  const { data, error } = useSWR<GraphQLResult, GraphQLError>(
-    [gqlQuery, page, query],
-    (gqlQuery, page, currentQuery) => {
+  const { data, error } = useSWR<ProductResponse, GraphQLError>(
+    [page],
+    (page) => {
       const variables = {
-        query: currentQuery,
+        query,
         limit: ITEM_PER_PAGE,
         offset: (page - 1) * ITEM_PER_PAGE,
       };
@@ -72,9 +69,9 @@ function Search(
         variables.offset += 1;
       }
 
-      return graphQLFetcher<GraphQLVariables>(gqlQuery, variables);
+      return graphQLFetcher<ProductResponse>(gqlQuery, variables);
     },
-    { initialData: page === 1 ? initialData : null },
+    { fallbackData: page === 1 ? seed : null },
   );
 
   const handlePageChange = (pageNumber: number) => {
@@ -87,18 +84,7 @@ function Search(
     setPage(pageNumber);
   };
 
-  const versionDate = React.useMemo(() => {
-    return new Date(version);
-  }, [version]);
-
-  const searchResult = React.useCallback(() => {
-    const dateConfig: any = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-
+  const products = React.useMemo((): JSX.Element | JSX.Element[] => {
     if (error) {
       return <ErrorResult />;
     }
@@ -110,41 +96,24 @@ function Search(
     const appList = () => {
       if (!data) {
         return [...Array(10)].map(
-          (_, idx: number) => <SearchResult.Skeleton key={`skeleton-${idx}`} />,
+          (_, idx: number) => <ProductCard.Skeleton key={`skeleton-${idx}`} />,
         );
       }
 
-      return data.apps.data.map(({ name, owner, url }, index) => {
-        return (
-          <SearchResult
-            key={index}
-            to={formatUrl(url)}>
-            <Text
-              maxW="sm"
-              fontWeight={500}>
-              {name}
-            </Text>
-            <Text
-              fontSize="sm"
-              color="gray.400">
-              {owner}
-            </Text>
-          </SearchResult>
-        );
-      });
+      return [];
     };
 
     return (
+      <ul className="flex-1
+        my-4
+        max-w-xl
+        mx-auto">
+        FOO BAR
+      </ul>
+      /*
       <Box
         marginX="auto"
         mt={2}>
-        <Text
-          textAlign="left"
-          fontSize="sm"
-          textColor="gray.500">
-          Menampilkan {count} hasil pencarian per {versionDate.toLocaleDateString('id-ID', dateConfig)}.
-        </Text>
-
         <VStack
           my={4}
           spacing={2}
@@ -159,26 +128,41 @@ function Search(
             onPageChange={handlePageChange} />
         </Flex>
       </Box>
+      */
     );
-  }, [data, error]);
+  }, [data, error, count, page]);
 
   return (
     <>
       <Head>
-        <title>Pencarian Investasi - Piramida</title>
+        <title>Hasil Pencarian Produk Investasi — Piramida</title>
       </Head>
 
-      <Container
-        paddingY={16}
-        maxW="xl"
-        marginX="auto"
-        ref={container}>
+      <div className="flex flex-col justify-end
+        flex-1
+        w-full
+        max-w-xl
+        mx-auto
+        min-h-24 max-h-48
+        2xl:max-h-56">
+        <h1 className="text-5xl
+          leading-relaxed
+          font-bold">
+          Hasil Pencarian
+        </h1>
+
         <SearchInvesment
           absolute={true}
           term={query} />
 
-        {searchResult()}
-      </Container>
+        <p className="text-sm text-gray-400 mt-2">
+          Menampilkan {count} hasil pencarian per {
+            dayjs(version, API_DATE_FORMAT).locale('id').format(DATE_FORMAT)
+          }
+        </p>
+      </div>
+
+      {products}
     </>
   );
 }
@@ -217,7 +201,7 @@ export async function getServerSideProps(
     }
   `;
 
-  const result: GraphQLResult = await graphQLFetcher<GraphQLVariables>(
+  const result = await graphQLFetcher<ProductResponse>(
     request,
     {
       query: q,
@@ -229,9 +213,7 @@ export async function getServerSideProps(
   return {
     props: {
       query: q,
-      initialData: result,
-      count: result.apps.count,
-      version: result.apps.version,
+      seed: result,
     },
   };
 }

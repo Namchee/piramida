@@ -26,18 +26,18 @@ export type GraphQLError = {
   }
 };
 
-export type AppData = {
+export type ProductData = {
   readonly name: string;
   readonly url: string;
   readonly owner: string;
 };
 
-export type AppResponse = {
+export type ProductResponse = {
   readonly apps: {
-    readonly data: AppData[];
+    readonly data: ProductData[];
+    readonly count: number;
+    readonly version: string;
   };
-  readonly count: number;
-  readonly version: string;
 };
 
 export type StyleProps = {

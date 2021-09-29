@@ -15,7 +15,7 @@ import Empty from './Empty';
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { graphQLFetcher } from '@/utils/fetcher';
-import { AppData, AppResponse, GraphQLError } from '@/common/types';
+import { ProductData, GraphQLError, ProductResponse } from '@/common/types';
 
 export type SearchInvestmentProps = {
   term?: string;
@@ -51,9 +51,9 @@ function SearchInvestment({
 
   const debouncedSetter = useDebounce(setDebouncedSearchTerm, 250);
 
-  const { data, error } = useSWR<AppResponse, GraphQLError>(
-    [getQuery, debouncedSearchTerm],
-    (query, term) => graphQLFetcher(query, { query: term })
+  const { data, error } = useSWR<ProductResponse, GraphQLError>(
+    [debouncedSearchTerm],
+    (term) => graphQLFetcher<ProductResponse>(getQuery, { query: term }),
   );
 
   React.useEffect(() => {
@@ -165,7 +165,7 @@ function SearchInvestment({
 
     const elem: JSX.Element[] = [];
 
-    apps.sort((a: AppData, b: AppData) => {
+    apps.sort((a: ProductData, b: ProductData) => {
       const aIndex = a.name.indexOf(debouncedSearchTerm);
       const bIndex = b.name.indexOf(debouncedSearchTerm);
 
