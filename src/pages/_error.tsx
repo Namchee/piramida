@@ -36,7 +36,11 @@ const errorMap = new Map<number, ErrorMessage>([
  * @param {ErrorProps} props error page props
  * @return {JSX.Element} custom error page
  */
-function ErrorPage({ statusCode }: ErrorProps): JSX.Element {
+function ErrorPage({ title, statusCode }: ErrorProps): JSX.Element {
+  if (statusCode === 500 && process.env.NODE_ENV === 'development') {
+    console.error(title);
+  }
+
   return (
     <>
       <div className="w-full
@@ -97,7 +101,7 @@ function ErrorPage({ statusCode }: ErrorProps): JSX.Element {
  */
 ErrorPage.getInitialProps = ({ res, err }: NextPageContext): ErrorProps => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { statusCode };
+  return { title: err.message, statusCode };
 };
 
 export default ErrorPage;
