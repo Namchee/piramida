@@ -32,7 +32,7 @@ function NavigationLink({
   }, [isCurrentPath]);
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref={true}>
       <a className={classes}>
         {children}
       </a>
