@@ -11,8 +11,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import 'dayjs/locale/id';
 
 import { SearchInvesment } from '@/components/modules/SearchInvestment';
-import { EmptyResult } from '@/components/modules/EmptyResult';
-import { ErrorResult } from '@/components/modules/ErrorResult';
 
 import { ProductCard } from '@/components/elements/ProductCard';
 import { Pagination } from '@/components/elements/Pagination';
@@ -20,6 +18,7 @@ import { Pagination } from '@/components/elements/Pagination';
 import { graphQLFetcher } from '@/utils/fetcher';
 import { GraphQLError, ProductResponse } from '@/common/types';
 import { API_DATE_FORMAT, DATE_FORMAT } from '@/common/constants';
+import { EmptyBanner } from '@/components/elements/Banner';
 
 dayjs.extend(customParseFormat);
 
@@ -41,6 +40,40 @@ const gqlQuery = gql`
     }
   }
 `;
+
+/**
+ * Component to be shown when the search result is empty.
+ *
+ * @return {JSX.Element} empty result component
+ */
+function EmptyResult(): JSX.Element {
+  return (
+    <div className="flex flex-col justify-center items-center
+      text-center
+      p-8
+      max-w-xl">
+      <EmptyBanner className="w-full" />
+
+      <h1 className="mt-4 text-gray-600
+        leading-relaxed
+        tracking-tight">
+        Produk Investasi Tidak Ditemukan
+      </h1>
+
+      <p className="text-sm
+        text-gray-400
+        mb-8">
+        Entitas investasi yang Anda cari tidak dapat ditemukan
+        dalam basis data Otoritas Jasa Keuangan Republik Indonesia.
+      </p>
+
+      <p>
+        Anda disarankan untuk tidak melakukan transaksi apapun
+        dengan entitas investasi ini.
+      </p>
+    </div>
+  );
+}
 
 /**
  * Search result page. Designed to be server side rendered.
@@ -86,8 +119,10 @@ function Search(
 
   const products = React.useMemo((): JSX.Element | JSX.Element[] => {
     if (error) {
-      return <ErrorResult />;
+      throw new Error('GraphQL API error');
     }
+
+    return <EmptyResult />;
 
     if (!count) {
       return <EmptyResult />;
