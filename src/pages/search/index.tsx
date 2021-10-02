@@ -128,28 +128,28 @@ function Search(
       throw new Error('GraphQL API error');
     }
 
-    return <EmptyResult />;
-
     if (!count) {
       return <EmptyResult />;
     }
 
     const appList = () => {
-      if (!data) {
+      // /if (!data) {
         return [...Array(10)].map(
           (_, idx: number) => <ProductCard.Skeleton key={`skeleton-${idx}`} />,
         );
-      }
+      // }
 
-      return [];
+      // return [];
     };
 
     return (
       <ul className="flex-1
-        my-4
+        space-y-2
+        w-full
+        mt-4 mb-12
         max-w-xl
         mx-auto">
-        FOO BAR
+        {appList()}
       </ul>
       /*
       <Box

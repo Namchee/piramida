@@ -1278,6 +1278,14 @@
     outvariant "^1.2.0"
     strict-event-emitter "^0.2.0"
 
+"@namchee/favify@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@namchee/favify/-/favify-0.1.2.tgz#0d15e83763f1f7a1823336cb72725bf08bb54645"
+  integrity sha512-OJ+4ODBJVgLxkx7awbeiiQsqRjAcKXxGtfQDps/hKWBrzCwhyHoyRXtUWLZi5E2Q7jaRM7KHwPfVeTuyrg6raA==
+  dependencies:
+    cheerio "^1.0.0-rc.10"
+    node-fetch "^3.0.0"
+
 "@napi-rs/triples@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
@@ -3450,15 +3458,6 @@ fastq@^1.6.0:
   integrity sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==
   dependencies:
     reusify "^1.0.4"
-
-favify@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/favify/-/favify-0.1.1.tgz#7b3d6c63e1a1a7d1040142abf60a95a1a0517ebf"
-  integrity sha512-vnAchEQoBwiBiRXAkDZBYEIZTr1y0Al3wJvzRYk55k8zwzhNPpgqcb3MVyaJm+PaZNZHETrqZRBBJi8H3rIlOA==
-  dependencies:
-    cheerio "^1.0.0-rc.10"
-    node-fetch "^3.0.0"
-    tslib "^2.3.1"
 
 fb-watchman@^2.0.0:
   version "2.0.1"
@@ -6694,7 +6693,7 @@ tslib@^1.0.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.1.0, tslib@^2.2.0, tslib@^2.3.1:
+tslib@^2.1.0, tslib@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==

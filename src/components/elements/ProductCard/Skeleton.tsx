@@ -1,14 +1,30 @@
 import * as React from 'react';
 
-import { Box, Skeleton } from '@chakra-ui/react';
+import { Skeleton } from '@/components/elements/Skeleton';
 
-function SearchSkeleton() {
+/**
+ * Product card skeleton loader
+ *
+ * @return {JSX.Element} skeleton loader for product card
+ */
+function ProductSkeleton(): JSX.Element {
   return (
-    <Box w="full" px={2} py={4}>
-      <Skeleton h={3} maxW="xs" startColor="gray.100" endColor="gray.300" />
-      <Skeleton mt={1} h={2} maxW="3xs" startColor="gray.100" endColor="gray.300" speed={0.9} />
-    </Box>
+    <div className="flex
+      space-x-4
+      w-full
+      p-4">
+      <Skeleton className="w-8 h-8
+        rounded-md" />
+      <div className="flex flex-col justify-between space-y-2">
+        <Skeleton className="w-64 h-6
+          rounded-sm" />
+        <Skeleton className="w-32 h-4
+          rounded-sm" />
+        <Skeleton className="w-32 h-4
+          rounded-sm" />
+      </div>
+    </div>
   );
 }
 
-export default SearchSkeleton;
+export default ProductSkeleton;
