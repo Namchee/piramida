@@ -11,6 +11,7 @@ import { StyleProps } from '@/common/types';
 function EmptyBanner({ className }: StyleProps): JSX.Element {
   return (
     <svg
+      className={className}
       viewBox="0 0 250 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
