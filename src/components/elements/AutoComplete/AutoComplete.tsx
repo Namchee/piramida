@@ -4,11 +4,7 @@ import { useWindowEvent } from '@/hooks/useWindowEvent';
 
 import { AutoCompleteContext, autoCompleteReducer } from './context';
 
-import {
-  EmptySuggestion,
-  Suggestion,
-  SuggestionsContainer,
-} from './Suggestion';
+import { Suggestion, SuggestionsContainer } from './Suggestion';
 import AutoCompleteInput from './AutoCompleteInput';
 
 import { StyleProps } from '@/common/types';
@@ -63,6 +59,5 @@ function AutoComplete(
 AutoComplete.Input = AutoCompleteInput;
 AutoComplete.Suggestion = Suggestion;
 AutoComplete.SuggestionsContainer = SuggestionsContainer;
-AutoComplete.EmptySuggestion = EmptySuggestion;
 
 export default AutoComplete;
