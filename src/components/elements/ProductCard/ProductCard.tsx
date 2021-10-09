@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { ProductData } from '@/common/types';
 
-import { Box, Link } from '@chakra-ui/react';
-
-import ResultSkeleton from './Skeleton';
+import ProductSkeleton from './Skeleton';
+import ProductAvatar from './ProductAvatar';
 
 export type ProductCardProps = {
   product: ProductData;
@@ -20,36 +19,10 @@ function ProductCard(
   { product }: React.PropsWithoutRef<ProductCardProps>
 ): JSX.Element {
   return (
-    <Link
-      w="full"
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      href={to}
-      py={4}
-      px={6}
-      backgroundColor="transparent"
-      rounded="md"
-      h="unset"
-      role="group"
-      isExternal
-      _hover={{
-        backgroundColor: 'gray.50',
-      }}
-      _active={{
-        outline: 'none',
-      }}
-      _focus={{
-        outline: 'none',
-        backgroundColor: 'gray.50',
-      }}>
-      <Box>
-        {children}
-      </Box>
-    </Link>
+    <ProductAvatar alt={product.name} page={product.url} />
   );
 }
 
-ProductCard.Skeleton = ResultSkeleton;
+ProductCard.Skeleton = ProductSkeleton;
 
 export default ProductCard;

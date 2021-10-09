@@ -12,7 +12,7 @@ function ProductSkeleton(): JSX.Element {
     <div className="flex
       space-x-4
       w-full
-      p-4">
+      p-6">
       <Skeleton className="w-8 h-8
         rounded-md" />
       <div className="flex flex-col justify-between space-y-2">

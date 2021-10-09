@@ -11,3 +11,23 @@ export function prettifyURL(url: string): string {
 
   return url;
 }
+
+/**
+ * Get initial from name
+ *
+ * @param {string} name name
+ * @return {string} initial
+ */
+export function getInitial(name: string): string {
+  name = name.replace(/pt\./i, '');
+
+  const brace = name.indexOf('(');
+
+  if (brace !== -1) {
+    name = name.slice(0, brace);
+  }
+
+  name = name.trim();
+
+  return name.split(' ').map((v) => v[0]).join('');
+}

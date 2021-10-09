@@ -2,6 +2,7 @@
 const WindiCSS = require('windicss-webpack-plugin').default;
 
 module.exports = {
+  experimental: { esmExternals: true },
   webpack(config) {
     config.plugins.push(new WindiCSS());
     return config;
@@ -22,7 +23,6 @@ module.exports = {
     ];
   },
   async redirects() {
-    console.log('redicrs');
     const isDev = process.env.NODE_ENV === 'development';
 
     return [

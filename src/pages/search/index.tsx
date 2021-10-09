@@ -133,13 +133,15 @@ function Search(
     }
 
     const appList = () => {
-      // /if (!data) {
+      if (!data) {
         return [...Array(10)].map(
           (_, idx: number) => <ProductCard.Skeleton key={`skeleton-${idx}`} />,
         );
-      // }
+      }
 
-      // return [];
+      return data.apps.data.map(
+        (p, idx) => <ProductCard product={p} key={idx} />,
+      );
     };
 
     return (
@@ -226,7 +228,9 @@ export async function getServerSideProps(
     };
   }
 
-  const { q } = query;
+  let { q } = query;
+
+  q = decodeURIComponent(q);
 
   const request = gql`
     query Apps($query: String!, $limit: Int, $offset: Int) {
@@ -241,6 +245,8 @@ export async function getServerSideProps(
       }
     }
   `;
+
+  console.log(q);
 
   const result = await graphQLFetcher<ProductResponse>(
     request,
