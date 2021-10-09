@@ -96,10 +96,10 @@ function Search(
   const container = React.useRef(null);
 
   const { data, error } = useSWR<ProductResponse, GraphQLError>(
-    [page],
-    (page) => {
+    [page, query],
+    (page, userQuery) => {
       const variables = {
-        query,
+        query: userQuery,
         limit: ITEM_PER_PAGE,
         offset: (page - 1) * ITEM_PER_PAGE,
       };
@@ -175,8 +175,8 @@ function Search(
         w-full
         max-w-xl
         mx-auto
-        min-h-48 max-h-64
-        2xl:max-h-72">
+        min-h-32 max-h-48
+        2xl:max-h-64">
         <h1 className="text-5xl
           leading-relaxed
           font-bold">
@@ -187,11 +187,11 @@ function Search(
           absolute={true}
           term={query} />
 
-        {count && <p className="text-sm text-gray-400 mt-2">
+        {count ? <p className="text-sm text-gray-400 mt-2">
           Menampilkan {count} hasil pencarian per {
             dayjs(version, API_DATE_FORMAT).locale('id').format(DATE_FORMAT)
           }
-        </p>}
+        </p> : <></>}
       </div>
 
       {products}

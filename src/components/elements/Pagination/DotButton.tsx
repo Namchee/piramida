@@ -9,7 +9,7 @@ function DotButton(): JSX.Element {
   return <button
     disabled={true}
     aria-hidden={true}
-    className="text-gray-500">
+    className="w-8 h-12 cursor-not-allowed text-gray-500">
       ...
   </button>;
 }
