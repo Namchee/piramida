@@ -208,18 +208,15 @@ function Search(
 export async function getServerSideProps(
   { query }: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<SearchPageProps>> {
-  if (!query || !query.q || Array.isArray(query.q)) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
+  let searchParams = '';
+
+  if (query && query.q) {
+    searchParams = Array.isArray(query.q) ?
+      query.q[0] :
+      query.q;
   }
 
-  let { q } = query;
-
-  q = decodeURIComponent(q);
+  searchParams = decodeURIComponent(searchParams);
 
   const request = gql`
     query Apps($query: String!, $limit: Int, $offset: Int) {
@@ -238,7 +235,7 @@ export async function getServerSideProps(
   const result = await graphQLFetcher<ProductResponse>(
     request,
     {
-      query: q,
+      query: searchParams,
       limit: ITEM_PER_PAGE,
       offset: 0,
     },
@@ -246,7 +243,7 @@ export async function getServerSideProps(
 
   return {
     props: {
-      query: q,
+      query: searchParams,
       seed: result,
     },
   };
