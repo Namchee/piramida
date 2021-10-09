@@ -52,16 +52,35 @@ function Pagination(
       'text-gray-700';
   };
 
+  const navigationClass = (page: number) => {
+    const base = [
+      'w-12',
+      'h-12',
+      'grid',
+      'place-items-center',
+      'rounded-md',
+      'transition-colors',
+      'stroke-current',
+    ];
+
+    if (currentPage !== page) {
+      base.push('hover:bg-gray-100');
+    } else {
+      base.push('text-gray-400', 'cursor-not-allowed');
+    }
+
+    return base.join(' ');
+  };
+
   return (
     <div className="flex items-center
       space-x-4">
-      <button className="p-4
-        rounded-md
-        transition-colors
-        hover:bg-gray-100"
-      aria-label="previous-page"
-      disabled={currentPage === 1}
-      onClick={() => onPageChange(currentPage - 1)}>
+      <button
+        className={navigationClass(1)}
+        aria-label="previous-page"
+        disabled={currentPage === 1}
+        tabIndex={currentPage === 1 ? -1 : 0}
+        onClick={() => onPageChange(currentPage - 1)}>
         <CaretLeftIcon className="w-4 h-4 stroke-2" />
       </button>
       <div className="flex space-x-2">
@@ -99,14 +118,13 @@ function Pagination(
           </PaginationIndex>
         }
       </div>
-      <button className="p-4
-        rounded-md
-        transition-colors
-        hover:bg-gray-100"
-      aria-label="next-page"
-      disabled={currentPage === numPages}
-      onClick={() => onPageChange(currentPage + 1)}>
-        <CaretRightIcon className="w-4 h-4 stroke-2" />
+      <button
+        className={navigationClass(numPages)}
+        aria-label="next-page"
+        disabled={currentPage === numPages}
+        tabIndex={currentPage === numPages ? -1 : 0}
+        onClick={() => onPageChange(currentPage + 1)}>
+        <CaretRightIcon className="w-4 h-4" />
       </button>
     </div>
   );
