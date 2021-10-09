@@ -104,10 +104,6 @@ function Search(
         offset: (page - 1) * ITEM_PER_PAGE,
       };
 
-      if (variables.offset) {
-        variables.offset += 1;
-      }
-
       return graphQLFetcher<ProductResponse>(gqlQuery, variables);
     },
     { fallbackData: page === 1 ? seed : null },
@@ -145,33 +141,24 @@ function Search(
     };
 
     return (
-      <ul className="flex-1
-        space-y-2
+      <div className="flex-1
         w-full
-        mt-4 mb-12
         max-w-xl
+        space-y-8
+        mb-12
         mx-auto">
-        {appList()}
-      </ul>
-      /*
-      <Box
-        marginX="auto"
-        mt={2}>
-        <VStack
-          my={4}
-          spacing={2}
-          w="full">
+        <ul className="mt-4
+          space-y-2
+          w-full">
           {appList()}
-        </VStack>
-
-        <Flex mt={8} w="full" justifyContent="center">
+        </ul>
+        <div className="flex justify-center">
           <Pagination
             currentPage={page}
             numPages={Math.ceil(count / ITEM_PER_PAGE)}
             onPageChange={handlePageChange} />
-        </Flex>
-      </Box>
-      */
+        </div>
+      </div>
     );
   }, [data, error, count, page]);
 
@@ -181,7 +168,9 @@ function Search(
         <title>Hasil Pencarian Produk Investasi — Piramida</title>
       </Head>
 
-      <div className="flex flex-col justify-end
+      <div
+        ref={container}
+        className="flex flex-col justify-end
         flex-1
         w-full
         max-w-xl

@@ -45,8 +45,8 @@ function ProductCard(
           hover:text-primary-dark
           visited:text-primary-light
           transition-colors
-          truncate
-          flex-1">
+          max-w-lg
+          truncate">
           {product.url}
         </a>
       </div>
