@@ -3,6 +3,9 @@ const WindiCSS = require('windicss-webpack-plugin').default;
 
 module.exports = {
   experimental: { esmExternals: true },
+  images: {
+    domains: ['www.google.com'],
+  },
   webpack(config) {
     config.plugins.push(new WindiCSS());
     return config;

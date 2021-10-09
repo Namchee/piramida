@@ -1,8 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import * as React from 'react';
 
+import * as NextImage from 'next/image';
+
 import { getInitial } from '@/utils/string';
-import { fetchFavicons } from '@namchee/favify';
+import { FAVICON_SIZE } from '@/common/constants';
 
 export type AvatarProps = {
   page: string;
@@ -10,96 +11,68 @@ export type AvatarProps = {
 }
 
 /**
- * Get best favicon from a webpage
+ * Get favicon URL from a page string using faviconkit's API
  *
- * @param {string} url webpage url
- * @return {Promise<string>} best favicon to use from the webpage
+ * @param {string} page product page
+ * @return {string} faviconkit's URL
  */
-async function getBestFavicon(url: string): Promise<string> {
-  const favicons = await fetchFavicons(url);
+function getImageURL(page: string): string {
+  const { hostname } = new URL(page);
 
-  const svg = favicons.filter((v) => v.type === 'image/svg+xml');
-
-  if (svg) {
-    return svg[0].path;
-  }
-
-  const png = favicons.filter((v) => v.type === 'image/png').sort((a, b) => {
-    if (!a.size) {
-      return -1;
-    }
-
-    if (!b.size) {
-      return 1;
-    }
-
-    return a.size > b.size ? -1 : 1;
-  });
-
-  if (png) {
-    return png[0].path;
-  }
-
-  return favicons.filter((v) => v.type === 'image/ico')[0].path;
+  return hostname.indexOf('play.google.com') > -1 ?
+    '':
+    `https://www.google.com/s2/favicons?sz=${FAVICON_SIZE}&domain=${hostname}`;
 }
 
 /**
- * Product avatar component. Used to display company's favicon
+ * Product avatar component. Used to display company's favicon.
+ * TODO: Use this
  *
  * @param {AvatarProps} props avatar props
  * @return {JSX.Element} avatar component
  */
 function ProductAvatar(
-  { page: image, alt }: React.PropsWithoutRef<AvatarProps>,
+  { page, alt }: React.PropsWithoutRef<AvatarProps>,
 ): JSX.Element {
-  const [source, setSource] = React.useState('');
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const source = React.useMemo((): string => {
+    return getImageURL(page);
+  }, [page]);
 
-  React.useEffect(() => {
-      /*
-    if (image) {
-      getBestFavicon(image).then((url) => setSource(url))
-        .catch((err) => console.log(err));
-    }
-    */
-  }, [image]);
-
-  React.useEffect(() => {
-    if (source) {
-      const img = new Image();
-      img.onload = () => setIsLoaded(true);
-
-      img.src = source;
-    }
-  }, [source]);
-
-  const children = React.useMemo(() => {
-    if (!isLoaded) {
-      return <span className="uppercase text-white text-lg">
-        {getInitial(alt)}
-      </span>;
+  const placeholder = React.useMemo((): JSX.Element => {
+    if (isLoaded) {
+      return null;
     }
 
-    return <img
-      src={source}
-      width="32"
-      height="32"
-      className="w-8 h-8"
-      alt={alt}
-      title={alt}
-    />;
-  }, [alt, source, isLoaded]);
+    return <span
+      className="absolute
+        grid place-items-center
+        z-1
+        uppercase
+        text-xs
+        rounded-lg
+        text-white
+        w-8 h-full
+        bg-primary">
+      {getInitial(alt)}
+    </span>;
+  }, [alt, isLoaded]);
 
   return (
-    <div
-      role="image"
-      className={`relative
-        bg-primary
-        grid place-items-center
-        w-12 h-12
-        overflow-hidden
-        rounded-full`}>
-      {children}
+    <div className="inline relative
+      rounded-lg
+      grid place-items-center
+      overflow-hidden">
+      {placeholder}
+      {source && <NextImage.default
+        src={source}
+        onLoadingComplete={() => setIsLoaded(true)}
+        className={isLoaded ? '' : 'hidden'}
+        width="32"
+        height="32"
+        alt={alt}
+        title={alt}
+      />}
     </div>
   );
 }

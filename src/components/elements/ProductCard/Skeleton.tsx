@@ -13,15 +13,13 @@ function ProductSkeleton(): JSX.Element {
       space-x-4
       w-full
       p-6">
-      <Skeleton className="w-8 h-8
-        rounded-md" />
       <div className="flex flex-col justify-between space-y-2">
-        <Skeleton className="w-64 h-6
-          rounded-sm" />
+        <Skeleton className="w-96 h-6
+          rounded-md" />
         <Skeleton className="w-32 h-4
-          rounded-sm" />
+          rounded-md" />
         <Skeleton className="w-32 h-4
-          rounded-sm" />
+          rounded-md" />
       </div>
     </div>
   );

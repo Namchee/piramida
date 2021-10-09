@@ -186,8 +186,8 @@ function Search(
         w-full
         max-w-xl
         mx-auto
-        min-h-24 max-h-48
-        2xl:max-h-56">
+        min-h-48 max-h-64
+        2xl:max-h-72">
         <h1 className="text-5xl
           leading-relaxed
           font-bold">
@@ -245,8 +245,6 @@ export async function getServerSideProps(
       }
     }
   `;
-
-  console.log(q);
 
   const result = await graphQLFetcher<ProductResponse>(
     request,
