@@ -8,23 +8,24 @@ import Link from 'next/link';
  *
  * @return {JSX.Element} under construction page
  */
-function UnderConstruction(): JSX.Element {
+function UnderConstruction(
+  { children }: React.PropsWithChildren<unknown>,
+): JSX.Element {
   return (
     <>
       <div role="image" className="max-w-xl
         mx-auto
         flex-1
-        text-7xl
+        text-6xl
         min-h-24 max-h-32
         2xl:max-h-48
         flex items-end
-        leading-relaxed">
+        leading-normal">
         🚧
       </div>
 
       <h1 className="text-5xl
         font-bold
-        max-w-prose
         tracking-tight
         leading-loose
         mx-auto">
@@ -36,19 +37,13 @@ function UnderConstruction(): JSX.Element {
         mx-auto
         text-center
         text-lg
-        leading-relaxed">
+        leading-relaxed
+        mb-4">
         Mohon maaf, namun halaman yang Anda akses masih dalam tahap
-        pengembangan. Untuk sementara, dokumentasi API dapat diakses
-        melalui tautan <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/Namchee/ojk-invest-api#endpoint"
-          className="text-primary
-              transition-colors
-              hover:text-primary-light">
-          berikut
-        </a>.
+        pengembangan.
       </p>
+
+      {children}
 
       <Link href="/" passHref={true}>
         <a

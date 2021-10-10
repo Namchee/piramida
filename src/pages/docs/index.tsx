@@ -17,7 +17,20 @@ function Docs(): JSX.Element {
         <title>Dokumentasi API — Piramida</title>
       </Head>
 
-      <UnderConstruction />
+      <UnderConstruction>
+        <p className="text-gray-500 mx-auto max-w-md text-center text-lg">
+          Untuk sementara, dokumentasi API dapat diakses
+          melalui tautan <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/Namchee/ojk-invest-api#endpoint"
+            className="text-primary
+              transition-colors
+              hover:text-primary-light">
+            berikut
+          </a>.
+        </p>
+      </UnderConstruction>
     </>
   );
 }
