@@ -16,7 +16,8 @@ function UnderConstruction(
       <div role="image" className="max-w-xl
         mx-auto
         flex-1
-        text-6xl
+        text-4xl
+        md:text-6xl
         min-h-24 max-h-32
         2xl:max-h-48
         flex items-end
@@ -24,7 +25,10 @@ function UnderConstruction(
         🚧
       </div>
 
-      <h1 className="text-5xl
+      <h1 className="
+        text-2xl
+        px-6
+        md:text-5xl
         font-bold
         tracking-tight
         leading-loose
@@ -34,9 +38,10 @@ function UnderConstruction(
 
       <p className="max-w-lg
         text-gray-500
+        px-6
         mx-auto
         text-center
-        text-lg
+        md:text-lg
         leading-relaxed
         mb-4">
         Mohon maaf, namun halaman yang Anda akses masih dalam tahap
@@ -50,7 +55,8 @@ function UnderConstruction(
           className="
         text-primary
         hover:text-primary-dark
-        mt-12
+        px-6
+        my-12
         max-w-md
         text-center
         mx-auto

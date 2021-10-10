@@ -18,7 +18,12 @@ function Docs(): JSX.Element {
       </Head>
 
       <UnderConstruction>
-        <p className="text-gray-500 mx-auto max-w-md text-center text-lg">
+        <p className="px-6
+          text-gray-500
+          mx-auto
+          max-w-md
+          text-center
+          md:text-lg">
           Untuk sementara, dokumentasi API dapat diakses
           melalui tautan <a
             target="_blank"
