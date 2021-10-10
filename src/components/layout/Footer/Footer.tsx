@@ -15,14 +15,19 @@ function Footer(): JSX.Element {
       border-t border-gray-200"
     >
       <div
-        className="grid grid-cols-[1fr,auto,1fr]
-        w-full max-w-6xl"
+        className="grid
+          grid-cols-1
+          px-6
+          <md:space-y-4
+          md:grid-cols-[1fr,auto,1fr]
+          w-full max-w-6xl"
       >
-        <div>
+        <div className="<md:mx-auto">
           <Status />
         </div>
-        <div className="flex items-center">
-          <p>
+        <div className="flex items-center
+          <md:mx-auto">
+          <p className="<md:text-center">
             Data diambil dari situs{' '}
             <a
               href="https://ojk.go.id"
@@ -34,7 +39,8 @@ function Footer(): JSX.Element {
             </a>
           </p>
         </div>
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end
+          <md:mx-auto">
           <a
             href="https://github.com/Namchee/piramida"
             target="_blank"
