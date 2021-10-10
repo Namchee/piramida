@@ -8,7 +8,8 @@ import * as React from 'react';
  */
 function EmptySuggestion(): JSX.Element {
   return (
-    <div className="py-8
+    <div className="py-8 px-6
+      text-center
       w-full h-full
       flex flex-col justify-center items-center
       cursor-not-allowed

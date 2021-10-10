@@ -54,8 +54,10 @@ function Pagination(
 
   const navigationClass = (page: number) => {
     const base = [
-      'w-12',
-      'h-12',
+      'w-8',
+      'h-8',
+      'md:w-12',
+      'md:h-12',
       'grid',
       'place-items-center',
       'rounded-md',

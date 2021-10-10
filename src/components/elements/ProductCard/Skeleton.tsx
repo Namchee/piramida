@@ -12,13 +12,20 @@ function ProductSkeleton(): JSX.Element {
     <div className="flex
       space-x-4
       w-full
-      p-6">
+      py-4
+      md:px-4">
       <div className="flex flex-col justify-between space-y-2">
-        <Skeleton className="w-96 h-6
+        <Skeleton className="
+          <md:w-56
+          w-96 h-6
           rounded-md" />
-        <Skeleton className="w-32 h-4
+        <Skeleton className="
+          <md:w-28
+          w-32 h-4
           rounded-md" />
-        <Skeleton className="w-32 h-4
+        <Skeleton className="
+          <md:w-28
+          w-32 h-4
           rounded-md" />
       </div>
     </div>

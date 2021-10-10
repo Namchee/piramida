@@ -16,8 +16,10 @@ function PaginationIndex(
 ): JSX.Element {
   return (
     <button
-      className="w-12 h-12
-        text-lg
+      className="
+        w-8 h-8
+        md:w-12 md:h-12
+        md:text-lg
         rounded-md
         transition-colors
         hover:bg-gray-100"

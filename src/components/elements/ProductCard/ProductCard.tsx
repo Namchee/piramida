@@ -20,16 +20,19 @@ function ProductCard({
 }: React.PropsWithoutRef<ProductCardProps>): JSX.Element {
   return (
     <li
-      className="
-      p-4
+      className="py-4
+      md:px-4
       w-full"
     >
       <p
-        className="text-xl
+        className="text-lg
+            <md:text-xl
+            text-2xl
             tracking-tight
             font-bold
             leading-loose
-            text-gray-700"
+            text-gray-700
+            <md:mb-2"
       >
         {product.name}
       </p>
@@ -37,17 +40,20 @@ function ProductCard({
         className="flex justify-start items-center
           space-x-4
           text-gray-500
-          leading-loose"
+          leading-loose
+          <md:mb-1"
       >
-        <CompanyIcon className="w-4 h-4" />
-        <p>{product.owner}</p>
+        <CompanyIcon className="min-w-4 min-h-4
+            max-h-4 max-w-4" />
+        <p className="<md:text-sm">{product.owner}</p>
       </div>
       <div
         className="flex justify-start items-center
           space-x-4"
       >
         <WebsiteIcon
-          className="w-4 h-4
+          className="min-w-4 min-h-4
+            max-h-4 max-w-4
             text-gray-500"
         />
         <a
@@ -57,7 +63,7 @@ function ProductCard({
           className="text-primary
             hover:text-primary-light
             transition-colors
-            max-w-md
+            <md:text-sm
             truncate"
         >
           {product.url}

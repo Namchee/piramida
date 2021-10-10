@@ -54,17 +54,20 @@ function EmptyResult(): JSX.Element {
       text-center
       mx-auto
       mb-12
+      px-6
       max-w-xl">
-      <EmptyBanner className="w-56 h-auto" />
+      <EmptyBanner className="w-48 md:w-56 h-auto" />
 
       <h1 className="text-gray-700
-        text-2xl
+        text-xl
+        md:text-2xl
         leading-relaxed">
         Produk Investasi Tidak Ditemukan
       </h1>
 
       <p className="
         text-gray-500
+        <md:text-sm
         mt-4
         max-w-md">
         Entitas investasi yang Anda cari tidak dapat ditemukan
@@ -73,6 +76,7 @@ function EmptyResult(): JSX.Element {
 
       <p className="text-gray-500
         mt-2
+        <md:text-sm
         max-w-md">
         Anda disarankan untuk tidak melakukan transaksi apapun
         dengan entitas investasi ini.
@@ -109,16 +113,6 @@ function Search(
     { fallbackData: page === 1 ? seed : null },
   );
 
-  const handlePageChange = (pageNumber: number) => {
-    // scroll to the top of container
-    if (process.browser && pageNumber !== page) {
-      const elem = container.current as HTMLElement;
-      window.scrollTo(0, elem.getBoundingClientRect().top);
-    }
-
-    setPage(pageNumber);
-  };
-
   const products = React.useMemo((): JSX.Element | JSX.Element[] => {
     if (error) {
       throw new Error('GraphQL API error');
@@ -127,6 +121,16 @@ function Search(
     if (!count) {
       return <EmptyResult />;
     }
+
+    const handlePageChange = (pageNumber: number) => {
+      // scroll to the top of container
+      if (process.browser && pageNumber !== page) {
+        const elem = container.current as HTMLElement;
+        window.scrollTo(0, elem.getBoundingClientRect().top);
+      }
+
+      setPage(pageNumber);
+    };
 
     const appList = () => {
       if (!data) {
@@ -146,6 +150,7 @@ function Search(
         max-w-xl
         space-y-8
         mb-12
+        px-6
         mx-auto">
         <ul className="mt-4
           space-y-2
@@ -174,10 +179,13 @@ function Search(
         flex-1
         w-full
         max-w-xl
+        px-6
         mx-auto
         min-h-32 max-h-48
         2xl:max-h-64">
-        <h1 className="text-5xl
+        <h1 className="text-3xl
+          md:text-5xl
+          md:mb-2
           leading-relaxed
           font-bold">
           Hasil Pencarian
@@ -187,7 +195,7 @@ function Search(
           absolute={true}
           term={query} />
 
-        {count ? <p className="text-sm text-gray-400 mt-2">
+        {count ? <p className="text-xs md:text-sm text-gray-400 mt-2">
           Menampilkan {count} hasil pencarian per {
             dayjs(version, API_DATE_FORMAT).locale('id').format(DATE_FORMAT)
           }
