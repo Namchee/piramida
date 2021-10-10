@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { SearchInvesment } from '@/components/modules/SearchInvestment';
+import { SearchInvesment } from '@/components/elements/SearchInvestment';
 
 /**
  * Landing page
@@ -40,7 +40,12 @@ function Home(): JSX.Element {
       >
         Periksa legalitas produk investasi pilihan Anda
       </p>
-      <div className="mt-8 mx-auto w-full max-w-lg flex-1">
+      <div className="mt-8
+        mx-auto
+        w-full
+        max-w-lg
+        flex-1
+        <md:px-8">
         <SearchInvesment absolute />
       </div>
     </>

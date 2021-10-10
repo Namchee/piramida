@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import 'dayjs/locale/id';
 
-import { SearchInvesment } from '@/components/modules/SearchInvestment';
+import { SearchInvesment } from '@/components/elements/SearchInvestment';
 
 import { ProductCard } from '@/components/elements/ProductCard';
 import { Pagination } from '@/components/elements/Pagination';
