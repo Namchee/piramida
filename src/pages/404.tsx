@@ -20,11 +20,12 @@ function NotFoundPage(): JSX.Element {
         min-h-24 max-h-48
         2xl:max-h-64"
       >
-        <NotFoundBanner className="w-56 h-auto" />
+        <NotFoundBanner className="w-48 md:w-56 h-auto" />
       </div>
 
       <h1
-        className="text-6xl
+        className="text-4xl
+          md:text-6xl
         text-center
         text-gray-700"
       >
@@ -32,7 +33,8 @@ function NotFoundPage(): JSX.Element {
       </h1>
 
       <h1
-        className="text-3xl
+        className="text-xl
+          md:text-3xl
         text-center
         text-gray-700"
       >
@@ -41,13 +43,14 @@ function NotFoundPage(): JSX.Element {
 
       <p
         className="
+        px-6
         text-gray-500
-        mt-2
+        mt-4
         max-w-md
         text-center
         mx-auto
         leading-relaxed
-        2xl:text-lg"
+        md:text-lg"
       >
         Halaman yang Anda tuju tidak dapat ditemukan dalam situs ini.
         Silahkan periksa tautan yang Anda masukkan.
@@ -58,7 +61,7 @@ function NotFoundPage(): JSX.Element {
           className="
         text-primary
         hover:text-primary-dark
-        mt-8
+        my-12
         max-w-md
         text-center
         mx-auto

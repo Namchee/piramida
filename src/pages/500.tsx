@@ -18,16 +18,18 @@ function InternalServerError(): JSX.Element {
         flex-1
         min-h-24 max-h-48
         2xl:max-h-64">
-        <ErrorBanner className="w-56 h-auto" />
+        <ErrorBanner className="w-48 md:w-56 h-auto" />
       </div>
 
-      <h1 className="text-6xl
+      <h1 className="text-3xl
+        md:text-6xl
         text-center
         text-gray-700">
         500
       </h1>
 
-      <h1 className="text-3xl
+      <h1 className="text-xl
+        md:text-3xl
         text-center
         text-gray-700">
         Kesalahan Sistem
@@ -35,7 +37,8 @@ function InternalServerError(): JSX.Element {
 
       <p className="
         text-gray-500
-        mt-2
+        mt-4
+        px-6
         max-w-md
         text-center
         mx-auto
@@ -49,7 +52,7 @@ function InternalServerError(): JSX.Element {
         <a className="
         text-primary
         hover:text-primary-dark
-        mt-8
+        my-12
         max-w-md
         text-center
         mx-auto
