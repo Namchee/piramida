@@ -24,7 +24,8 @@ function NavigationLink({
     const color = isCurrentPath ? 'text-primary' : 'text-black';
 
     return `flex items-center justify-center
-    mx-auto
+      mx-auto
+      <md:text-sm
       px-4 py-2
       rounded-md
       transition-colors

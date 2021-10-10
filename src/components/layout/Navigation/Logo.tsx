@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IconProps } from '@/components/elements/Icon';
+import { StyleProps } from '@/common/types';
 
 /**
  * Logo for header. Just a simple SVG wrapper component.
@@ -8,7 +8,7 @@ import { IconProps } from '@/components/elements/Icon';
  * @param {IconProps} props - Icon props.
  * @return {JSX.Element} - a function component.
  */
-function Logo({ className }: React.PropsWithoutRef<IconProps>): JSX.Element {
+function Logo({ className }: React.PropsWithoutRef<StyleProps>): JSX.Element {
   return (
     <svg
       className={className}

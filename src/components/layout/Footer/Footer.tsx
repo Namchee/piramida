@@ -27,7 +27,7 @@ function Footer(): JSX.Element {
         </div>
         <div className="flex items-center
           <md:mx-auto">
-          <p className="<md:text-center">
+          <p className="<md:text-center <md:text-sm">
             Data diambil dari situs{' '}
             <a
               href="https://ojk.go.id"

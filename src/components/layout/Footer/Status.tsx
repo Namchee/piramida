@@ -22,6 +22,8 @@ function APIStatus(): JSX.Element {
       'rounded-full',
       'w-12px',
       'h-12px',
+      '<md:w-8px',
+      '<md:h-8px',
     ];
 
     if (!data) {
@@ -52,7 +54,7 @@ function APIStatus(): JSX.Element {
   }, [data, error]);
 
   const textClass = React.useMemo(() => {
-    const baseClass = ['mt-0.5', 'w-14'];
+    const baseClass = ['mt-0.5', 'w-14', '<md:w-12'];
 
     if (!data) {
       baseClass.push('text-gray-400');
@@ -75,7 +77,8 @@ function APIStatus(): JSX.Element {
       border-gray-200
       border
       py-1 px-4
-      rounded-sm">
+      rounded-sm
+      <md:text-sm">
       <p className="mr-2">
         Status:
       </p>

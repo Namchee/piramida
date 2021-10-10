@@ -30,10 +30,11 @@ function Navigation(): JSX.Element {
     <header className="flex flex-col md:flex-row md:justify-between items-center
       md:h-24
       w-full max-w-6xl mx-auto
-      p-6 md:py-0">
+      px-2 py-6
+      md:p-0">
       <Link href="/">
         <a rel="noopener noreferrer">
-          <Logo className="w-12 h-auto mr-auto" />
+          <Logo className="<md:w-10 w-12 h-auto mr-auto" />
         </a>
       </Link>
 
