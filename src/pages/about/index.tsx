@@ -25,16 +25,11 @@ function About(): JSX.Element {
           w-full
           min-h-64 max-h-72
           2xl:max-h-80">
-        <AboutBanner className="w-32 h-auto" />
+        <AboutBanner className="w-28 md:w-32 h-auto" />
       </div>
 
-      <article className="prose-lg mx-auto max-w-prose mb-12">
-        <h1 className="text-4xl
-          text-gray-700
-          tracking-tight
-          font-bold
-          leading-relaxed
-          mb-4">
+      <article className="prose <md:px-6 md:prose-xl mx-auto mb-12">
+        <h1 className="text-gray-700 font-bold text-center">
           Tentang Piramida
         </h1>
 
@@ -51,7 +46,7 @@ function About(): JSX.Element {
           skema penipuan investasi terbesar di dunia yang lebih dikenal
           dengan nama <i>pyramid scheme</i> atau lebih dikenal
           sebagai <b>skema ponzi</b>, sebuah skema penipuan
-          investasi yang terjadi pada tahun 1920-an.
+          investasi besar yang terjadi pada tahun 1920-an.
         </p>
 
         <h2 className="text-gray-700 font-bold">
@@ -71,9 +66,6 @@ function About(): JSX.Element {
           dapat diamati melalui <a
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light"
             href="https://ekbis.sindonews.com/read/486862/178/warning-marak-investasi-bodong-palsukan-perusahaan-kenali-modusnya-1626664047">
               maraknya penawaran investasi bodong
           </a> yang semakin lihai menipu calon korbannya.
@@ -84,17 +76,11 @@ function About(): JSX.Element {
           korban dari investasi bodong, mulai dari pasrah dan <a
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light"
             href="https://www.kompas.tv/article/170193/ratusan-korban-investasi-bodong-212-mart-lapor-polisi-kerugian-capai-miliaran-rupiah">
           menyerahkan pada pihak berwajib
           </a> sampai melakukan aksi yang memprihatinkan seperti <a
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light"
             href="https://news.okezone.com/read/2020/04/17/340/2200960/pedagang-elektronik-nekat-gantung-diri-diduga-tertipu-investasi-bodong">
               bunuh diri
           </a>.
@@ -108,17 +94,11 @@ function About(): JSX.Element {
           berkala melalui <a
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light"
             href="https://www.ojk.go.id/">
               situs resmi Otoritas Jasa Keuangan Republik Indonesia
           </a> dan kontak <a
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light"
             href="https://kontak157.ojk.go.id/">
               OJK 157
           </a>.
@@ -150,20 +130,14 @@ function About(): JSX.Element {
           dibawa oleh prinsip <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://id.wikipedia.org/wiki/Sumber_terbuka"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light">
+            href="https://id.wikipedia.org/wiki/Sumber_terbuka">
             sumber terbuka
           </a>. Untuk mendukung prinsip tersebut, seluruh kode sumber
           dari <b>piramida</b> tersedia seluruhnya secara publik dan
           dapat diakses melalui <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://id.wikipedia.org/wiki/Sumber_terbuka"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light">
+            href="https://github.com/Namchee/piramida">
             repositori GitHub
           </a>.
         </p>
@@ -174,18 +148,13 @@ function About(): JSX.Element {
           sebuah <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://ojk-invest-api.vercel.app/api"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light">
+            href="https://ojk-invest-api.vercel.app/api">
             API publik
           </a>. Dokumentasi dari API tersebut dapat dilihat melalui
           tautan <Link passHref={true}
             href="/docs">
-            <a className="text-primary
-              transition-colors
-              hover:text-primary-light">
-              Referensi API
+            <a>
+              referensi API
             </a>
           </Link>.
         </p>
