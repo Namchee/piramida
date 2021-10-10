@@ -23,20 +23,24 @@ function ProductCard(
     <li className="flex flex-col
       p-4
       w-full">
-      <p className="text-xl tracking-tight font-bold mb-3">
+      <p className="text-xl
+        tracking-tight
+        font-bold
+        leading-loose
+        text-gray-700">
         {product.name}
       </p>
       <div className="flex justify-start items-center
         space-x-4
-        text-gray-400
-        mb-1">
+        text-gray-500
+        leading-loose">
         <CompanyIcon className="w-4 h-4" />
         <p>{product.owner}</p>
       </div>
       <div className="flex justify-start items-center
         space-x-4">
         <WebsiteIcon className="w-4 h-4
-          text-gray-400" />
+          text-gray-500" />
         <a
           href={product.url}
           target="_blank"

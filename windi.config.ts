@@ -24,5 +24,6 @@ export default defineConfig({
   plugins: [
     require('windicss/plugin/forms'),
     require('@windicss/plugin-scrollbar'),
+    require('windicss/plugin/typography'),
   ],
 });
