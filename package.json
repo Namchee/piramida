@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest",
     "lint": "next lint",
-    "scrap:dev": "tsm scrapper/index.ts"
+    "scrap": "tsm scrapper/index.ts"
   },
   "dependencies": {
     "@sentry/node": "^6.13.3",
