@@ -145,12 +145,7 @@ function About(): JSX.Element {
         <p className="text-gray-500">
           Selain itu, seluruh data investasi legal yang digunakan
           oleh <b>piramida</b> dapat diakses melalui
-          sebuah <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://ojk-invest-api.vercel.app/api">
-            API publik
-          </a>. Dokumentasi dari API tersebut dapat dilihat melalui
+          sebuah API publik. Dokumentasi dari API tersebut dapat dilihat melalui
           tautan <Link passHref={true}
             href="/docs">
             <a>
