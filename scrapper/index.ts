@@ -10,8 +10,11 @@ import { bootstrapOutput } from './services/writer';
   bootstrapOutput();
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     ignoreHTTPSErrors: true,
+    args: [
+      '--no-sandbox',
+    ],
   });
 
   try {
