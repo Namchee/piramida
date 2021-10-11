@@ -19,8 +19,9 @@ function UnderConstruction(
         text-4xl
         md:text-6xl
         min-h-24 max-h-32
+        md:min-h-28
         2xl:max-h-48
-        flex items-end
+        flex items-center
         leading-normal">
         🚧
       </div>
@@ -43,7 +44,8 @@ function UnderConstruction(
         text-center
         md:text-lg
         leading-relaxed
-        mb-4">
+        mt-0 mb-4
+        md:my-4">
         Mohon maaf, namun halaman yang Anda akses masih dalam tahap
         pengembangan.
       </p>

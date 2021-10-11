@@ -5,13 +5,15 @@ import { request } from 'graphql-request';
  *
  * @param {string} query GraphQL query request
  * @param {Record<string, unknown>} variables request variables
+ * @param {string} host hostname
  * @return {Promise<T>} response wrapper
  */
 export function graphQLFetcher<T>(
   query: string,
   variables?: Record<string, unknown>,
+  host?: string,
 ): Promise<T> {
-  return request('http://localhost:3000/api/graphql', query, variables);
+  return request(`${host || ''}/api/graphql`, query, variables);
 }
 
 /**
