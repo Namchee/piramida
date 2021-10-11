@@ -1,35 +1,45 @@
 import * as React from 'react';
 
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Link as ChakraLink, Text } from '@chakra-ui/react';
-
-type LinkProps = {
-  text: string;
+type NavigationLinkProps = {
   href: string;
-}
+};
 
-function Link({ text, href }: React.PropsWithoutRef<LinkProps>): JSX.Element {
+/**
+ * Navigation link component. Used exclusively in navbar
+ *
+ * @param {NavigationLinkProps} props navigation link props
+ * @return {JSX.Element} navigation link element
+ */
+function NavigationLink({
+  children,
+  href,
+}: React.PropsWithChildren<NavigationLinkProps>): JSX.Element {
   const { pathname } = useRouter();
   const isCurrentPath = pathname === href;
 
+  const classes = React.useMemo((): string => {
+    const color = isCurrentPath ? 'text-primary' : 'text-black';
+
+    return `flex items-center justify-center
+      mx-auto
+      <md:text-sm
+      px-4 py-2
+      rounded-md
+      transition-colors
+      hover:bg-gray-50
+      ${color}`;
+  }, [isCurrentPath]);
+
   return (
-    <ChakraLink
-      href={href}
-      h="full"
-      display="grid"
-      placeItems="center"
-      p={4}
-      color={isCurrentPath ? 'primary.base' : 'gray.500'}
-      fontWeight={isCurrentPath ? 500 : 400}
-      _hover={{
-        color: isCurrentPath ? 'primary.base' : 'black',
-      }}>
-      <Text>
-        {text}
-      </Text>
-    </ChakraLink>
+    <Link href={href} passHref={true}>
+      <a className={classes}>
+        {children}
+      </a>
+    </Link>
   );
 }
 
-export default Link;
+export default NavigationLink;

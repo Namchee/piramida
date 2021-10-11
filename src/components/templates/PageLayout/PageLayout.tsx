@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { Flex, Box } from '@chakra-ui/react';
-
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 
@@ -12,7 +10,9 @@ import { Footer } from '@/components/layout/Footer';
  *
  * @return {JSX.Element}
  */
-function PageLayout({ children }: React.PropsWithChildren<{}>): JSX.Element {
+function PageLayout({
+  children,
+}: React.PropsWithChildren<unknown>): JSX.Element {
   return (
     <>
       <Head>
@@ -21,15 +21,21 @@ function PageLayout({ children }: React.PropsWithChildren<{}>): JSX.Element {
         <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <link
+          rel="preload"
+          href="/api/status"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       </Head>
 
-      <Flex minH="100vh" flexDirection="column">
+      <div className="flex flex-col min-h-screen">
         <Navigation />
-        <Box flex="1">
+        <main className="flex flex-col flex-1">
           {children}
-        </Box>
+        </main>
         <Footer />
-      </Flex>
+      </div>
     </>
   );
 }

@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { Link } from '@chakra-ui/react';
-import { Flex, Box } from '@chakra-ui/layout';
+import Link from 'next/link';
 
-import PiramidaLink from './Link';
+import NavigationLink from './Link';
 import Logo from './Logo';
 
 const LINKS = [
@@ -12,7 +11,7 @@ const LINKS = [
     href: '/',
   },
   {
-    name: 'Tentang',
+    name: 'Tentang Kami',
     href: '/about',
   },
   {
@@ -24,44 +23,36 @@ const LINKS = [
 /**
  * Navigation Bar Component
  *
- * @return {JSX.Element}
+ * @return {JSX.Element} navbar component
  */
-function Navbar(): JSX.Element {
+function Navigation(): JSX.Element {
   return (
-    <Box
-      w="100%"
-      h="20"
-      borderBottomWidth={1}
-      borderBottomColor="gray.200">
-      <Flex
-        h="100%"
-        as="nav"
-        maxW="6xl"
-        marginX="auto"
-        justifyContent="flex-start"
-        alignItems="center">
-        <Link
-          href="/"
-          display="grid"
-          placeItems="center"
-          h="full"
-          mr={2}
-          px={6}>
-          <Logo w={12} h="auto" />
-        </Link>
+    <header className="flex flex-col md:flex-row md:justify-between items-center
+      md:h-24
+      w-full max-w-6xl mx-auto
+      <md:px-2 <md:py-6
+      px-6">
+      <Link href="/">
+        <a rel="noopener noreferrer">
+          <Logo className="<md:w-10 w-12 h-auto mr-auto" />
+        </a>
+      </Link>
+
+      <nav className="flex
+        md:space-x-4
+        <md:mt-4">
         {
           LINKS.map(({ name, href }) => {
             return (
-              <PiramidaLink
-                key={href}
-                text={name}
-                href={href} />
+              <NavigationLink href={href} key={href}>
+                {name}
+              </NavigationLink>
             );
           })
         }
-      </Flex>
-    </Box>
+      </nav>
+    </header>
   );
 }
 
-export default Navbar;
+export default Navigation;

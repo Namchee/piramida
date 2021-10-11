@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { Button } from '@chakra-ui/button';
-
 import { useAutoComplete } from '../context';
 
 type SuggestionProps = {
@@ -9,11 +7,19 @@ type SuggestionProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Suggestion({ index, onClick, children }: React.PropsWithChildren<SuggestionProps>) {
+/**
+ * Suggestions component. Represents a suggestion.
+ *
+ * @param {SuggestionProps} props suggestion props
+ * @return {JSX.Element} suggestion component
+ */
+function Suggestion(
+  { index, onClick, children }: React.PropsWithChildren<SuggestionProps>,
+): JSX.Element {
   const { state, dispatch } = useAutoComplete();
   const { focusIndex } = state;
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event) => {
     dispatch({ type: 'FOCUS', value: false });
 
     if (onClick) {
@@ -25,33 +31,33 @@ function Suggestion({ index, onClick, children }: React.PropsWithChildren<Sugges
     dispatch({ type: 'FOCUS_INDEX', value: index });
   };
 
+  const styles = React.useMemo((): string => {
+    const base = [
+      'cursor-pointer',
+      'flex',
+      'justify-start',
+      'items-center',
+      'py-4',
+      'px-5',
+      'transition-colors',
+    ];
+
+    if (focusIndex === index) {
+      base.push('bg-gray-100');
+    }
+
+    return base.join(' ');
+  }, [index, focusIndex]);
+
   return (
-    <Button
-      onMouseOver={handleHover}
-      onMouseMove={handleHover}
-      tabIndex={-1}
-      fontWeight={400}
-      h="unset"
-      w="100%"
-      p={4}
-      display="flex"
-      justifyContent="start"
-      alignItems="center"
-      rounded="false"
-      onClick={handleClick}
-      backgroundColor={index === focusIndex ? 'gray.100' : 'transparent'}
-      _hover={{
-        backgroundColor: index === focusIndex ? 'gray.100' : 'transparent',
-      }}
-      _focus={{
-        backgroundColor: 'gray.100',
-      }}
-      _active={{
-        backgroundColor: 'gray.100',
-      }}
-      outline="none">
+    <li
+      role="option"
+      aria-selected={focusIndex === index}
+      className={styles}
+      onMouseEnter={handleHover}
+      onClick={handleClick}>
       {children}
-    </Button>
+    </li>
   );
 }
 

@@ -1,32 +1,60 @@
 import * as React from 'react';
 
-import { Flex, Box, Link } from '@chakra-ui/react';
+import Status from './Status';
+import GitHubIcon from '@/components/elements/Icon/GithubIcon';
 
-function Footer() {
+/**
+ * Footer component
+ *
+ * @return {JSX.Element} Footer component
+ */
+function Footer(): JSX.Element {
   return (
-    <Box
-      as="footer"
-      w="100%">
-      <Flex
-        maxW="4xl"
-        mx="auto"
-        paddingX={2}
-        paddingY={6}
-        borderTopColor="gray.200"
-        borderTopWidth={1}
-        borderTopStyle="solid"
-        fontSize="sm">
-        Data diambil dari situs
-        <Link
-          href="https://ojk.go.id"
-          isExternal
-          marginLeft="0.5ch"
-          color="primary.base"
-        >
-          Otoritas Jasa Keuangan Republik Indonesia
-        </Link>
-      </Flex>
-    </Box>
+    <footer className="flex justify-center
+      py-6
+      border-t border-gray-200"
+    >
+      <div
+        className="grid
+          grid-cols-1
+          px-6
+          <md:space-y-4
+          md:grid-cols-[1fr,auto,1fr]
+          w-full max-w-6xl"
+      >
+        <div className="<md:mx-auto">
+          <Status />
+        </div>
+        <div className="flex items-center
+          <md:mx-auto">
+          <p className="<md:text-center <md:text-sm">
+            Data diambil dari situs{' '}
+            <a
+              href="https://ojk.go.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary-dark"
+            >
+              Otoritas Jasa Keuangan Republik Indonesia
+            </a>
+          </p>
+        </div>
+        <div className="flex items-center justify-end
+          <md:mx-auto">
+          <a
+            href="https://github.com/Namchee/piramida"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <GitHubIcon
+              className="w-6 h-6
+              text-gray-400
+              hover:text-gray-700
+              transition-colors" />
+          </a>
+        </div>
+      </div>
+    </footer>
   );
 }
 

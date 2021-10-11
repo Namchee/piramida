@@ -1,10 +1,16 @@
 import * as React from 'react';
 
-import { FormControl } from '@chakra-ui/react';
-
 import { useAutoComplete } from './context';
 
-function AutoCompleteInput({ children }: React.PropsWithChildren<{}>) {
+/**
+ * Autocomplete input headless component. Any kind of input
+ * from an autocomplete must be a children of this component.
+ *
+ * @return {JSX.Element} autocomplete input headless component
+ */
+function AutoCompleteInput(
+  { children }: React.PropsWithChildren<Record<string, unknown> >,
+): JSX.Element {
   const { dispatch } = useAutoComplete();
 
   const handleInputFocus = () => {
@@ -13,9 +19,9 @@ function AutoCompleteInput({ children }: React.PropsWithChildren<{}>) {
   };
 
   return (
-    <FormControl onFocusCapture={handleInputFocus}>
+    <div onFocusCapture={handleInputFocus}>
       {children}
-    </FormControl>
+    </div>
   );
 }
 

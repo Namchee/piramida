@@ -1,20 +1,22 @@
 import * as React from 'react';
 
-import { Box } from '@chakra-ui/react';
-
 import { useWindowEvent } from '@/hooks/useWindowEvent';
 
 import { AutoCompleteContext, autoCompleteReducer } from './context';
 
-import {
-  EmptySuggestion,
-  Suggestion,
-  SuggestionsContainer,
-  SuggestionSkeleton,
-} from './Suggestion';
+import { Suggestion, SuggestionsContainer } from './Suggestion';
 import AutoCompleteInput from './AutoCompleteInput';
 
-function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
+import { StyleProps } from '@/common/types';
+
+/**
+ * Autocomplete component
+ *
+ * @return {JSX.Element} autocomplete component
+ */
+function AutoComplete(
+  { children, className }: React.PropsWithChildren<StyleProps>,
+): JSX.Element {
   const autoComplete = React.useRef(null);
 
   const [state, dispatch] = React.useReducer(autoCompleteReducer, {
@@ -47,9 +49,9 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
 
   return (
     <AutoCompleteContext.Provider value={{ state, dispatch }}>
-      <Box w="100%" ref={autoComplete}>
+      <div className={className} ref={autoComplete}>
         {children}
-      </Box>
+      </div>
     </AutoCompleteContext.Provider>
   );
 }
@@ -57,7 +59,5 @@ function AutoComplete({ children }: React.PropsWithChildren<{}>): JSX.Element {
 AutoComplete.Input = AutoCompleteInput;
 AutoComplete.Suggestion = Suggestion;
 AutoComplete.SuggestionsContainer = SuggestionsContainer;
-AutoComplete.EmptySuggestion = EmptySuggestion;
-AutoComplete.SuggestionSkeleton = SuggestionSkeleton;
 
 export default AutoComplete;

@@ -2,45 +2,52 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { Heading, Text, Container, Box } from '@chakra-ui/react';
+import { SearchInvesment } from '@/components/elements/SearchInvestment';
 
-import { SearchInvesment } from '@/components/modules/SearchInvestment';
-
-function Home() {
+/**
+ * Landing page
+ *
+ * @return {JSX.Element}
+ */
+function Home(): JSX.Element {
   return (
     <>
       <Head>
         <title>Periksa Legalitas Investasi — Piramida</title>
       </Head>
-
-      <Container
-        minH="100%"
-        paddingY={16}
-        maxW="4xl"
-        marginX="auto">
-        <Box mb={16}>
-          <Heading
-            textAlign="center"
-            fontWeight={700}
-            letterSpacing={-1.5}
-            lineHeight={1.65}
-            size="4xl">
-            Profit atau Ponzi?
-          </Heading>
-          <Text
-            fontSize="xl"
-            textAlign="center"
-            color="gray.500">
-            Periksa legalitas produk investasi pilihan Anda
-          </Text>
-        </Box>
-
-        <Box
-          marginX="auto"
-          maxW="xl">
-          <SearchInvesment />
-        </Box>
-      </Container>
+      <h1
+        className="md:flex-1
+        <md:min-h-20 <md:max-h-24
+        min-h-28 max-h-32
+        2xl:max-h-48
+        flex justify-center items-end
+        font-bold
+        <md:tracking-tight
+        leading-snug
+        text-7xl
+        <md:text-4xl"
+      >
+        Profit atau Ponzi?
+      </h1>
+      <p
+        className="text-center
+          <md:max-w-xs
+          mx-auto
+          text-lg
+          md:text-2xl
+          text-gray-500
+          md:leading-loose"
+      >
+        Periksa legalitas produk investasi pilihan Anda
+      </p>
+      <div className="mt-8
+        mx-auto
+        w-full
+        max-w-lg
+        flex-1
+        <md:px-8">
+        <SearchInvesment absolute />
+      </div>
     </>
   );
 }
