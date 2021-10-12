@@ -7,6 +7,10 @@ module.exports = {
     config.plugins.push(new WindiCSS());
     return config;
   },
+  i18n: {
+    locales: ['id-ID'],
+    defaultLocale: 'id-ID',
+  },
   async rewrites() {
     const isDev = process.env.NODE_ENV === 'development';
 
