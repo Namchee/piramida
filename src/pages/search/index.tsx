@@ -214,7 +214,7 @@ function Search(
  * @return {Promise<GetServerSidePropsResult<SearchPageProps>>} initial data
  */
 export async function getServerSideProps(
-  { req, query }: GetServerSidePropsContext,
+  { query }: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<SearchPageProps>> {
   let searchParams = '';
 
@@ -240,8 +240,6 @@ export async function getServerSideProps(
     }
   `;
 
-  const { origin } =new URL(req.headers.referer);
-
   const result = await graphQLFetcher<ProductResponse>(
     request,
     {
@@ -249,7 +247,6 @@ export async function getServerSideProps(
       limit: ITEM_PER_PAGE,
       offset: 0,
     },
-    origin,
   );
 
   return {
