@@ -19,6 +19,10 @@ function About(): JSX.Element {
       <Head>
         <title>Tentang Kami — Piramida</title>
         <meta name="description" content={metaDesc}></meta>
+        <meta property="og:title" content="Tentang Piramida"></meta>
+        <meta property="og:url" content="https://piramida.vercel.app/about"></meta>
+        <meta property="og:type" content="article"></meta>
+        <meta property="og:description" content={metaDesc}></meta>
       </Head>
 
       <div

@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { SearchInvesment } from '@/components/elements/SearchInvestment';
 
 // eslint-disable-next-line max-len
-const metaDesc = `Periksa legalitas produk investasi pilihan Anda berdasarkan data Otoritas Jasa Keuangan Republik Indonesia`;
+const metaDesc = `Periksa legalitas produk investasi pilihan Anda berdasarkan data Otoritas Jasa Keuangan Republik Indonesia sekarang.`;
 
 /**
  * Landing page
@@ -18,6 +18,10 @@ function Home(): JSX.Element {
       <Head>
         <title>Periksa Legalitas Investasi — Piramida</title>
         <meta name="description" content={metaDesc}></meta>
+        <meta property="og:title" content="Piramida"></meta>
+        <meta property="og:url" content="https://piramida.vercel.app"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:description" content={metaDesc}></meta>
       </Head>
       <h1
         className="md:flex-1
