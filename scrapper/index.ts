@@ -14,6 +14,10 @@ import { bootstrapOutput } from './services/writer';
     ignoreHTTPSErrors: true,
     args: [
       '--no-sandbox',
+      '--ignore-certificate-errors',
+      '--disable-setuid-sandbox',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
     ],
   });
 
