@@ -15,6 +15,9 @@ function Docs(): JSX.Element {
     <>
       <Head>
         <title>Dokumentasi API — Piramida</title>
+        <meta
+          name="description"
+          content="Dokumentasi API publik Piramida"></meta>
       </Head>
 
       <UnderConstruction>

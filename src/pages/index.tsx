@@ -4,6 +4,9 @@ import Head from 'next/head';
 
 import { SearchInvesment } from '@/components/elements/SearchInvestment';
 
+// eslint-disable-next-line max-len
+const metaDesc = `Periksa legalitas produk investasi pilihan Anda berdasarkan data Otoritas Jasa Keuangan Republik Indonesia`;
+
 /**
  * Landing page
  *
@@ -14,6 +17,7 @@ function Home(): JSX.Element {
     <>
       <Head>
         <title>Periksa Legalitas Investasi — Piramida</title>
+        <meta name="description" content={metaDesc}></meta>
       </Head>
       <h1
         className="md:flex-1

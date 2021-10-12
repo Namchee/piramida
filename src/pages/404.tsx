@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Head from 'next/head';
+
 import Link from 'next/link';
 
 import { NotFoundBanner } from '@/components/elements/Image';
@@ -12,6 +14,10 @@ import { NotFoundBanner } from '@/components/elements/Image';
 function NotFoundPage(): JSX.Element {
   return (
     <>
+      <Head>
+        <title>Halaman Tidak Ditemukan - Piramida</title>
+      </Head>
+
       <div
         className="w-full
         mx-auto
