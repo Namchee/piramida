@@ -83,8 +83,8 @@ function APIStatus(): JSX.Element {
         Status:
       </p>
       <p className="flex items-center space-x-2">
-        <span className={indicatorClass} aria-hidden="true"></span>
-        <span className={textClass}>{text}</span>
+        <span className={indicatorClass}></span>
+        <span role="status" className={textClass}>{text}</span>
       </p>
     </div>
   );
