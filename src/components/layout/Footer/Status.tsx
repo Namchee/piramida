@@ -57,7 +57,7 @@ function APIStatus(): JSX.Element {
     const baseClass = ['mt-0.5', 'w-14', '<md:w-12'];
 
     if (!data) {
-      baseClass.push('text-gray-400');
+      baseClass.push('text-gray-500');
     } else {
       const { status } = data.data;
       baseClass.push('font-bold');
