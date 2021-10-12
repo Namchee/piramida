@@ -7,7 +7,7 @@ module.exports = {
     'google',
   ],
   rules: {
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['error', 'unix'],
     'object-curly-spacing': ['error', 'always'],
     'indent': ['warn', 2, { SwitchCase: 1 }],
     'no-unused-vars': 'off',
