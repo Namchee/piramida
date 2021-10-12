@@ -5,15 +5,15 @@ import { request } from 'graphql-request';
  *
  * @param {string} query GraphQL query request
  * @param {Record<string, unknown>} variables request variables
- * @param {string} host hostname
  * @return {Promise<T>} response wrapper
  */
 export function graphQLFetcher<T>(
   query: string,
   variables?: Record<string, unknown>,
-  host?: string,
 ): Promise<T> {
-  return request(`${host || ''}/api/graphql`, query, variables);
+  return request(
+    `${process.env.NEXT_PUBLIC_API_URL}/graphql`, query, variables,
+  );
 }
 
 /**
@@ -41,7 +41,9 @@ export async function getFetcher<T extends Record<string, unknown> >(
     endpoint = `${endpoint}?${params.toString()}`;
   }
 
-  const response = await fetch(`/api/${endpoint}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
+  );
 
   return response.json();
 }
