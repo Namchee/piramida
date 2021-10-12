@@ -27,6 +27,8 @@ function PageLayout({
           as="fetch"
           crossOrigin="anonymous"
         />
+        <meta property="og:locale" content="id_ID" />
+        <meta property="og:image" content="/images/og-banner.png"></meta>
       </Head>
 
       <div className="flex flex-col min-h-screen">

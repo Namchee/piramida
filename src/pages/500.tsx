@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Head from 'next/head';
 import Link from 'next/link';
 
 import { ErrorBanner } from '@/components/elements/Image';
@@ -12,6 +13,10 @@ import { ErrorBanner } from '@/components/elements/Image';
 function InternalServerError(): JSX.Element {
   return (
     <>
+      <Head>
+        <title>Terjadi Kesalahan Sistem - Piramida</title>
+      </Head>
+
       <div className="w-full
         mx-auto
         flex justify-center items-end

@@ -5,6 +5,9 @@ import Link from 'next/link';
 
 import { AboutBanner } from '@/components/elements/Image';
 
+// eslint-disable-next-line max-len
+const metaDesc = `Piramida merupakan sebuah situs sumber terbuka yang menyediakan basis data yang menyimpan daftar entitas investasi legal yang beredar di Indonesia.`;
+
 /**
  * About us page
  *
@@ -15,6 +18,11 @@ function About(): JSX.Element {
     <>
       <Head>
         <title>Tentang Kami — Piramida</title>
+        <meta name="description" content={metaDesc}></meta>
+        <meta property="og:title" content="Tentang Piramida"></meta>
+        <meta property="og:url" content="https://piramida.vercel.app/about"></meta>
+        <meta property="og:type" content="article"></meta>
+        <meta property="og:description" content={metaDesc}></meta>
       </Head>
 
       <div
@@ -34,7 +42,7 @@ function About(): JSX.Element {
         </h1>
 
         <p className="text-gray-500">
-          <b>Piramida</b> merupakan sebuah proyek sumber terbuka yang
+          <b>Piramida</b> merupakan sebuah situs sumber terbuka yang
           menyediakan basis data yang menyimpan daftar entitas investasi
           legal yang beredar di Indonesia. Data yang disajikan
           oleh <b>piramida</b> diambil secara langsung dari situs
