@@ -3,6 +3,10 @@ const WindiCSS = require('windicss-webpack-plugin').default;
 
 module.exports = {
   experimental: { esmExternals: true },
+  eslint: {
+    // linebreak sucks
+    ignoreDuringBuilds: true,
+  },
   webpack(config) {
     config.plugins.push(new WindiCSS());
     return config;
