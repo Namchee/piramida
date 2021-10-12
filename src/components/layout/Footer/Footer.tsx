@@ -45,6 +45,7 @@ function Footer(): JSX.Element {
             href="https://github.com/Namchee/piramida"
             target="_blank"
             rel="noreferrer noopener"
+            aria-label="Kode sumber Piramida"
           >
             <GitHubIcon
               className="w-6 h-6

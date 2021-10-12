@@ -16,6 +16,7 @@ function Logo({ className }: React.PropsWithoutRef<StyleProps>): JSX.Element {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="banner"
+      aria-label="Piramida"
     >
       <circle cx="96" cy="96" r="96" fill="#121212" />
       <path
