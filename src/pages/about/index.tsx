@@ -36,7 +36,7 @@ function About(): JSX.Element {
         <AboutBanner className="w-28 md:w-32 h-auto" />
       </div>
 
-      <article className="prose <md:px-6 md:prose-xl mx-auto mb-12">
+      <article className="prose <md:px-6 md:prose-lg mx-auto mb-12">
         <h1 className="text-gray-700 font-bold text-center">
           Tentang Piramida
         </h1>

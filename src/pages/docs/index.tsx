@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Head from 'next/head';
 
-import { UnderConstruction } from '@/components/templates/UnderConstruction';
+// import { UnderConstruction } from '@/components/templates/UnderConstruction';
 
 /**
  * API Documentation.
@@ -20,25 +20,30 @@ function Docs(): JSX.Element {
           content="Dokumentasi API publik Piramida"></meta>
       </Head>
 
-      <UnderConstruction>
-        <p className="px-6
-          text-gray-500
-          mx-auto
-          max-w-md
-          text-center
-          md:text-lg">
-          Untuk sementara, dokumentasi API dapat diakses
-          melalui tautan <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/Namchee/ojk-invest-api#endpoint"
-            className="text-primary
-              transition-colors
-              hover:text-primary-light">
-            berikut
-          </a>.
-        </p>
-      </UnderConstruction>
+      <article className="flex
+        w-full
+        max-w-6xl
+        mx-auto
+        <md:px-6 <md:py-6
+        py-12">
+        <div className="px-8">
+          <ul className="sticky top-0">
+            <p className="text-gray-700 uppercase font-bold text-sm">
+              Dokumentasi API
+            </p>
+          </ul>
+        </div>
+        <div className="flex-1
+          px-12
+          prose prose-lg">
+          <h1 className="text-gray-700 tracking-tight">
+            Dokumentasi API
+          </h1>
+          <p>
+            lorem*10
+          </p>
+        </div>
+      </article>
     </>
   );
 }
