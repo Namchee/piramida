@@ -36,12 +36,17 @@ function About(): JSX.Element {
         <AboutBanner className="w-28 md:w-32 h-auto" />
       </div>
 
-      <article className="prose <md:px-6 md:prose-lg mx-auto mb-12">
-        <h1 className="text-gray-700 font-bold text-center">
+      <article className="prose
+        md:prose-xl
+        mx-auto
+        <md:px-6
+        mb-12
+        text-gray-600">
+        <h1 className="text-gray-800 font-bold text-center tracking-tight">
           Tentang Piramida
         </h1>
 
-        <p className="text-gray-500">
+        <p>
           <b>Piramida</b> merupakan sebuah situs sumber terbuka yang
           menyediakan basis data yang menyimpan daftar entitas investasi
           legal yang beredar di Indonesia. Data yang disajikan
@@ -49,7 +54,7 @@ function About(): JSX.Element {
           Otoritas Jasa Keuangan Republik Indonesia.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Nama <b>piramida</b> sendiri terinspirasi dari
           skema penipuan investasi terbesar di dunia yang lebih dikenal
           dengan nama <i>pyramid scheme</i> atau lebih dikenal
@@ -57,17 +62,17 @@ function About(): JSX.Element {
           investasi besar yang terjadi pada tahun 1920-an.
         </p>
 
-        <h2 className="text-gray-700 font-bold">
+        <h2 className="text-gray-800 font-bold">
           Latar Belakang
         </h2>
 
-        <p className="text-gray-500">
+        <p>
           Belakangan ini, kita sering mendengar mengenai kemunculan bisnis
           investasi menggiurkan yang menjanjikan keuntungan dengan jumlah
           yang banyak dan konsisten dengan usaha dan modal yang sedikit.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Penawaran semacam itu tentunya memicu gelombang antusiasme yang
           tinggi dari masyarakat dengan mengesampingkan faktor legalitas
           dan logika, khususnya ditengah terjangan pandemi. Hal tersebut
@@ -79,7 +84,7 @@ function About(): JSX.Element {
           </a> yang semakin lihai menipu calon korbannya.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Tidak jarang bahwa kita seringkali menerima berita dengan topik
           korban dari investasi bodong, mulai dari pasrah dan <a
             target="_blank"
@@ -94,7 +99,7 @@ function About(): JSX.Element {
           </a>.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Otoritas Jasa Keuangan (OJK) Republik Indonesia sebagai lembaga
           resmi yang  bertanggung jawab dalam mengatur dan memantau layanan
           keuangan di Indonesia berupaya menanggulangi hal tersebut dengan
@@ -112,7 +117,7 @@ function About(): JSX.Element {
           </a>.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Sayangnya, informasi tersebut tergolong cukup sulit untuk
           diakses melalui situs resmi dikarenakan cara penggunaan situs yang
           membingungkan. Selain itu, format data yang sering berubah dan tidak
@@ -121,7 +126,7 @@ function About(): JSX.Element {
           pada daya guna informasi yang disajikan.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Aksesibilitas informasi sangatlah penting sebagai salah satu
           upaya untuk membentuk masyarakat yang cerdas dalam mengelola
           uang. Pengembang berharap bahwa situs ini dapat menjadi sebuah langkah
@@ -129,11 +134,11 @@ function About(): JSX.Element {
           yang semakin marak ditemui dalam kehidupan sehari-hari.
         </p>
 
-        <h2 className="text-gray-700 font-bold">
+        <h2 className="text-gray-800 font-bold">
           Kebijakan Sumber Terbuka
         </h2>
 
-        <p className="text-gray-500">
+        <p>
           Pengembang percaya sepenuhnya terhadap semangat dan manfaat yang
           dibawa oleh prinsip <a
             target="_blank"
@@ -150,7 +155,7 @@ function About(): JSX.Element {
           </a>.
         </p>
 
-        <p className="text-gray-500">
+        <p>
           Selain itu, seluruh data investasi legal yang digunakan
           oleh <b>piramida</b> dapat diakses melalui
           sebuah <a

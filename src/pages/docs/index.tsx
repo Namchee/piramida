@@ -25,22 +25,46 @@ function Docs(): JSX.Element {
         max-w-6xl
         mx-auto
         <md:px-6 <md:py-6
+        space-x-16
         py-12">
-        <div className="px-8">
-          <ul className="sticky top-0">
-            <p className="text-gray-700 uppercase font-bold text-sm">
+        <aside className="px-8">
+          <ul className="sticky top-20">
+            <p className="text-gray-600 uppercase font-bold text-sm">
               Dokumentasi API
             </p>
           </ul>
-        </div>
+        </aside>
         <div className="flex-1
-          px-12
-          prose prose-lg">
-          <h1 className="text-gray-700 tracking-tight">
+          prose md:prose-xl
+          px-16
+          text-gray-600">
+          <h1 className="text-gray-800 tracking-tight">
             Dokumentasi API
           </h1>
           <p>
-            lorem*10
+            <b>Piramida</b> menyediakan layanan API publik dalam
+            bentuk REST API dan GraphQL API yang dapat diakses melalui
+            tautan <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://ojk-invest-api.vercel.app/api"
+            >https://ojk-invest-api.vercel.app/api</a>. Data yang disajikan
+            oleh API <b>Piramida</b> diperbaharui setiap 24 jam sekali.
+          </p>
+          <p>
+            Seluruh respon dari permintaan yang dikirimkan pada
+            API <b>Piramida</b> memiliki <i>cache</i> publik yang disimpan
+            selama 24 jam.
+          </p>
+          <h2>
+            REST API
+          </h2>
+          <h4>
+            Bentuk Data
+          </h4>
+          <p>
+            Setiap data yang dikembalikan oleh REST API dari
+            API <b>Piramida</b> memiliki bentuk kembalian seperti berikut.
           </p>
         </div>
       </article>
