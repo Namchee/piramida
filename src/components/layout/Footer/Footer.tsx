@@ -49,7 +49,7 @@ function Footer(): JSX.Element {
           >
             <GitHubIcon
               className="w-6 h-6
-              text-gray-400
+              text-gray-500
               hover:text-gray-700
               transition-colors" />
           </a>
