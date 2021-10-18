@@ -1,8 +1,12 @@
 import * as React from 'react';
 
 import Head from 'next/head';
+import endent from 'endent';
 
-// import { UnderConstruction } from '@/components/templates/UnderConstruction';
+import { CodeBox } from '@/components/elements/CodeBox';
+
+export const CodeContext = React.createContext(undefined);
+
 
 /**
  * API Documentation.
@@ -11,8 +15,11 @@ import Head from 'next/head';
  * @return {JSX.Element} API Documentation page
  */
 function Docs(): JSX.Element {
+  const [highlighter, setHighlighter] = React.useState(null);
+  const value = { highlighter, setHighlighter };
+
   return (
-    <>
+    <CodeContext.Provider value={value}>
       <Head>
         <title>Dokumentasi API — Piramida</title>
         <meta
@@ -26,13 +33,23 @@ function Docs(): JSX.Element {
         mx-auto
         <md:px-6 <md:py-6
         space-x-16
-        py-12">
-        <aside className="px-8">
-          <ul className="sticky top-20">
-            <p className="text-gray-600 uppercase font-bold text-sm">
+        py-16">
+        <aside className="hidden md:block px-8">
+          <div className="sticky top-16">
+            <p className="text-gray-700
+              uppercase
+              font-bold
+              text-sm
+              mb-6
+              tracking-wide">
               Dokumentasi API
             </p>
-          </ul>
+            <ul className="space-y-4">
+              <li className="text-gray-500 tracking-tight text-lg">
+                Foo bar
+              </li>
+            </ul>
+          </div>
         </aside>
         <div className="flex-1
           prose md:prose-xl
@@ -66,9 +83,14 @@ function Docs(): JSX.Element {
             Setiap data yang dikembalikan oleh REST API dari
             API <b>Piramida</b> memiliki bentuk kembalian seperti berikut.
           </p>
+          <CodeBox lang="json">
+            {endent`{
+              "foo": "bar"
+            }`}
+          </CodeBox>
         </div>
       </article>
-    </>
+    </CodeContext.Provider>
   );
 }
 
