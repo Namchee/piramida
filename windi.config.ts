@@ -16,6 +16,15 @@ export default defineConfig({
         'primary-light': '#437BEA',
         'primary-dark': '#154DBD',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            pre: {
+              background: '#2E3440',
+            },
+          },
+        },
+      },
     },
   },
   variants: {

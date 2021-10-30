@@ -81,14 +81,15 @@ function Docs(): JSX.Element {
             jam sejak pengembalian respon pertama.
           </p>
           <p>
-            Terdapat dua bentuk API yang disediakan oleh <b>Piramida</b>, yaitu{' '}
-            <strong>REST API</strong> dan <strong>GraphQL API</strong>.
+            Terdapat dua bentuk API yang disediakan oleh <b>Piramida</b>,
+            yaitu{' '} <strong>REST API</strong> dan{' '}
+            <strong>GraphQL API</strong>.
           </p>
 
           <h2>Resource</h2>
           <p>
-            Terdapat tiga buah <i>resource</i> utama yang disediakan oleh API{' '}
-            <b>Piramida</b>.
+            Terdapat tiga buah <i>resource</i> utama yang disediakan oleh
+            API{' '} <b>Piramida</b>.
           </p>
           <h4>Apps</h4>
           <p>
@@ -542,7 +543,9 @@ function Docs(): JSX.Element {
                 className="flex items-center
                 space-x-3"
               >
-                <span className="font-bold leading-relaxed">nama_entitas</span>
+                <span className="font-bold leading-relaxed">
+                  &lt;resource&gt;
+                </span>
                 <Badge.Yellow>
                   <span className="text-xs font-bold tracking-wide uppercase">
                     object
@@ -613,12 +616,19 @@ function Docs(): JSX.Element {
               </p>
             </li>
             <li>
+              <strong>404</strong>
+              <p>
+                Halaman atau <i>resource</i> yang Anda cari tidak dapat
+                ditemukan pada API <b>Piramida</b>.
+              </p>
+            </li>
+            <li>
               <strong>405</strong>
               <p>
                 Permintaan dikirimkan menggunakan <i>method</i> HTTP yang tidak
-                diizinkan. Seluruh <i>endpoint</i> dalam API <b>Piramida</b>{' '}
-                hanya dapat dipanggil menggunakan <i>method</i> <code>GET</code>
-                .
+                diizinkan. Seluruh <i>endpoint</i> dalam API{' '}
+                <b>Piramida</b> hanya dapat dipanggil menggunakan{' '}
+                <i>method</i> <code>GET</code>.
               </p>
             </li>
             <li>
@@ -630,17 +640,15 @@ function Docs(): JSX.Element {
           <h4>Apps</h4>
           <p>
             Kumpulan <i>endpoint</i> yang dapat digunakan untuk memperoleh
-            informasi mengenai segala sesuatu yang berhubungan dengan Apps.
+            informasi mengenai aplikasi managemen reksa dana yang diizinkan
+            oleh Otoritas Jasa Keuangan Republik Indonesia.
           </p>
 
-          <h4>
-            <span className="font-bold">GET</span> &mdash;{' '}
-            <code>/api/apps</code>
-          </h4>
+          <h4>GET &mdash; /api/apps</h4>
           <p>
-            Mengembalikan seluruh aplikasi manajemen investasi atau portal
-            transaksi investasi yang telah dinyatakan legal oleh Otoritas Jasa
-            Keuangan Republik Indonesia.
+            Mengembalikan seluruh aplikasi manajemen reksa dana yang telah
+            dinyatakan legal oleh Otoritas Jasa Keuangan Republik Indonesia
+            sesuai dengan parameter permintaan yang diberikan.
           </p>
           <b>Parameter Permintaan</b>
           <ul>
@@ -687,6 +695,34 @@ function Docs(): JSX.Element {
               <p>Indeks pertama dari data yang diminta.</p>
             </li>
           </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/apps</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "apps": [
+                  {
+                    "id": 1,
+                    "name": "ACME",
+                    "url": "https://www.acme.com",
+                    "owner": "Acme Inc."
+                  }
+                ],
+                "count": 1,
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
           <h4>
             <span className="font-bold">GET</span> &mdash;{' '}
             <code>/api/apps/:id</code>
@@ -721,6 +757,31 @@ function Docs(): JSX.Element {
               </p>
             </li>
           </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/apps/1</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "apps": {
+                  "id": 1,
+                  "name": "Ajaib",
+                  "url": "https://www.ajaib.co.id",
+                  "owner": "PT Takjub Teknologi Indonesia"
+                },
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
 
           <h3>Endpoint `illegals`</h3>
           <p>
@@ -728,103 +789,15 @@ function Docs(): JSX.Element {
             produk investasi yang telah dinyatakan ilegal beredar di Indonesia
             oleh Otoritas Jasa Keuangan Republik Indonesia.
           </p>
-          <p>Produk investasi ilegal memiliki bentuk data berikut:</p>
-
-          <p>
-            Berikut merupakan penjelasan dari setiap properti yang dimiliki oleh
-            data aplikasi manajemen reksa dana.
-          </p>
-          <ul>
-            <li>
-              <p
-                className="flex items-center
-                space-x-3"
-              >
-                <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    integer
-                  </span>
-                </Badge.Green>
-              </p>
-              <p>
-                Nomor ID produk investasi ilegal sesuai data yang disimpan dalam
-                data Otoritas Jasa Keuangan Republik Indonesia.
-              </p>
-            </li>
-            <li>
-              <p
-                className="flex items-center
-                space-x-3"
-              >
-                <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    string
-                  </span>
-                </Badge.Blue>
-              </p>
-              <p>
-                Nama dari produk investasi yang telah dinyatakan illegal oleh
-                Otoritas Jasa Keuangan Republik Indonesia.
-              </p>
-            </li>
-            <li>
-              <p
-                className="flex items-center
-                space-x-3"
-              >
-                <span className="font-bold leading-relaxed">alias</span>
-                <Badge.Blue>
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    string array
-                  </span>
-                </Badge.Blue>
-              </p>
-              <p>
-                Nama alternatif dari produk investasi yang telah dinyatakan
-                illegal oleh Otoritas Jasa Keuangan Republik Indonesia.
-              </p>
-            </li>
-            <li>
-              <p
-                className="flex items-center
-                space-x-3"
-              >
-                <span className="font-bold leading-relaxed">address</span>
-                <Badge.Blue>
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    string
-                  </span>
-                </Badge.Blue>
-              </p>
-              <p>Alamat pihak penyedia produk investasi ilegal.</p>
-            </li>
-            <li>
-              <p
-                className="flex items-center
-                space-x-3"
-              >
-                <span className="font-bold leading-relaxed">number</span>
-                <Badge.Blue>
-                  <span className="text-xs font-bold tracking-wide uppercase">
-                    string array
-                  </span>
-                </Badge.Blue>
-              </p>
-              <p>
-                Daftar nomor telepon pihak penyedia produk investasi ilegal.
-              </p>
-            </li>
-          </ul>
           <h4>
             <span className="font-bold">GET</span> &mdash;{' '}
-            <code>/api/apps</code>
+            <code>/api/illegals</code>
           </h4>
           <p>
-            Mengembalikan seluruh aplikasi manajemen investasi atau portal
-            transaksi investasi yang telah dinyatakan legal oleh Otoritas Jasa
-            Keuangan Republik Indonesia.
+            Mengembalikan seluruh produk investasi yang telah
+            dinyatakan ilegal beredar di Indonesia
+            oleh Otoritas Jasa Keuangan Republik Indonesia sesuai
+            dengan parameter permintaan yang diberikan.
           </p>
           <b>Parameter Permintaan</b>
           <ul>
@@ -840,7 +813,9 @@ function Docs(): JSX.Element {
                   </span>
                 </Badge.Blue>
               </p>
-              <p>Pola nama yang ingin dicari dari daftar aplikasi.</p>
+              <p>
+                Pola nama yang ingin dicari dari daftar produk investasi ilegal.
+              </p>
             </li>
             <li>
               <p
@@ -871,12 +846,218 @@ function Docs(): JSX.Element {
               <p>Indeks pertama dari data yang diminta.</p>
             </li>
           </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/illegals</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "illegals": [
+                  {
+                    "id": 1,
+                    "name": "Acme Inc.",
+                    "alias": [
+                      "ACME",
+                      "A.C.M.E"
+                    ],
+                    "address": "Jl. Peta no. 2",
+                    "number": [
+                      "08379670609"
+                    ],
+                    "email": [
+                      "acme@company.co.id"
+                    ],
+                    "urls": [
+                      "http://acme.com"
+                    ],
+                    "type": "Investasi Saham",
+                    "inputDate": "18/08/2016",
+                    "details": ""
+                  }
+                ],
+                "count": 1,
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
           <h4>
             <span className="font-bold">GET</span> &mdash;{' '}
-            <code>/api/apps/:id</code>
+            <code>/api/illegals/:id</code>
           </h4>
           <p>
-            Mengembalikan sebuah aplikasi manajemen reksa dana legal yang
+            Mengembalikan sebuah produk investasi yang telah
+            dinyatakan ilegal beredar di Indonesia
+            oleh Otoritas Jasa Keuangan Republik Indonesia yang memiliki
+            nomor ID yang sama dengan parameter <code>id</code>.
+          </p>
+          <b>Parameter Permintaan</b>
+          <ul>
+            <li>
+              <p
+                className="flex items-center
+                space-x-3"
+              >
+                <span className="font-bold leading-relaxed">id</span>
+                <Badge.Green>
+                  <span className="text-xs font-bold tracking-wide uppercase">
+                    string
+                  </span>
+                </Badge.Green>
+                <Badge.Red>
+                  <span className="text-xs font-bold tracking-wide uppercase">
+                    required
+                  </span>
+                </Badge.Red>
+              </p>
+              <p>
+                Nomor identitas dari aplikasi manajemen reksa dana yang
+                diinginkan.
+              </p>
+            </li>
+          </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/illegals/1</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "illegals": {
+                  "id": 1,
+                  "name": "Acme Inc.",
+                  "alias": [
+                    "ACME",
+                    "A.C.M.E"
+                  ],
+                  "address": "Jl. Peta no. 2",
+                  "number": [
+                    "08379670609"
+                  ],
+                  "email": [
+                    "acme@company.co.id"
+                  ],
+                  "urls": [
+                    "http://acme.com"
+                  ],
+                  "type": "Investasi Saham",
+                  "inputDate": "18/08/2016",
+                  "details": ""
+                },
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
+
+          <h4>Products</h4>
+          <p>
+            Kumpulan <i>endpoint</i> yang dapat digunakan untuk memperoleh
+            informasi mengenai produk reksa dana legal yang telah diizinkan
+            oleh Otoritas Jasa Keuangan Republik Indonesia.
+          </p>
+
+          <h4>GET &mdash; /api/products</h4>
+          <p>
+            Mengembalikan seluruh produk reksa dana legal yang telah
+            diizinkan oleh Otoritas Jasa Keuangan Republik Indonesia
+            sesuai dengan parameter permintaan yang diberikan.
+          </p>
+          <b>Parameter Permintaan</b>
+          <ul>
+            <li>
+              <p
+                className="flex items-center
+                space-x-3"
+              >
+                <span className="font-bold leading-relaxed">name</span>
+                <Badge.Blue>
+                  <span className="text-xs font-bold tracking-wide uppercase">
+                    string
+                  </span>
+                </Badge.Blue>
+              </p>
+              <p>Pola nama yang ingin dicari dari daftar produk investasi.</p>
+            </li>
+            <li>
+              <p
+                className="flex items-center
+                space-x-3"
+              >
+                <span className="font-bold leading-relaxed">limit</span>
+                <Badge.Green>
+                  <span className="text-xs font-bold tracking-wide uppercase">
+                    integer
+                  </span>
+                </Badge.Green>
+              </p>
+              <p>Jumlah data maksimum yang dapat dikembalikan.</p>
+            </li>
+            <li>
+              <p
+                className="flex items-center
+                space-x-3"
+              >
+                <span className="font-bold leading-relaxed">offset</span>
+                <Badge.Green>
+                  <span className="text-xs font-bold tracking-wide uppercase">
+                    integer
+                  </span>
+                </Badge.Green>
+              </p>
+              <p>Indeks pertama dari data yang diminta.</p>
+            </li>
+          </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/products</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "products": [
+                  {
+                    "id": 1,
+                    "name": "ACME",
+                    "management": "Acme Inc.",
+                    "custodian": "Acme Bank - Custody",
+                    "type": "Mixed Asset Fund"
+                  }
+                ],
+                "count": 1,
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
+          <h4>
+            <span className="font-bold">GET</span> &mdash;{' '}
+            <code>/api/products/:id</code>
+          </h4>
+          <p>
+            Mengembalikan sebuah produk reksa dana legal yang telah
             diizinkan oleh Otoritas Jasa Keuangan Republik Indonesia yang
             memiliki nomor ID yang sama dengan parameter <code>id</code>.
           </p>
@@ -905,6 +1086,32 @@ function Docs(): JSX.Element {
               </p>
             </li>
           </ul>
+          <p>
+            <b>Contoh penggunaan <i>endpoint</i></b>
+          </p>
+          <p>
+            <b>Permintaan</b>
+          </p>
+          <pre>curl https://ojk-invest-api.vercel.app/api/apps/1</pre>
+          <p>
+            <b>Respon</b>
+          </p>
+          <CodeBox lang="json">
+            {endent`
+            {
+              "data": {
+                "products": {
+                  "id": 1,
+                  "name": "ACME",
+                  "management": "Acme Inc.",
+                  "custodian": "Acme Bank - Custody",
+                  "type": "Mixed Asset Fund"
+                },
+                "version": "21/10/2021"
+              },
+              "error": ""
+            }`}
+          </CodeBox>
         </div>
       </article>
     </CodeContext.Provider>
