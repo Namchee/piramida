@@ -26,7 +26,7 @@ function Home(): JSX.Element {
       <h1
         className="md:flex-1
         <md:min-h-20 <md:max-h-24
-        min-h-28 max-h-32
+        min-h-32 max-h-36
         2xl:max-h-48
         flex justify-center items-end
         font-bold

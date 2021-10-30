@@ -39,7 +39,8 @@ function About(): JSX.Element {
       <article className="prose
         md:prose-xl
         mx-auto
-        <md:px-6
+        px-6
+        md:px-12
         mb-12
         text-gray-600">
         <h1 className="text-gray-800 font-bold text-center tracking-tight">

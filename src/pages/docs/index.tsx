@@ -33,11 +33,13 @@ function Docs(): JSX.Element {
         w-full
         max-w-6xl
         mx-auto
-        <md:px-6 <md:py-6
-        space-x-16
+        p-6
+        md:p-12
+        lg:px-0
+        lg:space-x-32
         py-16"
       >
-        <aside className="hidden md:block px-8">
+        <aside className="hidden lg:block px-8">
           <div className="sticky top-16">
             <p
               className="text-gray-700
@@ -51,13 +53,13 @@ function Docs(): JSX.Element {
             </p>
             <ul className="space-y-4">
               <li className="text-gray-500 tracking-tight text-lg">Foo bar</li>
+              <li className="text-gray-500 tracking-tight text-lg">Bar baz</li>
             </ul>
           </div>
         </aside>
         <div
           className="flex-1
           prose md:prose-xl
-          px-16
           text-gray-600"
         >
           <h1 className="text-gray-800 tracking-tight">Dokumentasi API</h1>

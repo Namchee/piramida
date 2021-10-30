@@ -16,15 +16,15 @@ function Badge({
   children,
 }: React.PropsWithChildren<BadgeProps>): JSX.Element {
   const style = () => {
-    const baseClass = ['px-2', 'py-1', 'inline-flex', 'rounded-full'];
+    const baseClass = ['px-2', 'py-1', 'block', 'inline-flex', 'rounded-full'];
 
     return `${baseClass.join(' ')} ${className}`;
   };
 
   return (
-    <div role="status" aria-label={label} className={style()}>
+    <span role="status" aria-label={label} className={style()}>
       {children}
-    </div>
+    </span>
   );
 }
 

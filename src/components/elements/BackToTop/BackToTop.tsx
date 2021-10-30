@@ -61,8 +61,9 @@ function BackToTop(
         rounded-full
         p-4
         transition-colors
-        fixed
-        bottom-8 right-12
+        fixed z-10
+        bottom-6 right-6
+        md:bottom-8 md:right-12
         focus:outline-none
         focus:ring focus:ring-primary-light focus:ring-opacity-50">
       <ArrowUpIcon className="w-6 h-6 text-white stroke-width-10" />
