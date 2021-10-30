@@ -61,6 +61,15 @@ function Docs(): JSX.Element {
           text-gray-600"
         >
           <h1 className="text-gray-800 tracking-tight">Dokumentasi API</h1>
+          <blockquote>
+            Anda dapat melihat dokumentasi versi lama melalui
+            tautan <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/Namchee/ojk-invest-api/tree/master/docs">
+                berikut
+            </a>.
+          </blockquote>
 
           <p>
             <b>Piramida</b> menyediakan layanan API publik yang dapat diakses
@@ -1112,6 +1121,112 @@ function Docs(): JSX.Element {
               "error": ""
             }`}
           </CodeBox>
+
+          <h2>GraphQL API</h2>
+          <p>
+            Selain <b>REST API</b>, <b>Piramida</b> juga menyediakan
+            sebuah API GraphQL yang dapat diakses melalui tautan{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://ojk-invest-api.vercel.app/api/graphql">
+              https://ojk-invest-api.vercel.app/api/graphql
+            </a>.
+          </p>
+          <p>
+            GraphQL merupakan sebuah <i>query language</i> alternatif
+            dari REST. Keunggulan dari GraphQL dibandingkan REST API
+            konvensional adalah pengguna dapat menentukan properti-properti
+            mana saja yang dikembalikan dalam permintaan yang dikirim di mana
+            hal tersebut dapat menyelesaikan masalah <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.howtographql.com/basics/1-graphql-is-the-better-rest/">
+              <i>
+                over-fetching
+              </i>
+              {' '}maupun{' '}
+              <i>
+                under-fetching
+              </i>
+            </a> serta menyediakan API yang lebih fleksibel.
+          </p>
+          <p>
+            Informasi mengenai tata cara penggunaan API GraphQL dapat
+            dilihat melalui <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://graphql.org/learn/">
+                dokumentasi resmi GraphQL
+            </a>.
+          </p>
+          <h4>
+            Penggunaan API GraphQL Piramida
+          </h4>
+          <p>
+            Seluruh <i>resource</i> yang disediakan oleh REST API juga
+            tersedia melalui API GraphQL yang dapat dipanggil sebagai{' '}
+            <i>query</i>.
+          </p>
+          <p>
+            Berbeda dengan REST API, seluruh permintaan yang ditujukan untuk
+            API GraphQL <b>Piramida</b> harus dikirim menggunakan method{' '}
+            <b>POST</b>, di mana GraphQL <i>query</i> harus disematkan
+            dalam <i>request body</i> dalam properti <code>query</code>.
+          </p>
+          <p>
+            Berikut merupakan sebuah contoh penggunaan API GraphQL{' '}
+            <b>Piramida</b> untuk memperoleh data seluruh aplikasi
+            reksa dana yang telah diizinkan oleh Otoritas Jasa Keuangan
+            Republik Indonesia.
+          </p>
+          <pre>
+            {endent`
+            {
+              apps {
+                data {
+                  name
+                  owner
+                }
+                count
+                version
+              }
+            }`}
+          </pre>
+          <p>
+            Permintaan tersebut akan menghasilkan data seperti berikut.
+          </p>
+          <CodeBox lang="json">
+            {
+              endent`
+              {
+                "data": {
+                  "apps": {
+                    "data": [
+                      {
+                        "name": "ACME",
+                        "owner": "Acme Inc."
+                      }
+                    ],
+                    "count": 1,
+                    "version": "21/10/2021"
+                  }
+                }
+              }
+              `
+            }
+          </CodeBox>
+          <p>
+            Untuk penggunaan lebih lanjut, Anda dapat mencoba
+            menggunakan API GraphQL <b>Piramida</b> melalui sebuah
+            antarmuka GraphQL <i>playground</i> yang dapat diakses melalui
+            tautan <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://ojk-invest-api.vercel.app/api/graphql">
+              https://ojk-invest-api.vercel.app/api/graphql
+            </a>.
+          </p>
         </div>
       </article>
     </CodeContext.Provider>
