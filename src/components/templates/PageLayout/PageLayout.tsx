@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 
+import { BackToTop } from '@/components/elements/BackToTop';
+
 /**
  * Persisted page layout for all page in the application
  *
@@ -30,6 +32,8 @@ function PageLayout({
         <meta property="og:locale" content="id_ID" />
         <meta property="og:image" content="/images/og-banner.png"></meta>
       </Head>
+
+      <BackToTop />
 
       <div className="flex flex-col min-h-screen">
         <Navigation />
