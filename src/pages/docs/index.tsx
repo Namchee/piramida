@@ -1243,13 +1243,7 @@ function Docs(): JSX.Element {
           <p>
             Seluruh <i>resource</i> yang disediakan oleh REST API juga
             tersedia melalui API GraphQL yang dapat dipanggil sebagai{' '}
-            <i>query</i>.
-          </p>
-          <p>
-            Berbeda dengan REST API, seluruh permintaan yang ditujukan untuk
-            API GraphQL <b>Piramida</b> harus dikirim menggunakan method{' '}
-            <b>POST</b>, di mana GraphQL <i>query</i> harus disematkan
-            dalam <i>request body</i> dalam properti <code>query</code>.
+            <i>query</i> GraphQL.
           </p>
           <p>
             Berikut merupakan sebuah contoh penggunaan API GraphQL{' '}
