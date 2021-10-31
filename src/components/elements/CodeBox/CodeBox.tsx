@@ -33,16 +33,14 @@ function CodeBox(
   }, [highlighter, setHighlighter]);
 
   if (highlighter) {
-    return <div
-      className="overflow-x-auto"
-      dangerouslySetInnerHTML={{ __html: highlighter.codeToHtml(
-        children.toString(),
-        lang,
-      ) }} />;
+    return <div dangerouslySetInnerHTML={{ __html: highlighter.codeToHtml(
+      children.toString(),
+      lang,
+    ) }} />;
   }
 
   return (
-    <pre className="relative overflow-x-auto">
+    <pre className="relative">
       {children}
       <SpinnerIcon className="w-6 h-6
         absolute
