@@ -130,7 +130,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -147,7 +147,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -164,7 +164,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">url</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -178,7 +178,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">owner</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -231,7 +231,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -248,7 +248,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -265,7 +265,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">alias</span>
-                <Badge.Blue>
+                <Badge.Blue label="Array of String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string array
                   </span>
@@ -282,7 +282,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">address</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -296,7 +296,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">number</span>
-                <Badge.Blue>
+                <Badge.Blue label="Array of String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string array
                   </span>
@@ -310,7 +310,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">email</span>
-                <Badge.Blue>
+                <Badge.Blue label="Array of String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string array
                   </span>
@@ -324,7 +324,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">urls</span>
-                <Badge.Blue>
+                <Badge.Blue label="Array of String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string array
                   </span>
@@ -338,7 +338,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">type</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -355,7 +355,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">inputDate</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -373,7 +373,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">details</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -409,7 +409,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -426,7 +426,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -443,7 +443,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">management</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -457,7 +457,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">custodian</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -480,7 +480,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">type</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -514,7 +514,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">data</span>
-                <Badge.Yellow>
+                <Badge.Yellow label="Object">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     object
                   </span>
@@ -533,7 +533,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">error</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -559,7 +559,7 @@ function Docs(): JSX.Element {
                 <span className="font-bold leading-relaxed">
                   &lt;resource&gt;
                 </span>
-                <Badge.Yellow>
+                <Badge.Yellow label="Object">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     object
                   </span>
@@ -576,7 +576,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">version</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -599,7 +599,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">count</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -671,7 +671,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -685,7 +685,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">limit</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -699,7 +699,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">offset</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -753,12 +753,12 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
-                    string
+                    integer
                   </span>
                 </Badge.Green>
-                <Badge.Red>
+                <Badge.Red label="Required">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     required
                   </span>
@@ -820,7 +820,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -836,7 +836,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">limit</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -850,7 +850,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">offset</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -920,12 +920,12 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
-                    string
+                    integer
                   </span>
                 </Badge.Green>
-                <Badge.Red>
+                <Badge.Red label="Required">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     required
                   </span>
@@ -999,7 +999,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">name</span>
-                <Badge.Blue>
+                <Badge.Blue label="String">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     string
                   </span>
@@ -1013,7 +1013,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">limit</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -1027,7 +1027,7 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">offset</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     integer
                   </span>
@@ -1082,12 +1082,12 @@ function Docs(): JSX.Element {
                 space-x-3"
               >
                 <span className="font-bold leading-relaxed">id</span>
-                <Badge.Green>
+                <Badge.Green label="Integer">
                   <span className="text-xs font-bold tracking-wide uppercase">
-                    string
+                    id
                   </span>
                 </Badge.Green>
-                <Badge.Red>
+                <Badge.Red label="Required">
                   <span className="text-xs font-bold tracking-wide uppercase">
                     required
                   </span>
