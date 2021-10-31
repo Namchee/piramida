@@ -1,4 +1,5 @@
 import * as React from 'react';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 /**
  * Scroll spy hook. Get the first [data-scrollspy] that intersects.
@@ -9,33 +10,34 @@ import * as React from 'react';
 export function useScrollSpy(els: Element[]): string {
   const [intersectingId, setIntersectingId] = React.useState('');
 
-  const observer = React.useRef<IntersectionObserver>(
-    new IntersectionObserver(
-      (entries) => {
-        const intersectorIndex = entries.findIndex((entry) => {
-          return entry.isIntersecting &&
-            entry.intersectionRatio >= 0.85;
-        });
+  const observer = React.useRef<IntersectionObserver>(null);
 
-        if (intersectorIndex === -1) {
-          return 0;
-        }
+  useIsomorphicLayoutEffect(() => {
+    if (!observer.current) {
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          const intersectorIndex = entries.findIndex((entry) => {
+            return entry.isIntersecting;
+          });
 
-        setIntersectingId(
-          entries[intersectorIndex].target.getAttribute('data-scrollspy'),
-        );
-      },
-    ),
-  );
+          if (intersectorIndex === -1) {
+            return;
+          }
 
-  React.useEffect(() => {
+          setIntersectingId(
+            entries[intersectorIndex].target.id,
+          );
+        },
+      );
+    }
+
     const { current: obs } = observer;
     obs.disconnect();
 
     els.forEach((el) => obs.observe(el));
 
     return () => obs.disconnect();
-  });
+  }, [els]);
 
   return intersectingId;
 }

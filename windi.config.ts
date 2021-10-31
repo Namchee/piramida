@@ -1,7 +1,7 @@
 import { defineConfig } from 'windicss/helpers';
 
 export default defineConfig({
-  safelist: 'bg-red-100 hover:bg-red-200 mt-2 mt-4',
+  safelist: 'bg-red-100 hover:bg-red-200 mt-2 mt-4 ml-4',
   extract: {
     include: ['**/*.{jsx,tsx,css}'],
     exclude: ['node_modules', '.git', '.next'],

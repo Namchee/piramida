@@ -5,18 +5,41 @@ import endent from 'endent';
 
 import { CodeBox } from '@/components/elements/CodeBox';
 import { Badge } from '@/components/elements/Badge';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
 
+// Code highlighter shared state
 export const CodeContext = React.createContext(undefined);
 
 /**
  * API Documentation.
- * TODO: Do this
  *
  * @return {JSX.Element} API Documentation page
  */
 function Docs(): JSX.Element {
   const [highlighter, setHighlighter] = React.useState(null);
   const value = { highlighter, setHighlighter };
+
+  const anchors = React.useRef([]);
+
+  React.useEffect(() => {
+    anchors.current = [...document.querySelectorAll('[data-scrollspy]')];
+  }, []);
+
+  const currentHead = useScrollSpy(anchors.current);
+
+  const getNavigationItemClass = (
+    level: number,
+    observing: string,
+  ) => {
+    const base = ['tracking-tight', 'text-lg', `ml-${4 * level}`];
+
+    base.push(currentHead === observing ?
+      'text-primary font-bold' :
+      'text-gray-500',
+    );
+
+    return base.join(' ');
+  };
 
   return (
     <CodeContext.Provider value={value}>
@@ -52,14 +75,58 @@ function Docs(): JSX.Element {
             >
               Dokumentasi API
             </p>
-            <ul className="space-y-4">
-              <li className="text-gray-500 tracking-tight text-lg">Foo bar</li>
-              <li className="text-gray-500 tracking-tight text-lg">Bar baz</li>
+            <ul className="space-y-3">
+              <li className={getNavigationItemClass(0, 'resource')}>
+                <a href="#resource">
+                  Resource
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'apps')}>
+                <a href="#apps">
+                  Apps
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'illegals')}>
+                <a href="#illegals">
+                  Illegals
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'products')}>
+                <a href="#products">
+                  Products
+                </a>
+              </li>
+              <li className={getNavigationItemClass(0, 'rest')}>
+                <a href="#rest">
+                  REST API
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'rest-apps')}>
+                <a href="#rest-apps">
+                  Apps
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'rest-illegals')}>
+                <a href="#rest-illegals">
+                  Illegals
+                </a>
+              </li>
+              <li className={getNavigationItemClass(1, 'rest-products')}>
+                <a href="#rest-products">
+                  Products
+                </a>
+              </li>
+              <li className={getNavigationItemClass(0, 'graphql')}>
+                <a href="#graphql">
+                  GraphQL API
+                </a>
+              </li>
             </ul>
           </div>
         </aside>
         <div
           className="flex-1
+          lg:px-8
           max-w-full
           prose md:prose-xl
           text-gray-600"
@@ -76,8 +143,8 @@ function Docs(): JSX.Element {
           </blockquote>
 
           <p>
-            <b>Piramida</b> menyediakan layanan API publik yang dapat diakses
-            melalui tautan{' '}
+            <b>Piramida</b> menyediakan layanan API HTTP publik yang dapat
+            diakses melalui tautan{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -99,12 +166,18 @@ function Docs(): JSX.Element {
             <strong>GraphQL API</strong>.
           </p>
 
-          <h2>Resource</h2>
+          <h2 id="resource" data-scrollspy>Resource</h2>
+          <p>
+            API <b>Piramida</b> menyediakan data yang bersumber dari
+            Otoritas Jasa Keuangan Republik Indonesia dalam bentuk kumpulan{' '}
+            <i>resource</i> yang dapat dipanggil sebagai <i>endpoint</i>{' '}
+            HTTP.
+          </p>
           <p>
             Terdapat tiga buah <i>resource</i> utama yang disediakan oleh
-            API{' '} <b>Piramida</b>.
+            API <b>Piramida</b>.
           </p>
-          <h4>Apps</h4>
+          <h4 id="apps" data-scrollspy>Apps</h4>
           <p>
             Apps merupakan entitas yang merepresentasikan sebuah aplikasi
             managemen reksa dana yang diizinkan oleh Otoritas Jasa Keuangan
@@ -190,13 +263,13 @@ function Docs(): JSX.Element {
               </p>
             </li>
           </ul>
-          <h4>Illegals</h4>
+          <h4 id="illegals" data-scrollspy>Illegals</h4>
           <p>
             Illegals merupakan sebuah entitas yang merepresentasikan sebuah
-            produk investasi yang telah dinyatakan ilegal beredar di Indonesia
-            oleh Otoritas Jasa Keuangan Republik Indonesia.
+            produk investasi yang telah dinyatakan ilegal oleh Otoritas Jasa
+            Keuangan Republik Indonesia.
           </p>
-          <p>Berikut merupakan salah satu contoh dari entitas Illegals</p>
+          <p>Berikut merupakan salah satu contoh dari entitas Illegals.</p>
           <CodeBox lang="json">
             {endent`
               {
@@ -382,7 +455,7 @@ function Docs(): JSX.Element {
               <p>Informasi tambahan mengenai produk investasi ilegal.</p>
             </li>
           </ul>
-          <h4>Products</h4>
+          <h4 id="products" data-scrollspy>Products</h4>
           <p>
             Products merupakan entitas yang merepresentasikan sebuah produk
             reksa dana legal yang telah diizinkan oleh Otoritas Jasa Keuangan
@@ -490,7 +563,7 @@ function Docs(): JSX.Element {
             </li>
           </ul>
 
-          <h2>REST API</h2>
+          <h2 id="rest" data-scrollspy>REST API</h2>
           <h4>Bentuk Data</h4>
           <p>
             Setiap data yang dikembalikan oleh REST API akan dikembalikan dalam
@@ -650,7 +723,7 @@ function Docs(): JSX.Element {
             </li>
           </ul>
 
-          <h4>Apps</h4>
+          <h3 id="rest-apps" data-scrollspy>Apps</h3>
           <p>
             Kumpulan <i>endpoint</i> yang dapat digunakan untuk memperoleh
             informasi mengenai aplikasi managemen reksa dana yang diizinkan
@@ -796,7 +869,7 @@ function Docs(): JSX.Element {
             }`}
           </CodeBox>
 
-          <h3>Endpoint `illegals`</h3>
+          <h3 id="rest-illegals" data-scrollspy>Endpoint `illegals`</h3>
           <p>
             Kumpulan <i>endpoint</i> yang melayani seluruh permintaan mengenai
             produk investasi yang telah dinyatakan ilegal beredar di Indonesia
@@ -978,7 +1051,7 @@ function Docs(): JSX.Element {
             }`}
           </CodeBox>
 
-          <h4>Products</h4>
+          <h3 id="rest-products" data-scrollspy>Products</h3>
           <p>
             Kumpulan <i>endpoint</i> yang dapat digunakan untuk memperoleh
             informasi mengenai produk reksa dana legal yang telah diizinkan
@@ -1126,7 +1199,7 @@ function Docs(): JSX.Element {
             }`}
           </CodeBox>
 
-          <h2>GraphQL API</h2>
+          <h2 id="graphql" data-scrollspy>GraphQL API</h2>
           <p>
             Selain <b>REST API</b>, <b>Piramida</b> juga menyediakan
             sebuah API GraphQL yang dapat diakses melalui tautan{' '}
