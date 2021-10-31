@@ -25,7 +25,7 @@ function PageLayout({
         <link rel="manifest" href="/manifest.webmanifest" />
         <link
           rel="preload"
-          href="/api/status"
+          href={`${process.env.NEXT_PUBLIC_API_URL}/status`}
           as="fetch"
           crossOrigin="anonymous"
         />
