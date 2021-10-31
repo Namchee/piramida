@@ -181,7 +181,8 @@ function Search(
         max-w-xl
         px-6
         mx-auto
-        min-h-32 max-h-48
+        <md:min-h-36 <md:max-h-48
+        min-h-48 max-h-56
         2xl:max-h-64">
         <h1 className="text-3xl
           md:text-5xl
