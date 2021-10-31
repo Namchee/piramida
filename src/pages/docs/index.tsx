@@ -33,10 +33,11 @@ function Docs(): JSX.Element {
         w-full
         max-w-6xl
         mx-auto
-        p-6
-        md:p-12
+        px-6
+        md:px-12
         lg:px-0
         lg:space-x-32
+        <md:py-8
         py-16"
       >
         <aside className="hidden lg:block px-8">
@@ -59,6 +60,7 @@ function Docs(): JSX.Element {
         </aside>
         <div
           className="flex-1
+          max-w-full
           prose md:prose-xl
           text-gray-600"
         >
@@ -216,7 +218,7 @@ function Docs(): JSX.Element {
                 "type": "Investasi Saham",
                 "inputDate": "18/08/2016",
                 "details": ""
-              },`}
+              }`}
           </CodeBox>
           <p>
             Illegals memiliki sepuluh properti yang masing-masing menyimpan
