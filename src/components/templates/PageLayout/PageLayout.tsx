@@ -23,12 +23,6 @@ function PageLayout({
         <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
-        <link
-          rel="preload"
-          href={`${process.env.NEXT_PUBLIC_API_URL}/status`}
-          as="fetch"
-          crossOrigin="anonymous"
-        />
         <meta property="og:locale" content="id_ID" />
         <meta property="og:image" content="/images/og-banner.png"></meta>
       </Head>
