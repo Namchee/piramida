@@ -7,8 +7,6 @@ import { CodeBox } from '@/components/elements/CodeBox';
 import { Badge } from '@/components/elements/Badge';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 
-// Code highlighter shared state
-export const CodeContext = React.createContext(undefined);
 
 /**
  * API Documentation.
@@ -16,29 +14,26 @@ export const CodeContext = React.createContext(undefined);
  * @return {JSX.Element} API Documentation page
  */
 function Docs(): JSX.Element {
-  const [highlighter, setHighlighter] = React.useState(null);
-  const value = { highlighter, setHighlighter };
-
-  const anchors = React.useRef([]);
+  const [sections, setSections] = React.useState([]);
 
   React.useEffect(() => {
-    anchors.current = [...document.querySelectorAll('[data-scrollspy]')];
+    setSections([...document.querySelectorAll('[data-scrollspy]')]);
   }, []);
 
-  const currentHead = useScrollSpy(anchors.current);
+  const currentSection = useScrollSpy(sections);
 
   const getNavigationItemClass = (level: number, observing: string) => {
     const base = ['tracking-tight', 'text-lg', `ml-${4 * level}`];
 
     base.push(
-      currentHead === observing ? 'text-primary font-bold' : 'text-gray-500'
+      currentSection === observing ? 'text-primary font-bold' : 'text-gray-500'
     );
 
     return base.join(' ');
   };
 
   return (
-    <CodeContext.Provider value={value}>
+    <>
       <Head>
         <title>Dokumentasi API — Piramida</title>
         <meta
@@ -1313,7 +1308,7 @@ function Docs(): JSX.Element {
           </section>
         </div>
       </article>
-    </CodeContext.Provider>
+    </>
   );
 }
 

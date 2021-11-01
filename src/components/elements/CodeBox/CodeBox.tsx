@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-import { getHighlighter, setCDN } from 'shiki';
-
-import { CodeContext } from '@/pages/docs';
-import { SpinnerIcon } from '../Icon';
+import { SpinnerIcon } from '@/components/elements/Icon';
+import { useSyntaxHighlighter } from '@/hooks/useSyntaxHighlighter';
 
 export type CodeBoxProps = {
   lang?: string;
@@ -18,19 +16,11 @@ export type CodeBoxProps = {
 function CodeBox(
   { lang, children }: React.PropsWithChildren<CodeBoxProps>,
 ): JSX.Element {
-  const { highlighter, setHighlighter } = React.useContext(CodeContext);
+  const [highlighter, loadHighlighter] = useSyntaxHighlighter();
 
   React.useEffect(() => {
-    if (!highlighter) {
-      setCDN('https://unpkg.com/shiki/');
-
-      getHighlighter({
-        theme: 'nord',
-      }).then((hl) => {
-        setHighlighter(hl);
-      });
-    }
-  }, [highlighter, setHighlighter]);
+    loadHighlighter();
+  }, [loadHighlighter]);
 
   if (highlighter) {
     return <div dangerouslySetInnerHTML={{ __html: highlighter.codeToHtml(
