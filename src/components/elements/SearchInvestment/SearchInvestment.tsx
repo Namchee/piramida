@@ -211,6 +211,8 @@ function SearchInvestment({
             onInput={handleInput}
             placeholder="Cari investasi atau perusahaan"
             className="w-full
+              text-gray-700
+              placeholder-gray-400
               py-3 px-4
               md:py-4 md:px-5
               md:text-xl

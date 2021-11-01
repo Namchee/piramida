@@ -25,11 +25,19 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: local('Atkinson Hyperlegible'),
+    url('/fonts/atkinson-hyperlegible-bold-italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
 html, body {
   scroll-behavior: smooth;
 }
 
-// nprogress styling
 #nprogress .bar {
   background-color: #185ADB;
   height: 3px;

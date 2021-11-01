@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 
+import { BackToTop } from '@/components/elements/BackToTop';
+
 /**
  * Persisted page layout for all page in the application
  *
@@ -21,15 +23,11 @@ function PageLayout({
         <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
-        <link
-          rel="preload"
-          href="/api/status"
-          as="fetch"
-          crossOrigin="anonymous"
-        />
         <meta property="og:locale" content="id_ID" />
         <meta property="og:image" content="/images/og-banner.png"></meta>
       </Head>
+
+      <BackToTop />
 
       <div className="flex flex-col min-h-screen">
         <Navigation />
