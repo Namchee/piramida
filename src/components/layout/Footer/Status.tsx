@@ -29,13 +29,7 @@ function APIStatus(): JSX.Element {
     if (!data) {
       baseClass.push('bg-gray-400');
     } else {
-      const { status } = data.data;
-
-      if (error || data.error || status === 'not ok') {
-        baseClass.push('bg-red-500');
-      } else {
-        baseClass.push('bg-primary');
-      }
+      baseClass.push(error || data.error ? 'bg-red-500' : 'bg-primary');
     }
 
     return baseClass.join(' ');
@@ -46,11 +40,7 @@ function APIStatus(): JSX.Element {
       return 'Loading';
     }
 
-    if (error || data.error || data.data.status === 'not ok') {
-      return 'Error';
-    }
-
-    return 'Stable';
+    return error || data.error ? 'Error' : 'Stable';
   }, [data, error]);
 
   const textClass = React.useMemo(() => {
@@ -59,14 +49,9 @@ function APIStatus(): JSX.Element {
     if (!data) {
       baseClass.push('text-gray-500');
     } else {
-      const { status } = data.data;
       baseClass.push('font-bold');
 
-      if (error || data.error || status === 'not ok') {
-        baseClass.push('text-red-500');
-      } else {
-        baseClass.push('text-primary');
-      }
+      baseClass.push(error || data.error ? 'text-red-500' : 'text-primary');
     }
 
     return baseClass.join(' ');
