@@ -19,10 +19,13 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     "experimentalDecorators": true,
     "downlevelIteration": true,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
