@@ -13,7 +13,7 @@
   "dependencies": {
     "dayjs": "^1.10.7",
     "endent": "^2.1.0",
-    "graphql-request": "^3.4.0",
+    "graphql-request": "^4.0.0",
     "next": "^12.1.0",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
